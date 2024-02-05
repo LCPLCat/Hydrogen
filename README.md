@@ -6,3 +6,5 @@ Currently you can add, remove and edit all of theses as well as upload leauge st
 Planned to add a dashboard with some basic controls and timer controls.
 # Connection to Vmix
 All data is transmitted to vmix though XML. You can look and explore the XML in the app and adapt it to you own Vmix installation
+# Turning off debug mode
+Change the dev var to False to turn off dev mode and allow access across LAN network. Change to True to enable dev mode(only avaliable on host 127.0.0.1) 
