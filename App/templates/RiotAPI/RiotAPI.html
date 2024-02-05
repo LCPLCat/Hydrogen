@@ -1,0 +1,17 @@
+{% extends "Base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<div class="pt-5">
+	<div class="container-fluid has-inner">
+		<div class="row">
+			<div class="col-3">
+			</div>
+			<div class="col-6">
+				<h1 align="center">Riot APIKey</h1>
+				{{wtf.quick_form(form, action=url_for('main.RiotAPI'))}}
+			</div>
+			<div class="col-2">
+			</div>
+		</div>
+	</div>
+{% endblock %}

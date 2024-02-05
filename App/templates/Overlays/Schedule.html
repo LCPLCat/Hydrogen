@@ -1,0 +1,196 @@
+{% extends "Base.html" %}
+{% block content %}
+
+<style>
+    .center {
+        text-align: center;
+      }
+      #image {
+        display: none;
+    }
+</style>
+<div class="container">
+    <div class="top">
+        <div class="row">
+            <div class="col-sm">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="Match4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{schedule[3][5]}} Vs {{schedule[3][6]}} 
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  {% for matches in data%}
+                    <li><a class="dropdown-item" onclick="ChangeImage1('{{matches.team1}}','{{matches.team2}}','{{matches.format}}','{{matches.time}}','{{matches.team1name}}','{{matches.team2name}}','{{matches.id}}', 4) ">
+                        {% for team in teams%}
+                            {%if team.id == matches.team1%}
+                            {{team.abbreviation}} VS
+                            {%endif%}
+                        {% endfor %} 
+                        {% for team in teams%}
+                            {%if team.id == matches.team2%}
+                            {{team.abbreviation}}
+                            {%endif%}
+                        {% endfor %} 
+                    </a></li>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div class="col-sm"></div>
+            <div class="col-sm">
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="Match5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{schedule[4][5]}} Vs {{schedule[4][6]}} 
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for matches in data%}
+                    <li><a class="dropdown-item" onclick="ChangeImage1('{{matches.team1}}','{{matches.team2}}','{{matches.format}}','{{matches.time}}','{{matches.team1name}}','{{matches.team2name}}','{{matches.id}}', 5) ">{% for team in teams%}
+                        {%if team.id == matches.team1%}
+                        {{team.abbreviation}} VS
+                        {%endif%}
+                    {% endfor %} 
+                    {% for team in teams%}
+                        {%if team.id == matches.team2%}
+                        {{team.abbreviation}}
+                        {%endif%}
+                    {% endfor %} </a></li>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm"></div>
+              <div class="col-sm">
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="Match6" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{schedule[5][5]}} Vs {{schedule[5][6]}} 
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for matches in data%}
+                    <li><a class="dropdown-item" onclick="ChangeImage1('{{matches.team1}}','{{matches.team2}}','{{matches.format}}','{{matches.time}}','{{matches.team1name}}','{{matches.team2name}}','{{matches.id}}', 6) ">{% for team in teams%}
+                        {%if team.id == matches.team1%}
+                        {{team.abbreviation}} VS
+                        {%endif%}
+                    {% endfor %} 
+                    {% for team in teams%}
+                        {%if team.id == matches.team2%}
+                        {{team.abbreviation}}
+                        {%endif%}
+                    {% endfor %} </a></li>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm"></div>
+              <div class="col-sm">
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="Match7" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{schedule[6][5]}} Vs {{schedule[6][6]}} 
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for matches in data%}
+                    <li><a class="dropdown-item" onclick="ChangeImage1('{{matches.team1}}','{{matches.team2}}','{{matches.format}}','{{matches.time}}','{{matches.team1name}}','{{matches.team2name}}','{{matches.id}}', 7) ">{% for team in teams%}
+                        {%if team.id == matches.team1%}
+                        {{team.abbreviation}} VS
+                        {%endif%}
+                    {% endfor %} 
+                    {% for team in teams%}
+                        {%if team.id == matches.team2%}
+                        {{team.abbreviation}}
+                        {%endif%}
+                    {% endfor %} </a></li>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm"></div>
+        </div>
+        <div class="row">
+          <div class="col-sm"></div>
+            <div class="col-sm">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="Match1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{schedule[0][5]}} Vs {{schedule[0][6]}} 
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for matches in data%}
+                    <li><a class="dropdown-item" onclick="ChangeImage1('{{matches.team1}}','{{matches.team2}}','{{matches.format}}','{{matches.time}}','{{matches.team1name}}','{{matches.team2name}}','{{matches.id}}', 1)" id="Match1Dropdown">{% for team in teams%}
+                        {%if team.id == matches.team1%}
+                        {{team.abbreviation}} VS
+                        {%endif%}
+                    {% endfor %} 
+                    {% for team in teams%}
+                        {%if team.id == matches.team2%}
+                        {{team.abbreviation}}
+                        {%endif%}
+                    {% endfor %} </a></li>
+                    {% endfor %}
+                  </div>
+            </div>
+            <div class="col-sm"></div>
+            <div class="col-sm">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="Match2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{schedule[1][5]}} Vs {{schedule[1][6]}}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for matches in data%}
+                    <li><a class="dropdown-item" onclick="ChangeImage1('{{matches.team1}}','{{matches.team2}}','{{matches.format}}','{{matches.time}}','{{matches.team1name}}','{{matches.team2name}}','{{matches.id}}', 2)">{% for team in teams%}
+                        {%if team.id == matches.team1%}
+                        {{team.abbreviation}} VS
+                        {%endif%}
+                    {% endfor %} 
+                    {% for team in teams%}
+                        {%if team.id == matches.team2%}
+                        {{team.abbreviation}}
+                        {%endif%}
+                    {% endfor %} </a></li>
+                    {% endfor %}
+                  </div>
+            </div>
+            <div class="col-sm"></div>
+            <div class="col-sm">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="Match3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{schedule[2][5]}} Vs {{schedule[2][6]}}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for matches in data%}
+                    <li><a class="dropdown-item" onclick="ChangeImage1('{{matches.team1}}','{{matches.team2}}','{{matches.format}}','{{matches.time}}','{{matches.team1name}}','{{matches.team2name}}','{{matches.id}}', 3)">{% for team in teams%}
+                        {%if team.id == matches.team1%}
+                        {{team.abbreviation}} VS
+                        {%endif%}
+                    {% endfor %} 
+                    {% for team in teams%}
+                        {%if team.id == matches.team2%}
+                        {{team.abbreviation}}
+                        {%endif%}
+                    {% endfor %} </a></li>
+                    {% endfor %}
+                  </div>
+            </div>
+            <div class="col-sm"></div>
+        </div>
+    </div>
+  </div>
+  {% set URL = url_for('main.scheduleoverlay_data',stream = strm) %}
+  <form id="SetSchedule" action="{{URL}}" method="post">
+    {% for match in schedule%}
+    <input type="hidden" id="MatchID{{loop.index}}" name="MatchID{{loop.index}}" value="{{match[0]}}">
+    <input type="hidden" id="Team1{{loop.index}}" name="Team1{{loop.index}}" value="{{match[1]}}">
+    <input type="hidden" id="Team2{{loop.index}}" name="Team2{{loop.index}}" value="{{match[2]}}">
+    <input type="hidden" id="Time{{loop.index}}" name="Time{{loop.index}}" value="{{match[3]}}">
+    <input type="hidden" id="Format{{loop.index}}" name="Format{{loop.index}}" value="{{match[4]}}">
+    <input type="hidden" id="Team1name{{loop.index}}" name="Team1name{{loop.index}}" value="{{match[5]}}">
+    <input type="hidden" id="Team2name{{loop.index}}" name="Team2name{{loop.index}}" value="{{match[6]}}">
+    {%endfor%}
+  </form>
+  <script>
+    function ChangeImage1(team1,team2,format,time,team1name, team2name, id, number) {
+      document.getElementById("Match"+number).innerText = team1name+" Vs "+team2name;
+      document.getElementById("MatchID"+number).value=id
+      document.getElementById("Team1"+number).value=team1
+      document.getElementById("Team2"+number).value=team2
+      document.getElementById("Time"+number).value=time
+      document.getElementById("Format"+number).value=format
+      document.getElementById("Team1name"+number).value=team1name
+      document.getElementById("Team2name"+number).value=team2name
+      document.getElementById('SetSchedule').submit()
+    }
+  </script>
+{% endblock %}

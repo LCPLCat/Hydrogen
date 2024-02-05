@@ -1,0 +1,75 @@
+{% extends "Base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<style>.container {
+    padding: 2rem 0rem;
+  }
+  
+  h4 {
+    margin: 2rem 0rem 1rem;
+  }
+  
+  .table-image {
+    td, th {
+      vertical-align: middle;
+    }
+  }</style>
+
+<div class="container">
+    <div>
+        <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('MusicBP.musicadd')}}><img src="../static/img/plus.svg"></img></a>
+    </div> 
+    <div style="height: 20px;"> </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            {% for header in headings%}
+            <th scope="col">{{ header }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+            {% for music in data%}
+                <tr>
+                    <td>
+                        {{music.id}}
+                    </td>
+                    <td>
+                        {{music.title}}
+                    </td>
+                    <td>
+                        {{music.author}}
+                    </td>
+                    <td>
+                        <audio controls>
+                            <source src="../static/audio/{{music.audio}}" type=audio/wav>
+                        </audio>
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-success" onclick="Edit('{{music.id}}')">Edit<i class="fas fa-edit"></i></button>
+                      <form id="Edit{{music.id}}" action="{{ url_for('MusicBP.musicedit') }}" method="post">
+                          <input type="hidden" id="id" name="id" value="{{music.id}}">
+                      </form>
+                      <button type="button" class="btn btn-danger" onclick="Del('{{music.id}}')">Delete<i class="far fa-trash-alt"></i></button>
+                      <form id="Del{{music.id}}" action="{{ url_for('MusicBP.musicdel') }}" method="post">
+                          <input type="hidden" id="id" name="id" value="{{music.id}}">
+                      </form>
+                    </td>
+                </tr>    
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+  function Del(id){
+      document.getElementById('Del'+id).submit()
+  }
+  function Edit(id){
+      document.getElementById('Edit'+id).submit()
+  }
+</script>
+{% endblock %}

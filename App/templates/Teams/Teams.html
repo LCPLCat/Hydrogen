@@ -1,0 +1,82 @@
+{% extends "Base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<style>.container {
+    padding: 2rem 0rem;
+  }
+  
+  h4 {
+    margin: 2rem 0rem 1rem;
+  }
+  
+  .table-image {
+    td, th {
+      vertical-align: middle;
+    }
+  }</style>
+
+<div class="container">
+    <div>
+        <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('TeamsBP.teamadd')}}><img src="../static/img/plus.svg"></a>
+    </div> 
+    <div style="height: 20px;"> </div>
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            {% for header in headings%}
+            <th scope="col">{{ header }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+            {% for team in data%}
+                <tr>
+                    <td>
+                        {{team.id}}
+                    </td>
+                    <td>
+                        {{team.name}}
+                    </td>
+                    <td>
+                        {{team.abbreviation}}
+                    </td>
+                    <td>
+                        <img src="../static/logos/{{team.logoTXT}}">
+                    </td>
+                    <td>
+                        <img src="../static/logos/{{team.logoBL}}">
+                    </td>
+                    <td>
+                        <img src="../static/logos/{{team.logoBR}}">
+                    </td>
+                    <td>
+                        <img src="../static/logos/{{team.logoTOP}}">
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-success" onclick="Edit('{{team.id}}')">Edit<i class="fas fa-edit"></i></button>
+                        <form id="Edit{{team.id}}" action="{{ url_for('TeamsBP.teamedit') }}" method="post">
+                            <input type="hidden" id="id" name="id" value="{{team.id}}">
+                        </form>
+                        <button type="button" class="btn btn-danger" onclick="Del('{{team.id}}')">Delete<i class="far fa-trash-alt"></i></button>
+                        <form id="Del{{team.id}}" action="{{ url_for('TeamsBP.teamdel') }}" method="post">
+                            <input type="hidden" id="id" name="id" value="{{team.id}}">
+                        </form>
+                    </td>
+                </tr>    
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+    function Del(id){
+        document.getElementById('Del'+id).submit()
+    }
+    function Edit(id){
+        document.getElementById('Edit'+id).submit()
+    }
+</script>
+{% endblock %}

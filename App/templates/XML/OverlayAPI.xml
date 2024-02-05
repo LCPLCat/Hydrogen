@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AllTeams>
+    <Team>
+        <Name>{{Left.name}}</Name>
+        <LogoBR>{{Left.logoBR}}</LogoBR>
+        <LogoBL>{{Left.logoBL}}</LogoBL>
+        <LogoTOP>{{Left.logoTOP}}</LogoTOP>
+        <LogoTXT>{{Left.logoTXT}}</LogoTXT>
+    </Team>
+    <Team>
+        <Name>{{Right.name}}</Name>
+        <LogoBR>{{Right.logoBR}}</LogoBR>
+        <LogoBL>{{Right.logoBL}}</LogoBL>
+        <LogoTOP>{{Right.logoTOP}}</LogoTOP>
+        <LogoTXT>{{Right.logoTXT}}</LogoTXT>
+    </Team>
+</AllTeams>

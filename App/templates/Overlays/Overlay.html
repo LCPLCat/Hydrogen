@@ -1,0 +1,82 @@
+{% extends "Base.html" %}
+{% block content %}
+<style>
+    .center {
+        text-align: center;
+      }
+      #image {
+        display: none;
+    }
+</style>
+<div class="container">
+    <div class="top">
+        <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{LeftTeam}} 
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  {% for team in data%}
+                  <li><a class="dropdown-item" onclick="ChangeImage1('{{team.logoBL}}','{{team.name}}','{{team.abbreviation}}','{{team.id}}') ">{{team.name}} | {{team.abbreviation}}</a></li>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div class="col-sm">
+              {% set URL = url_for('main.overlay_data',stream = strm) %}
+              <form id="SetTeams" action="{{URL}}" method="post">
+              <input type="hidden" id="LeftTeam" name="LeftTeam" value="{{LeftTeam}}">
+              <input type="hidden" id="RightTeam" name="RightTeam" value="{{RightTeam}}">
+              <input type="hidden" id="LeftTeamLogo" name="LeftTeamLogo" value="{{LeftTeamLogo}}">
+              <input type="hidden" id="RightTeamLogo" name="RightTeamLogo" value="{{RightTeamLogo}}">
+              <input type="hidden" id="LeftID" name="LeftID" value="{{LeftID}}">
+              <input type="hidden" id="RightID" name="RightID" value="{{RightID}}">
+            </div>
+            <div class="col-sm">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{RightTeam}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  {% for team in data%}
+                <li><a class="dropdown-item" onclick="ChangeImage2('{{team.logoBL}}','{{team.name}}','{{team.abbreviation}}','{{team.id}}')">{{team.name}} | {{team.abbreviation}}</a></li>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div class="col-sm"></div>
+        </div>
+        <div class="row">
+          <div class="col-sm"></div>
+            <div class="col-sm">
+              <img id="Img1" src=../static/logos/{{LeftTeamLogo}}>
+            </div>
+            <div class="col-sm"></div>
+            <div class="col-sm">
+              <img id="Img2" src=../static/logos/{{RightTeamLogo}}>
+            </div>
+            <div class="col-sm"></div>
+        </div>
+    </div>
+  </div>
+  <script>
+    function ChangeImage1(Logo, TeamName, abb, id) {
+      document.getElementById("Img1").src = "../static/logos/"+Logo;
+      document.getElementById("LeftTeam").value = TeamName +" | "+abb
+      document.getElementById("LeftTeamLogo").value = Logo
+      document.getElementById("dropdownMenuButton1").innerText = TeamName+" | "+abb;
+      document.getElementById("LeftID").value = id
+      document.getElementById('SetTeams').submit()
+    }
+    function ChangeImage2(Logo, TeamName, abb, id) {
+      document.getElementById("Img2").src = "../static/logos/"+Logo;
+      document.getElementById("RightTeam").value = TeamName +" | "+abb
+      document.getElementById("RightTeamLogo").value = Logo
+      document.getElementById("RightID").value = id
+      document.getElementById("dropdownMenuButton2").innerText = TeamName+" | "+abb;
+      document.getElementById('SetTeams').submit()
+    } 
+  </script>
+{% endblock %}

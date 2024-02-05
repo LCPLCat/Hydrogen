@@ -1,0 +1,27 @@
+{% extends "Base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<div class="pt-5">
+	<div class="container-fluid has-inner">
+		<div class="row">
+			<div class="col-3">
+			</div>
+			<div class="col-6">
+				<h1 align="center">Player Edit</h1>
+				<form id="PlayerEdit" action="{{ url_for('PlayersBP.playerchanged') }}" method="post">
+                    <div class="form-group  required"><label class="control-label" for="Name">Name</label>
+                        <input class="form-control" id="Name" name="Name" required type="text" value="{{data.name}}">
+                    </div>
+                    <div class="form-group  required"><label class="control-label" for="Team">SubHeading</label>
+                        <input class="form-control" id="Team" name="Team" required type="text" value="{{data.team}}">
+                    </div>
+                    <input type="hidden" id="id" name="id" value="{{data.id}}">
+                    <input class="btn btn-default" id="Submit" name="Submit" required type="submit" value="Submit">
+                </form>
+			</div>
+			<div class="col-2">
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

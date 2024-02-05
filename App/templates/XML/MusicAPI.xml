@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AllMusic>
+    {% for music in data%}
+    <Song>
+    <Title>{{music.title}}</Title>
+    <Author>{{music.author}}</Author>
+    <SongPath>{{music.audio}}</SongPath>
+    </Song>
+    {% endfor %}
+</AllMusic>

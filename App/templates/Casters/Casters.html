@@ -1,0 +1,71 @@
+{% extends "Base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<style>.container {
+    padding: 2rem 0rem;
+  }
+  
+  h4 {
+    margin: 2rem 0rem 1rem;
+  }
+  
+  .table-image {
+    td, th {
+      vertical-align: middle;
+    }
+  }</style>
+
+<div class="container">
+
+    <div>
+        <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('CastersBP.castersadd')}}><img src="../static/img/plus.svg"></a>
+    </div> 
+    
+  <div class="row">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            {% for header in headings%}
+            <th scope="col">{{ header }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+            {% for caster in data%}
+                <tr>
+                    <td>
+                        {{caster.id}}
+                    </td>
+                    <td>
+                        {{caster.name}}
+                    </td>
+                    <td>
+                        {{caster.subname}}
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-success" onclick="Edit('{{caster.id}}')">Edit<i class="fas fa-edit"></i></button>
+                      <form id="Edit{{caster.id}}" action="{{ url_for('CastersBP.casteredit') }}" method="post">
+                          <input type="hidden" id="id" name="id" value="{{caster.id}}">
+                      </form>
+                      <button type="button" class="btn btn-danger" onclick="Del('{{caster.id}}')">Delete<i class="far fa-trash-alt"></i></button>
+                      <form id="Del{{caster.id}}" action="{{ url_for('CastersBP.casterdel') }}" method="post">
+                          <input type="hidden" id="id" name="id" value="{{caster.id}}">
+                      </form>
+                    </td>
+                </tr>    
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+  function Del(id){
+      document.getElementById('Del'+id).submit()
+  }
+  function Edit(id){
+      document.getElementById('Edit'+id).submit()
+  }
+</script>
+{% endblock %}

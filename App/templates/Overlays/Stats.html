@@ -1,0 +1,57 @@
+{% extends "Base.html" %}
+{% block content %}
+<style>
+    .center {
+        text-align: center;
+      }
+      #image {
+        display: none;
+    }
+</style>
+<div class="container">
+    <div class="top">
+        <div class="row">
+          <div class="col-sm"></div>
+            <div class="col-sm">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="Player1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{player1name}} | {{player1team}}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for player in data%}
+                    <li><a class="dropdown-item" onclick="ChangeImage1('{{player.name}}','{{player.team}}','{{player.id}}', 1)">{{player.name}} | {{player.team}}</a></li>
+                    {% endfor %}
+                  </div>
+            </div>
+            <div class="col-sm"></div>
+            <div class="col-sm">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="Player2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{player2name}} | {{player2team}}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for player in data%}
+                    <li><a class="dropdown-item" onclick="ChangeImage1('{{player.name}}','{{player.team}}','{{player.id}}', 2)">{{player.name}} | {{player.team}}</a></li>
+                    {% endfor %}
+                  </div>
+            </div>
+            <div class="col-sm"></div>
+        </div>
+    </div>
+  </div>
+  {% set URL = url_for('main.stats_data',stream = strm) %}
+  <form id="SetPlayers" action="{{URL}}" method="post">
+    <input type="hidden" id="FormPlayer1" name="FormPlayer1" value="{{player1name}}">
+    <input type="hidden" id="FormPlayer1Team" name="FormPlayer1Team" value="{{player1team}}">
+    <input type="hidden" id="FormPlayer1ID" name="FormPlayer1ID" value="{{player1id}}">
+    <input type="hidden" id="FormPlayer2" name="FormPlayer2" value="{{player2name}}">
+    <input type="hidden" id="FormPlayer2Team" name="FormPlayer2Team" value="{{player2team}}">
+    <input type="hidden" id="FormPlayer2ID" name="FormPlayer2ID" value="{{player2id}}">
+   <script>
+    function ChangeImage1(name, subname, id, number) {
+      document.getElementById("FormPlayer"+number).value = name
+      document.getElementById("FormPlayer"+number+'Team').value = subname
+      document.getElementById("FormPlayer"+number+'ID').value = id
+      document.getElementById("Player"+number).innerText = name+" | "+subname;
+      document.getElementById('SetPlayers').submit()
+    }
+  </script>
+{% endblock %}

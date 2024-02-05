@@ -1,0 +1,83 @@
+{% extends "Base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<div class="pt-5">
+	<div class="container-fluid has-inner">
+		<div class="row">
+			<div class="col-3">
+			</div>
+			<div class="col-6">
+				<h1 align="center">Caster Edit</h1>
+				<form id="MatchCreation" action="{{ url_for('MatchesBP.matchchanged') }}" method="post">
+					<div class="row">
+						<div class="col-sm">
+							<div class="dropdown">
+								<button class="btn btn-secondary dropdown-toggle" type="button" id="TeamButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									{% for team in teams%}
+                                    {%if team.id == matches.team1%}
+                                    {{team.name}} | {{team.abbreviation}} 
+                                    {%endif%}
+                                    {% endfor%}
+								</a>
+								<ul class="dropdown-menu" id="Team1Dropdown" aria-labelledby="dropdownMenuButton">
+									{% for team in teams%}
+									<li><a class="dropdown-item" onclick="SetTeam1('{{team.id}}','{{team.name}}','{{team.abbreviation}}')">{{team.name}} | {{team.abbreviation}}</a></li>
+									{% endfor %}
+								</ul>
+								
+							</div>
+						</div>
+						<div class="col-sm"><h2 align="center">VS</h2></div>
+						<div class="col-sm">
+							<div class="dropdown" align="right">
+								<button class="btn btn-secondary dropdown-toggle" type="button" id="TeamButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									{% for team in teams%}
+                                    {%if team.id == matches.team2%}
+                                    {{team.name}} | {{team.abbreviation}} 
+                                    {%endif%}
+                                    {% endfor%}
+								</a>
+								<ul class="dropdown-menu" id="Team2Dropdown" aria-labelledby="dropdownMenuButton">
+									{% for team in teams%}
+									<li><a class="dropdown-item" onclick="SetTeam2('{{team.id}}','{{team.name}}','{{team.abbreviation}}')">{{team.name}} | {{team.abbreviation}}</a></li>
+									{% endfor %}
+								</ul>
+								
+							</div>
+						</div>
+					</div>
+					<div class="form-group  required"><label class="control-label" for="Time">Time</label>
+                        <input class="form-control" id="Time" name="Time" required type="text" value="{{matches.time}}">
+						<input type="hidden" class="form-control" id="Team1" name="Team1" required type="text" value="{{matches.team1}}">
+                    </div>
+					<div class="form-group  required"><label class="control-label" for="Format">Format</label>
+                        <input class="form-control" id="Format" name="Format" required type="text" value="{{matches.format}}">
+                    </div>
+                    <input class="btn btn-default" id="Submit" name="Submit" required type="submit" value="Submit">
+					<input type="hidden" class="form-control" id="Team2" name="Team2" required type="text" value="{{matches.team2}}">
+                    <input type="hidden" class="form-control" id="id" name="id" required type value="{{matches.id}}">
+                </form>
+			</div>
+			<div class="col-2">
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+    function SetTeam1(id, name, abb) 
+	{
+        Dropdown = document.getElementById("Team1Dropdown")
+		document.getElementById("Team1").value =id
+		document.getElementById("TeamButton1").innerHTML = name+" | "+abb
+        document.getElementById("TeamButton1").appendChild(Dropdown)
+
+	}
+	function SetTeam2(id, name, abb) 
+	{
+        Dropdown = document.getElementById("Team2Dropdown")
+		document.getElementById("Team2").value =id
+		document.getElementById("TeamButton2").innerHTML = abb+" | "+name
+        document.getElementById("TeamButton2").appendChild(Dropdown)
+	}
+</script>
+{% endblock %}

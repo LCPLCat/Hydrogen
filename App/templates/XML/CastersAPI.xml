@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AllCasters>
+    <Caster>
+    <Name>{{Group2[0][0]}}</Name>
+    <SubHeading>{{Group2[0][1]}}</SubHeading>
+    </Caster>
+    <Caster>
+    <Name>{{Group2[1][0]}}</Name>
+    <SubHeading>{{Group2[1][1]}}</SubHeading>
+    </Caster>
+    <Caster>
+    <Name>{{Group2[2][0]}}</Name>
+    <SubHeading>{{Group2[2][1]}}</SubHeading>
+    </Caster>
+    <Caster>
+    <Name>{{Group1[0][0]}}</Name>
+    <SubHeading>{{Group1[0][1]}}</SubHeading>
+    </Caster>
+    <Caster>
+    <Name>{{Group1[1][0]}}</Name>
+    <SubHeading>{{Group1[1][1]}}</SubHeading>
+    </Caster>
+</AllCasters>

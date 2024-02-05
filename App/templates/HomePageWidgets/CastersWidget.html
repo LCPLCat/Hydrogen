@@ -1,0 +1,107 @@
+<style>
+  .center {
+      text-align: center;
+    }
+    #image {
+      display: none;
+  }
+</style>
+{% if Xid == 'B'%}
+ Group1 = Group3
+ Group2 = Group4
+{% endif %}
+<div class="container">
+  <div class="top">
+      <div class="row">
+          <div class="col-sm"></div>
+          <div class="col-sm">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="{{Xid}}Caster3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{Group2[0][0]}}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {% for caster in data%}
+                <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '3') ">{{caster.name}}</a></li>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <div class="col-sm">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="{{Xid}}Caster4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{Group2[1][0]}}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  {% for caster in data%}
+                  <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '4')">{{caster.name}}</a></li>
+                  {% endfor %}
+              </div>
+          </div>
+          <div class="col-sm">
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="{{Xid}}Caster5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{Group2[2][0]}}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {% for caster in data%}
+                <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '5')">{{caster.name}}</a></li>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <div class="col-sm"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm"></div>
+          <div class="col-sm">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="{{Xid}}Caster1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{Group1[0][0]}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  {% for caster in data%}
+                  <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '1')">{{caster.name}}</a></li>
+                  {% endfor %}
+                </div>
+          </div>
+          <div class="col-sm"></div>
+          <div class="col-sm">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="{{Xid}}Caster2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{Group1[1][0]}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  {% for caster in data%}
+                  <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '2')">{{caster.name}}</a></li>
+                  {% endfor %}
+                </div>
+          </div>
+          <div class="col-sm"></div>
+      </div>
+  </div>
+</div>
+{% set URL = url_for('main.CasterWidget',stream = "{{Xid}}") %}
+<form id="{{Xid}}SetTeams" action="{{URL}}" method="post">
+  <input type="hidden" id="XID" name="XID" value="{{Xid}}">
+  <input type="hidden" id="{{Xid}}FormCaster1" name="{{Xid}}FormCaster1" value="{{Group1[0][0]}}">
+  <input type="hidden" id="{{Xid}}FormCaster1Sub" name="{{Xid}}FormCaster1Sub" value="{{Group1[0][1]}}">
+  <input type="hidden" id="{{Xid}}FormCaster1ID" name="{{Xid}}FormCaster1ID" value="{{Group1[0][2]}}">
+  <input type="hidden" id="{{Xid}}FormCaster2" name="{{Xid}}FormCaster2" value="{{Group1[1][0]}}">
+  <input type="hidden" id="{{Xid}}FormCaster2Sub" name="{{Xid}}FormCaster2Sub" value="{{Group1[1][1]}}">
+  <input type="hidden" id="{{Xid}}FormCaster2ID" name="{{Xid}}FormCaster2ID" value="{{Group1[1][2]}}">
+  <input type="hidden" id="{{Xid}}FormCaster3" name="{{Xid}}FormCaster3" value="{{Group2[0][0]}}">
+  <input type="hidden" id="{{Xid}}FormCaster3Sub" name="{{Xid}}FormCaster3Sub" value="{{Group2[0][1]}}">
+  <input type="hidden" id="{{Xid}}FormCaster3ID" name="{{Xid}}FormCaster3ID" value="{{Group2[0][2]}}">
+  <input type="hidden" id="{{Xid}}FormCaster4" name="{{Xid}}FormCaster4" value="{{Group2[1][0]}}">
+  <input type="hidden" id="{{Xid}}FormCaster4Sub" name="{{Xid}}FormCaster4Sub" value="{{Group2[1][1]}}">
+  <input type="hidden" id="{{Xid}}FormCaster4ID" name="{{Xid}}FormCaster4ID" value="{{Group2[1][2]}}">
+  <input type="hidden" id="{{Xid}}FormCaster5" name="{{Xid}}FormCaster5" value="{{Group2[2][0]}}">
+  <input type="hidden" id="{{Xid}}FormCaster5Sub" name="{{Xid}}FormCaster5Sub" value="{{Group2[2][1]}}">
+  <input type="hidden" id="{{Xid}}FormCaster5ID" name="{{Xid}}FormCaster5ID" value="{{Group2[2][2]}}">
+</form>
+<script>
+  function ChangeImage{{Xid}}(name, subname, id, number) {
+    document.getElementById("{{Xid}}FormCaster"+number).value = name
+    document.getElementById("{{Xid}}FormCaster"+number+"Sub").value = subname
+    document.getElementById("{{Xid}}FormCaster"+number+"ID").value = id
+    document.getElementById("{{Xid}}Caster"+number).innerText = name;
+    document.getElementById("{{Xid}}SetTeams").submit()
+  }
+</script>

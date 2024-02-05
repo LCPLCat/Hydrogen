@@ -1,0 +1,108 @@
+{% extends "Base.html" %}
+
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<style>
+    div {text-align: center;}
+    </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+<div class="row justify-content-evenly">
+    <div class="col-4">
+        <h1>A Stream</h1>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNA_Stream_Stats" data-bs-target="#A_Stream_Stats" aria-expanded="false" aria-controls="collapseExample">
+            Stream Stats
+        </button>
+        <div class="collapse show" id="A_Stream_Stats">
+          <div class="card card-body">
+          </div>
+        </div>
+        <br>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNA_Casters" data-bs-target="#A_Casters" aria-expanded="false" aria-controls="collapseExample" >
+          Casters
+        </button>
+          <div class="collapse show" id="A_Casters">
+            <div class="card card-body">
+              {% set Xid = "A"%}
+              {% include "HomePageWidgets/CastersWidget.html" %}
+              {% set Group1 = Group3 %}
+              {% set Group2 = Group4 %}
+            </div>
+          </div>
+          <br>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNA_Player_Stats" data-bs-target="#A_Player_Stats" aria-expanded="false" aria-controls="collapseExample" >
+          Player Stats
+        </button>
+          <div class="collapse show" id="A_Player_Stats">
+            <div class="card card-body">
+            </div>
+          </div>
+          <br>
+          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNA_Overlay" data-bs-target="#A_Overlay" aria-expanded="false" aria-controls="collapseExample" >
+            Overlay
+          </button>
+            <div class="collapse show" id="A_Overlay">
+              <div class="card card-body">
+                {% include "HomePageWidgets/OverlayWidget.html" %}
+              </div>
+            </div>
+            <br>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNA_Schedule" data-bs-target="#A_Schedule" aria-expanded="false" aria-controls="collapseExample" >
+              Schedule
+            </button>
+              <div class="collapse show" id="A_Schedule">
+                <div class="card card-body">
+                </div>
+              </div>
+    </div>
+    <div class="col-4">
+        <h1>B Stream</h1>
+        
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNB_Stream_Stats" data-bs-target="#B_Stream_Stats" aria-expanded="false" aria-controls="collapseExample">
+          Stream Stats
+        </button>
+        <div class="collapse show" id="B_Stream_Stats">
+          <div class="card card-body">
+            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+          </div>
+        </div>
+        <br>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNB_Casters" data-bs-target="#B_Casters" aria-expanded="false" aria-controls="collapseExample">
+          Casters
+        </button>
+          <div class="collapse show" id="B_Casters">
+            <div class="card card-body">
+              {% set Xid = "B"%}
+              {% include "HomePageWidgets/CastersWidget.html" %}
+            </div>
+          </div>
+          <br>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNB_Player_Stats" data-bs-target="#B_Player_Stats" aria-expanded="false" aria-controls="collapseExample" >
+          Player Stats
+        </button>
+          <div class="collapse show" id="B_Player_Stats">
+            <div class="card card-body">
+              Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+            </div>
+          </div>
+          <br>
+          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNB_Overlay" data-bs-target="#B_Overlay" aria-expanded="false" aria-controls="collapseExample" >
+            Overlay
+          </button>
+            <div class="collapse show" id="B_Overlay">
+              <div class="card card-body">
+                {% include "HomePageWidgets/OverlayWidget.html" %}
+              </div>
+            </div>
+            <br>
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNB_Schedule" data-bs-target="#B_Schedule" aria-expanded="false" aria-controls="collapseExample" >
+              Schedule
+            </button>
+              <div class="collapse show" id="B_Schedule">
+                <div class="card card-body">
+                </div>
+              </div>
+    </div>
+</div>
+{% endblock %}

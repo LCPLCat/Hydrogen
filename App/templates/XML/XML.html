@@ -1,0 +1,22 @@
+{% extends "Base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<div class="container">
+    <div>
+        <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('main.musicAPI', stream='A')}}>A Music XML</a>
+        <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('main.overlayAPI', stream='A')}}>A Overlay XML</a>
+        <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('main.castersAPI', stream='A')}}>A Casters XML</a>
+        <!--<a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('main.musicAPI')}}>Teams XML</a> -->
+        <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('main.MatchAPI', stream='A')}}>A Matches XML</a>
+        <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('main.statsAPI', stream='A')}}>A Stats XML</a>
+    </div>
+    <div>
+        <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('main.musicAPI', stream='B')}}>B Music XML</a>
+        <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('main.overlayAPI', stream='B')}}>B Overlay XML</a>
+        <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('main.castersAPI', stream='B')}}>B Casters XML</a>
+        <!--<a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('main.musicAPI')}}>Teams XML</a> -->
+        <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('main.MatchAPI', stream='B')}}>B Matches XML</a>
+        <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('main.statsAPI', stream='B')}}>B Stats XML</a>
+    </div>
+</div>
+{% endblock %}

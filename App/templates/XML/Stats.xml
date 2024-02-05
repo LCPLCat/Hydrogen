@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AllPlayers>
+    <Player1>
+    <Name>{{player1.name}}</Name>
+    <Team>{{player1.team}}</Team>
+    <KillsAvg>{{player1.killsavg}}</KillsAvg>
+    <DeathsAvg>{{player1.deathsavg}}</DeathsAvg>
+    <AssistsAvg>{{player1.assistsavg}}</AssistsAvg>
+    <GoldAvg>{{player1.goldavg}}</GoldAvg>
+    <DmgAvg>{{player1.dmgavg}}</DmgAvg>
+    <CSAvg>{{player1.creepscoreavg}}</CSAvg>
+    </Player1>
+    <Player2>
+    <Name>{{player2.name}}</Name>
+    <Team>{{player2.team}}</Team>
+    <KillsAvg>{{player2.killsavg}}</KillsAvg>
+    <DeathsAvg>{{player2.deathsavg}}</DeathsAvg>
+    <AssistsAvg>{{player2.assistsavg}}</AssistsAvg>
+    <GoldAvg>{{player2.goldavg}}</GoldAvg>
+    <DmgAvg>{{player2.dmgavg}}</DmgAvg>
+    <CSAvg>{{player2.creepscoreavg}}</CSAvg>
+    </Player2>
+</AllPlayers>

@@ -1,0 +1,48 @@
+{% extends "Base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <div>
+                {%if match.decided == '1' %}
+                    <button type="button" class="btn btn-primary" onclick="Swap()">Swap</button>
+                {%else%}
+                {% for team in teams%}
+                    {%if team.id == match.team1%}
+                        <button type="button" class="btn btn-success" onclick="Submit('{{team.id}}','{{match.team2}}')">{{team.name}} | {{team.abbreviation}} </button>
+                    {%endif%}
+                {% endfor %} 
+                {% for team in teams%}
+                    {%if team.id == match.team2%}
+                        <button type="button" class="btn btn-success" onclick="Submit('{{team.id}}','{{match.team1}}')">{{team.name}} | {{team.abbreviation}} </button>
+                    {%endif%}    
+                {% endfor %} 
+                {%endif%}
+                
+            </div>
+        </div>
+    </div>
+</div>
+<form id="swap" action="{{ url_for('MatchesBP.matchswap') }}" method="post">
+    <input type="hidden" id="winnerid" name="winnerid" value="{{match.winner}}">
+    <input type="hidden" id="loserid" name="loserid" value="{{match.loser}}">
+    <input type="hidden" id="matchid" name="matchid" value="{{match.id}}">
+</form>
+<form id="submit" action="{{ url_for('MatchesBP.matchdecide_submit') }}" method="post">
+    <input type="hidden" id="Submitwinnerid" name="winnerid" value="">
+    <input type="hidden" id="Submitloserid" name="loserid" value="">
+    <input type="hidden" id="matchid" name="matchid" value="{{match.id}}">
+</form>
+<script>
+    function Submit(winnerid, loserid){
+        document.getElementById('Submitwinnerid').value = winnerid
+        document.getElementById('Submitloserid').value = loserid
+        document.getElementById('submit').submit()
+    }
+    function Swap(winnerid, loserid)
+    {
+        document.getElementById('swap').submit()
+    }
+</script>
+{% endblock %}

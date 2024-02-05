@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AllMatches>
+    {% for match in matches%}
+    <Match>
+    <Team1>{{match[5]}}</Team1>
+    <Team2>{{match[6]}}</Team2>
+    <Time>{{match[3]}}</Time>
+    <Format>{{match[4]}}</Format>
+    </Match>
+    {% endfor %}
+</AllMatches>

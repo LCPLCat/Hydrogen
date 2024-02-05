@@ -1,0 +1,62 @@
+{% extends "Base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<div class="pt-5">
+	<div class="container-fluid has-inner">
+		<div class="row">
+			<div class="col-3">
+			</div>
+			<div class="col-6">
+				<h1 align="center">Team Edit</h1>
+				<form id="MusicEdit" action="{{ url_for('TeamsBP.teamchanged') }}" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class='col-sm'>
+                            <div class="form-group  required"><label class="control-label" for="Name">Name</label>
+                                <input class="form-control" id="Name" name="Name" required type="text" value="{{data.name}}">
+                            </div>
+                        </div>
+                        <div class='col-sm'>
+                            <div class="form-group  required"><label class="control-label" for="Abbreviation">Abbreviation</label>
+                                <input class="form-control" id="Abbreviation" name="Abbreviation" required type="text" value="{{data.abbreviation}}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class='col-sm'>
+                            <img src="../static/logos/{{data.logoTXT}}">
+                            <div class="form-group  required"><label class="control-label" for="LogoTXT">LogoTXT</label>
+                                <input id="LogoTXT" name="LogoTXT" type="file"accept="image/*"> 
+                                
+                            </div>
+                        </div>
+                        <div class='col-sm'>
+                            <img src="../static/logos/{{data.logoTOP}}">
+                            <div class="form-group  required"><label class="control-label" for="LogoTOP">LogoTOP</label>
+                                <input id="LogoTOP" name="LogoTOP" type="file"accept="image/*"> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class='col-sm'>
+                            <img src="../static/logos/{{data.logoBL}}">
+                            <div class="form-group  required"><label class="control-label" for="LogoBL">LogoBL</label>
+                                <input id="LogoBL" name="LogoBL" type="file"accept="image/*"> 
+                            </div>
+                        </div>
+                        <div class='col-sm'>
+                            <img src="../static/logos/{{data.logoBR}}">
+                            <div class="form-group  required"><label class="control-label" for="LogoBR">LogoBR</label>
+                                <input id="LogoBR" name="LogoBR" type="file"accept="image/*"> 
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="id" name="id" value="{{data.id}}">
+                    <input class="btn btn-default" id="Submit" name="Submit" required type="submit" value="Submit">
+                </form>
+			</div>
+			<div class="col-2">
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

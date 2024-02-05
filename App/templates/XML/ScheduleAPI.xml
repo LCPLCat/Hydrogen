@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AllMatches>
+    <Match>
+        {% for match in schedule%}
+        <Team1>{{Left.name}}</Team1>
+        <Team2>{{Left.logoBR}}</Team2>
+        <Time>{{Left.logoBL}}</Time>
+        <Format>{{Left.logoTOP}}</Format>
+        {% endfor %}
+    </TeaMatchm>
+</AllMatches>
