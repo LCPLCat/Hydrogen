@@ -6,10 +6,6 @@
       display: none;
   }
 </style>
-{% if Xid == 'B'%}
- Group1 = Group3
- Group2 = Group4
-{% endif %}
 <div class="container">
   <div class="top">
       <div class="row">
@@ -78,6 +74,7 @@
   </div>
 </div>
 {% set URL = url_for('main.CasterWidget',stream = "{{Xid}}") %}
+</form>
 <form id="{{Xid}}SetTeams" action="{{URL}}" method="post">
   <input type="hidden" id="XID" name="XID" value="{{Xid}}">
   <input type="hidden" id="{{Xid}}FormCaster1" name="{{Xid}}FormCaster1" value="{{Group1[0][0]}}">
@@ -96,6 +93,7 @@
   <input type="hidden" id="{{Xid}}FormCaster5Sub" name="{{Xid}}FormCaster5Sub" value="{{Group2[2][1]}}">
   <input type="hidden" id="{{Xid}}FormCaster5ID" name="{{Xid}}FormCaster5ID" value="{{Group2[2][2]}}">
 </form>
+
 <script>
   function ChangeImage{{Xid}}(name, subname, id, number) {
     document.getElementById("{{Xid}}FormCaster"+number).value = name

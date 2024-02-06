@@ -9,14 +9,15 @@ from werkzeug.utils import secure_filename
 from .BluePrints import MatchesBP, PlayersBP, TeamsBP, CastersBP, PlayersBP, MusicBP, ROLFBP
 from . import OtherUtils, DataBaseUtils
 import os
-
+import requests
 bp = Blueprint('main', __name__)
 
 #format for which stream is selected
 Astream = Stream("A")
 Bstream = Stream("B")
 headings = Headings
-
+global TwitchAuthData
+TwitchAuthData = null
 
 
 #---------------------------------------------------------------------------------
@@ -28,8 +29,17 @@ def index():
     data1 = Teams.query.all()
     return render_template('Home.html', headings = headings.CasterHeadings, data = data, data1 =data1, AStream = Astream, BStream=Bstream, Group1 = Astream.CasterGroup1
                            , Group2 = Astream.CasterGroup2, Group3 = Bstream.CasterGroup1, Group4 = Bstream.CasterGroup2
-                           , strm = "A", AWidgets = Astream.Widgets, BWidgets = Bstream.Widgets )
+                           , strm = "A", AWidgets = Astream.Widgets, BWidgets = Bstream.Widgets, code = TwitchAuthData)
 
+@bp.route('/TwitchAuth')
+def twitchauth():
+    
+    return redirect('https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=42uo3y8chi4qo1ca4bbtyobv0ungds&redirect_uri=http://localhost:5000/TwitchRedirect&scope=channel%3Amanage%3Abroadcast')
+@bp.route('/TwitchRedirect', methods = ["POST","GET"])
+def twitchredirect():
+    global TwitchAuthData 
+    TwitchAuthData = request.args.get("code")
+    return redirect("/")
 @bp.route('/Widgets/', methods = ["POST","GET"])
 def widgets():
     if request.method == "POST":

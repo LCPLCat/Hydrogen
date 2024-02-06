@@ -16,6 +16,9 @@
         </button>
         <div class="collapse show" id="A_Stream_Stats">
           <div class="card card-body">
+            {% if code != null %}
+            <a href="{{ url_for('main.twitchauth') }}">Connect with Twitch</a>
+            {% endif %}
           </div>
         </div>
         <br>
@@ -64,7 +67,9 @@
         </button>
         <div class="collapse show" id="B_Stream_Stats">
           <div class="card card-body">
-            Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+            {% if code != null %}
+            <a href="{{ url_for('main.twitchauth') }}">Connect with Twitch</a>
+            {% endif %}
           </div>
         </div>
         <br>
@@ -83,7 +88,7 @@
         </button>
           <div class="collapse show" id="B_Player_Stats">
             <div class="card card-body">
-              Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+            
             </div>
           </div>
           <br>

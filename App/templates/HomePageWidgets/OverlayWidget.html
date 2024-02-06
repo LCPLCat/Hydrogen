@@ -50,11 +50,17 @@
         <div class="row">
           <div class="col-sm"></div>
             <div class="col-sm">
-              <img id="Img1" src=../static/logos/{{LeftTeamLogo}}>
+              {% if LeftTeamLogo == None %}
+              {% else %}
+              <img id="Img1" src=../static/logos/{{LeftTeamLogo}} alt="">
+              {% endif %}
             </div>
             <div class="col-sm"></div>
             <div class="col-sm">
-              <img id="Img2" src=../static/logos/{{RightTeamLogo}}>
+              {% if RightTeamLogo == None %}
+              {% else %}
+              <img id="Img2" src=../static/logos/{{RightTeamLogo}} alt="">
+              {% endif %}
             </div>
             <div class="col-sm"></div>
         </div>

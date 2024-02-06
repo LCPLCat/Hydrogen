@@ -21,6 +21,7 @@
 	padding: (spacer * 3)!important;
 	}
   </style>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
   </head>
   <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -71,18 +72,6 @@
 			</ul>
 		</div>
     </nav>
-	<form id="SetStream" action="{{ url_for('main.streamchange') }}" method="post">
-
-	</form>
-	<script>
-		function ChangeStream(stream) {
-		  document.getElementById("FormCaster"+number).value = name
-		  document.getElementById("FormCaster"+number+'Sub').value = subname
-		  document.getElementById("FormCaster"+number+'ID').value = id
-		  document.getElementById("Caster"+number).innerText = name+" | "+subname;
-		  document.getElementById('SetTeams').submit()
-		}
-	</script>
     {% block content %}
     {% endblock %}
     <footer>
