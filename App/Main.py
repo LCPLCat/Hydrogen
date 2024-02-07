@@ -9,9 +9,16 @@ from werkzeug.utils import secure_filename
 from .BluePrints import MatchesBP, PlayersBP, TeamsBP, CastersBP, PlayersBP, MusicBP, ROLFBP
 from . import OtherUtils, DataBaseUtils
 import os
+import time
+from dotenv import load_dotenv
+load_dotenv()
 import requests
 bp = Blueprint('main', __name__)
-
+os.environ
+global CLIENT_ID
+CLIENT_ID = os.environ['CLIENT_ID']
+global CLIENT_SECRET
+CLIENT_SECRET = os.environ['CLIENT_SECRET']
 #format for which stream is selected
 Astream = Stream("A")
 Bstream = Stream("B")
@@ -27,19 +34,35 @@ TwitchAuthData = null
 def index():
     data = Casters.query.all()
     data1 = Teams.query.all()
+    
     return render_template('Home.html', headings = headings.CasterHeadings, data = data, data1 =data1, AStream = Astream, BStream=Bstream, Group1 = Astream.CasterGroup1
                            , Group2 = Astream.CasterGroup2, Group3 = Bstream.CasterGroup1, Group4 = Bstream.CasterGroup2
                            , strm = "A", AWidgets = Astream.Widgets, BWidgets = Bstream.Widgets, code = TwitchAuthData)
-
-@bp.route('/TwitchAuth')
-def twitchauth():
     
-    return redirect('https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=maegtm6m979i9u6y88j10cvh5fmhkl&redirect_uri=http://localhost:5000/TwitchRedirect&scope=channel%3Amanage%3Abroadcast')
-@bp.route('/TwitchRedirect', methods = ["POST","GET"])
+
+@bp.route('/TwitchAuth/')
+def twitchauth():
+    return redirect('https://id.twitch.tv/oauth2/authorize?response_type=code&client_id='+CLIENT_ID+'&redirect_uri=http://localhost:5000/TwitchRedirect/&scope=channel%3Amanage%3Abroadcast')
+
+@bp.route('/TwitchRedirect/', methods = ["POST","GET"])
 def twitchredirect():
-    global TwitchAuthData 
     TwitchAuthData = request.args.get("code")
-    return redirect("/")
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+    data = {'client_id': CLIENT_ID,
+            'client_secret': CLIENT_SECRET,
+            'code': TwitchAuthData,
+            'grant_type': 'authorization_code',
+            'redirect_uri': 'http://localhost:5000/Oauth2/'
+
+    }
+    text = requests.request('POST', 'https://id.twitch.tv/oauth2/token', headers=headers, data=data).json()
+    
+    return text
+
+@bp.route('/Oauth2/', methods = ["POST","GET"])
+def oauth2():
+    
+    return redirect("")
 @bp.route('/Widgets/', methods = ["POST","GET"])
 def widgets():
     if request.method == "POST":
