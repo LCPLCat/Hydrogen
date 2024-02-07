@@ -8,9 +8,9 @@ class Stream:
     #format for Players data used in the Stats Overlay
     Stats = [['','',''],['','','']]
     #format for Caster data used in the 2 Caster Overlay
-    CasterGroup1 = [['','',''],['','','']]
+    CasterGroup1 = [['Caster 1','',''],['Caster 2','','']]
     #format for Caster data used in the 3 Caster Overlay
-    CasterGroup2 = [['','',''],['','',''],['','','']]
+    CasterGroup2 = [['Caster 1','',''],['Caster 2','',''],['Caster 3','','']]
     #format for matches in the matches tab
     matches = []
     #formate for widget Open/Close status
