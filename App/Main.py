@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, make_response
+from flask import Blueprint, render_template, request, flash, redirect, url_for, make_response, Response
 from .forms import MusicUpload, Bid, TeamRegister, CasterRegister, PlayerRegister, MatchRegister, ROLF, APIKey
 from .models import Item, Music, Teams, Casters, Players, Match, ROLFFile
 from . import db
@@ -25,7 +25,7 @@ Bstream = Stream("B")
 headings = Headings
 global TwitchAuthData
 TwitchAuthData = null
-
+timing=10
 
 #---------------------------------------------------------------------------------
 # Base Route for the home page
@@ -39,6 +39,24 @@ def index():
                            , Group2 = Astream.CasterGroup2, Group3 = Bstream.CasterGroup1, Group4 = Bstream.CasterGroup2
                            , strm = "A", AWidgets = Astream.Widgets, BWidgets = Bstream.Widgets, code = TwitchAuthData)
     
+
+@bp.route('/Countdown', methods=['GET'])
+def Countdown():
+    global timing
+    def timer(t):
+        for i in range(t):
+            time.sleep(60)
+            yield str(i)
+    return Response(timer(timing), mimetype='text/html')
+    
+@bp.route('/CountdownTimer', methods=['GET', 'POST'])
+def CountdownTimer():
+    value = "Bonjour"
+    title_html = value
+    if request.method=="POST":
+        global timing
+        timing = int(request.form['timing'])
+    return render_template('Countdown/Countdown.html', message=title_html)
 
 @bp.route('/TwitchAuth/')
 def twitchauth():

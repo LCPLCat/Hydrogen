@@ -49,7 +49,7 @@ def create_app():
     #importing views module here to avoid circular references
     # a commonly used practice.
     from . import Main 
-    from .BluePrints import MatchesBP, CastersBP, MusicBP, PlayersBP, TeamsBP, ROLFBP
+    from .BluePrints import MatchesBP, CastersBP, MusicBP, PlayersBP, TeamsBP, ROLFBP, Plot
     app.register_blueprint(Main.bp)
     app.register_blueprint(ROLFBP.bp)
     app.register_blueprint(MatchesBP.bp)
@@ -57,5 +57,6 @@ def create_app():
     app.register_blueprint(MusicBP.bp)
     app.register_blueprint(PlayersBP.bp)
     app.register_blueprint(TeamsBP.bp)
+    app.register_blueprint(Plot.bp)
     return app
 

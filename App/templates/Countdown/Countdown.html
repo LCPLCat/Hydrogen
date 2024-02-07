@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>your dish</title>
+</head>
+<body>
+    <h1>{{message}}! Here are some informations about your dish:</h1>
+    <h2> countdown </h2>
+     
+    <!-- <p>{{message}}</p> -->
+    <form method="POST" action="{{ url_for('main.CountdownTimer')}}">
+        <p><input name="timing" placeholder="Enter your time"></p>
+        <input type="submit" name="submit" value="submit">
+        
+    </form>
+    <div>
+        <iframe frameborder="0" noresize="noresize"
+     style='background: transparent; width: 100%; height:100%;' src="{{ url_for('main.Countdown')}}"></iframe>
+    </div>
+</body>
+</html>
