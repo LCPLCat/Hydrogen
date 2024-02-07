@@ -8,77 +8,74 @@
         display: none;
     }
 </style>
-<div class="container">
-    <div class="top">
-        <h1 class="center">Lower third 3 casters</h1>
-        <div class="row center">
-            <div class="col-sm"></div>
-            
-            <div class="col-sm">
-              
-              <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="Caster3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {{Group2[0][0]}} | {{Group2[0][1]}}
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  {% for caster in data%}
-                  <li><a class="dropdown-item" onclick="ChangeImage1('{{caster.name}}','{{caster.subname}}','{{caster.id}}', 3) ">{{caster.name}} | {{caster.subname}}</a></li>
-                  {% endfor %}
-                </div>
-              </div>
-            </div>
-            <div class="col-sm ">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="Caster4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {{Group2[1][0]}} | {{Group2[1][1]}}
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    {% for caster in data%}
-                    <li><a class="dropdown-item" onclick="ChangeImage1('{{caster.name}}','{{caster.subname}}','{{caster.id}}', 4)">{{caster.name}} | {{caster.subname}}</a></li>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="col-sm ">
-              <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="Caster5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {{Group2[2][0]}} | {{Group2[2][1]}}
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  {% for caster in data%}
-                  <li><a class="dropdown-item" onclick="ChangeImage1('{{caster.name}}','{{caster.subname}}','{{caster.id}}', 5)">{{caster.name}} | {{caster.subname}}</a></li>
-                  {% endfor %}
-                </div>
-              </div>
-            </div>
-            <div class="col-sm"></div>
-        </div>
-        <h1 class="center">Lower third 2 casters</h1>
-        <div class="row">
-          <div class="col-sm"></div>
-            <div class="col-sm center">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="Caster1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {{Group1[0][0]}} | {{Group1[0][1]}}
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    {% for caster in data%}
-                    <li><a class="dropdown-item" onclick="ChangeImage1('{{caster.name}}','{{caster.subname}}','{{caster.id}}', 1)">{{caster.name}} | {{caster.subname}}</a></li>
-                    {% endfor %}
-                  </div>
-            </div>
-            <div class="col-sm"></div>
-            <div class="col-sm center">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="Caster2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {{Group1[1][0]}} | {{Group1[1][1]}}
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    {% for caster in data%}
-                    <li><a class="dropdown-item" onclick="ChangeImage1('{{caster.name}}','{{caster.subname}}','{{caster.id}}', 2)">{{caster.name}} | {{caster.subname}}</a></li>
-                    {% endfor %}
-                  </div>
-            </div>
-            <div class="col-sm"></div>
+<div class="container center">
+  <h1 class="center">Lower third 3 casters</h1>
+  <div class="row">
+    <div class="col left">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="Caster3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{Group2[0][0]}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {% for caster in data%}
+          <li><a class="dropdown-item" onclick="ChangeImage1('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '3') ">{{caster.name}}</a></li>
+          {% endfor %}
         </div>
     </div>
+    </div>
+    <div class="col center">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="Caster4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{Group2[1][0]}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for caster in data%}
+            <li><a class="dropdown-item" onclick="ChangeImage1('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '4')">{{caster.name}}</a></li>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="col right">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="Caster5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{Group2[2][0]}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {% for caster in data%}
+          <li><a class="dropdown-item" onclick="ChangeImage1('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '5')">{{caster.name}}</a></li>
+          {% endfor %}
+        </div>
+    </div>
+    </div>
+  </div>  
+  <h1 class="center">Lower third 2 casters</h1>
+  <div class="row">
+    <div class="col left">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="Caster1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{Group1[0][0]}}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for caster in data%}
+            <li><a class="dropdown-item" onclick="ChangeImage1('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '1')">{{caster.name}}</a></li>
+            {% endfor %}
+          </div>
+      </div>
+    </div>
+    <div class="col right">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="Caster2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{Group1[1][0]}}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for caster in data%}
+            <li><a class="dropdown-item" onclick="ChangeImage1('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '2')">{{caster.name}}</a></li>
+            {% endfor %}
+          </div>
+      </div>
+    </div>
   </div>
+</div>
   {% set URL = url_for('main.castersoverlay_data',stream = strm) %}
   <form id="SetTeams" action="{{URL}}" method="post">
     <input type="hidden" id="FormCaster1" name="FormCaster1" value="{{Group1[0][0]}}">

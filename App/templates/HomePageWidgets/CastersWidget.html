@@ -7,70 +7,71 @@
   }
 </style>
 <div class="container">
-  <div class="top">
-      <div class="row">
-          <div class="col-sm"></div>
-          <div class="col-sm">
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="{{Xid}}Caster3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{Group2[0][0]}}
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                {% for caster in data%}
-                <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '3') ">{{caster.name}}</a></li>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-          <div class="col-sm">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="{{Xid}}Caster4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{Group2[1][0]}}
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  {% for caster in data%}
-                  <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '4')">{{caster.name}}</a></li>
-                  {% endfor %}
-              </div>
-          </div>
-          <div class="col-sm">
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="{{Xid}}Caster5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{Group2[2][0]}}
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                {% for caster in data%}
-                <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '5')">{{caster.name}}</a></li>
-                {% endfor %}
-              </div>
-            </div>
-          </div>
-          <div class="col-sm"></div>
+  <h3>Lower third 3 casters</h3>
+  <div class="row">
+    <div class="col left">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="{{Xid}}Caster3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{Group2[0][0]}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {% for caster in data%}
+          <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '3') ">{{caster.name}}</a></li>
+          {% endfor %}
+        </div>
+    </div>
+    </div>
+    <div class="col center">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="{{Xid}}Caster4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{Group2[1][0]}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for caster in data%}
+            <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '4')">{{caster.name}}</a></li>
+            {% endfor %}
+        </div>
       </div>
-      <div class="row">
-        <div class="col-sm"></div>
-          <div class="col-sm">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="{{Xid}}Caster1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{Group1[0][0]}}
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  {% for caster in data%}
-                  <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '1')">{{caster.name}}</a></li>
-                  {% endfor %}
-                </div>
+    </div>
+    <div class="col right">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="{{Xid}}Caster5" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{Group2[2][0]}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {% for caster in data%}
+          <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '5')">{{caster.name}}</a></li>
+          {% endfor %}
+        </div>
+    </div>
+    </div>
+  </div>  
+  <h3 >Lower third 2 casters</h3>
+  <div class="row">
+    <div class="col left">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="{{Xid}}Caster1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{Group1[0][0]}}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for caster in data%}
+            <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '1')">{{caster.name}}</a></li>
+            {% endfor %}
           </div>
-          <div class="col-sm"></div>
-          <div class="col-sm">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="{{Xid}}Caster2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{Group1[1][0]}}
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  {% for caster in data%}
-                  <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '2')">{{caster.name}}</a></li>
-                  {% endfor %}
-                </div>
-          </div>
-          <div class="col-sm"></div>
       </div>
+    </div>
+    <div class="col right">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="{{Xid}}Caster2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{Group1[1][0]}}
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for caster in data%}
+            <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '2')">{{caster.name}}</a></li>
+            {% endfor %}
+          </div>
+      </div>
+    </div>
   </div>
 </div>
 {% set URL = url_for('main.CasterWidget',stream = "{{Xid}}") %}
