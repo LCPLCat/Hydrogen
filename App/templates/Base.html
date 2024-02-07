@@ -62,7 +62,34 @@
 				<li class="nav-item"><a class="nav-link" href={{url_for('MatchesBP.match')}}>Matches</a></li>
 				<li class="nav-item"><a class="nav-link" href={{url_for('MusicBP.music')}}>Music</a></li>
 				<li class="nav-item"><a class="nav-link" href={{url_for('TeamsBP.teams')}}>Teams</a></li>
-				<li class="nav-item"><a class="nav-link" href={{url_for('main.xml')}}>XMLs</a></li>
+				<li class="nav-item dropdown">
+					<div class="dropdown">
+						<a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							A XMLs
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<li><a class="dropdown-item" href={{url_for('main.musicAPI', stream='A')}}>Music XML</a></li>
+        					<li><a class="dropdown-item" href={{url_for('main.overlayAPI', stream='A')}}>Overlay XML</a></li>
+        					<li><a class="dropdown-item" href={{url_for('main.castersAPI', stream='A')}}>Casters XML</a></li>
+        					<li><a class="dropdown-item" href={{url_for('main.MatchAPI', stream='A')}}>Matches XML</a></li>
+        					<li><a class="dropdown-item" href={{url_for('main.statsAPI', stream='A')}}>Stats XML</a></li>
+						</ul>
+					</div>
+				</li>
+				<li class="nav-item dropdown">
+					<div class="dropdown">
+						<a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							B XMLs
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<li><a class="dropdown-item" href={{url_for('main.musicAPI', stream='B')}}>Music XML</a></li>
+        					<li><a class="dropdown-item" href={{url_for('main.overlayAPI', stream='B')}}>Overlay XML</a></li>
+        					<li><a class="dropdown-item" href={{url_for('main.castersAPI', stream='B')}}>Casters XML</a></li>
+        					<li><a class="dropdown-item" href={{url_for('main.MatchAPI', stream='B')}}>Matches XML</a></li>
+        					<li><a class="dropdown-item" href={{url_for('main.statsAPI', stream='B')}}>Stats XML</a></li>
+						</ul>
+					</div>
+				</li>
 				<li class="nav-item"><a class="nav-link" href={{url_for('ROLFBP.rolf')}}>ROLF</a></li>
 				<li class="nav-item"><a class="nav-link" href={{url_for('PlayersBP.players')}}>Players</a></li>
 				<li class="nav-item"><a class="nav-link" href={{url_for('main.RiotAPI')}}>RiotAPI</a></li>
