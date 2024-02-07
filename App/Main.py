@@ -42,7 +42,7 @@ def index():
 
 @bp.route('/TwitchAuth/')
 def twitchauth():
-    return redirect('https://id.twitch.tv/oauth2/authorize?response_type=code&client_id='+CLIENT_ID+'&redirect_uri=http://localhost:5000/TwitchRedirect/&scope=channel%3Amanage%3Abroadcast')
+    return redirect('https://id.twitch.tv/oauth2/authorize?response_type=code&client_id='+CLIENT_ID+'&force_verify=true&redirect_uri=http://localhost:5000/TwitchRedirect/&scope=channel%3Amanage%3Abroadcast')
 
 @bp.route('/TwitchRedirect/', methods = ["POST","GET"])
 def twitchredirect():
