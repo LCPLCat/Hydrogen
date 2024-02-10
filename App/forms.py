@@ -15,7 +15,6 @@ class Testform(FlaskForm):
     sumbit = SubmitField('submit')
 
 class APIKey(FlaskForm):
-    APIKEY = PasswordField('APIKey')
     sumbit = SubmitField('submit')
 
 class MusicUpload(FlaskForm):
@@ -43,6 +42,7 @@ class CasterRegister(FlaskForm):
     Submit = SubmitField('Submit', validators=[InputRequired()])
 
 class MatchRegister(FlaskForm):
+    Match_code = StringField("Match Code", validators=[Input])
     Team1 = StringField("Team1", validators=[InputRequired('Please select a team')])
     Team2 = StringField("Team1", validators=[InputRequired('Please select a team')])
     Team1name = HiddenField()

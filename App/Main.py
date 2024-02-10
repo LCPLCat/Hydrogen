@@ -19,6 +19,8 @@ global CLIENT_ID
 CLIENT_ID = os.environ['CLIENT_ID']
 global CLIENT_SECRET
 CLIENT_SECRET = os.environ['CLIENT_SECRET']
+global RIOT_KEY
+RIOT_KEY = os.environ['RIOT_KEY']
 #format for which stream is selected
 Astream = Stream("A")
 Bstream = Stream("B")
@@ -58,6 +60,11 @@ def CountdownTimer():
         timing = int(request.form['timing'])
     return render_template('Countdown/Countdown.html', message=title_html)
 
+@bp.route('/RiotData')
+def riotdata():
+    Name = 'pip4pig'
+    return requests.get("https://oc1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{Name}?api_key={Key}".format(Name=Name, Key=RIOT_KEY)).json()
+    
 @bp.route('/TwitchAuth/')
 def twitchauth():
     return redirect('https://id.twitch.tv/oauth2/authorize?response_type=code&client_id='+CLIENT_ID+'&force_verify=true&redirect_uri=http://localhost:5000/TwitchRedirect/&scope=channel%3Amanage%3Abroadcast')
