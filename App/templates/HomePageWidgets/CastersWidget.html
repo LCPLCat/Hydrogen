@@ -16,7 +16,7 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           {% for caster in data%}
-          <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '3') ">{{caster.name}}</a></li>
+          <li><a class="dropdown-item" onclick="ChangeCasters{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '3') ">{{caster.name}}</a></li>
           {% endfor %}
         </div>
     </div>
@@ -28,7 +28,7 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             {% for caster in data%}
-            <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '4')">{{caster.name}}</a></li>
+            <li><a class="dropdown-item" onclick="ChangeCasters{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '4')">{{caster.name}}</a></li>
             {% endfor %}
         </div>
       </div>
@@ -40,7 +40,7 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           {% for caster in data%}
-          <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '5')">{{caster.name}}</a></li>
+          <li><a class="dropdown-item" onclick="ChangeCasters{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '5')">{{caster.name}}</a></li>
           {% endfor %}
         </div>
     </div>
@@ -55,7 +55,7 @@
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             {% for caster in data%}
-            <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '1')">{{caster.name}}</a></li>
+            <li><a class="dropdown-item" onclick="ChangeCasters{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '1')">{{caster.name}}</a></li>
             {% endfor %}
           </div>
       </div>
@@ -67,7 +67,7 @@
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             {% for caster in data%}
-            <li><a class="dropdown-item" onclick="ChangeImage{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '2')">{{caster.name}}</a></li>
+            <li><a class="dropdown-item" onclick="ChangeCasters{{Xid}}('{{caster.name}}','{{caster.subname}}','{{caster.id}}', '2')">{{caster.name}}</a></li>
             {% endfor %}
           </div>
       </div>
@@ -76,7 +76,7 @@
 </div>
 {% set URL = url_for('main.CasterWidget',stream = "{{Xid}}") %}
 </form>
-<form id="{{Xid}}SetTeams" action="{{URL}}" method="post">
+<form id="{{Xid}}SetTeams" action="{{URL}}" method="post" onsubmit="return false">
   <input type="hidden" id="XID" name="XID" value="{{Xid}}">
   <input type="hidden" id="{{Xid}}FormCaster1" name="{{Xid}}FormCaster1" value="{{Group1[0][0]}}">
   <input type="hidden" id="{{Xid}}FormCaster1Sub" name="{{Xid}}FormCaster1Sub" value="{{Group1[0][1]}}">
@@ -96,11 +96,13 @@
 </form>
 
 <script>
-  function ChangeImage{{Xid}}(name, subname, id, number) {
+  function ChangeCasters{{Xid}}(name, subname, id, number) {
     document.getElementById("{{Xid}}FormCaster"+number).value = name
     document.getElementById("{{Xid}}FormCaster"+number+"Sub").value = subname
     document.getElementById("{{Xid}}FormCaster"+number+"ID").value = id
     document.getElementById("{{Xid}}Caster"+number).innerText = name;
     document.getElementById("{{Xid}}SetTeams").submit()
+
   }
+
 </script>

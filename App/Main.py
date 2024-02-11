@@ -34,12 +34,14 @@ timing=10
 #---------------------------------------------------------------------------------
 @bp.route('/')
 def index():
+    OtherUtils.link_player_ID()
+    OtherUtils.player_stats_average()
     data = Casters.query.all()
     data1 = Teams.query.all()
-    
-    return render_template('Home.html', headings = headings.CasterHeadings, data = data, data1 =data1, AStream = Astream, BStream=Bstream, Group1 = Astream.CasterGroup1
-                           , Group2 = Astream.CasterGroup2, Group3 = Bstream.CasterGroup1, Group4 = Bstream.CasterGroup2
-                           , strm = "A", AWidgets = Astream.Widgets, BWidgets = Bstream.Widgets, code = TwitchAuthData)
+    data2 = Players.query.all()
+    return render_template('Home.html', headings = headings.CasterHeadings, data = data, data1 =data1, AStream = Astream, BStream=Bstream, Group1 = Astream.CasterGroup1,
+                            Group2 = Astream.CasterGroup2, Group3 = Bstream.CasterGroup1, Group4 = Bstream.CasterGroup2,
+                            strm = "A", AWidgets = Astream.Widgets, BWidgets = Bstream.Widgets, code = TwitchAuthData, data2 = data2)
     
 
 @bp.route('/Countdown', methods=['GET'])
@@ -82,7 +84,7 @@ def twitchredirect():
     }
     text = requests.request('POST', 'https://id.twitch.tv/oauth2/token', headers=headers, data=data).json()
     
-    return text
+    return render_template('RiotAPI/RiotAPI.html',access_token=text["access_token"],refresh_token=text["refresh_token"])
 
 @bp.route('/Oauth2/', methods = ["POST","GET"])
 def oauth2():
@@ -104,6 +106,22 @@ def widgets():
         return redirect("/")
     if request.method == "GET":
         return redirect("/")
+
+@bp.route('/StatsWidget/', methods=['POST'])
+def StatsWidget():
+    if (request.form['XID'] == 'A'):
+        Astream.Stats=[[request.form['FormPlayerA1'],request.form['FormPlayerA1Team'],request.form['FormPlayerA1ID']],[request.form['FormPlayerA2'],request.form['FormPlayerA2Team'],request.form['FormPlayerA2ID']]]
+    elif (request.form['XID'] == 'B'):
+        Bstream.Stats=[[request.form['FormPlayerB1'],request.form['FormPlayerB1Team'],request.form['FormPlayerB1ID']],[request.form['FormPlayerB2'],request.form['FormPlayerB2Team'],request.form['FormPlayerB2ID']]]  
+    return redirect("/")
+
+@bp.route('/OverlayWidget/', methods=['POST'])
+def OverlayWidget():
+    if (request.form['XID']== "A"):
+        Astream.Team = [[request.form['LeftIDA'],request.form['LeftTeamLogoA'],request.form['LeftTeamA'],request.form['LeftAbbA']],[request.form['RightIDA'],request.form['RightTeamLogoA'],request.form['RightTeamA'],request.form['RightAbbA']]]
+    elif (request.form['XID']== "B"):
+        Bstream.Team = [[request.form['LeftIDB'],request.form['LeftTeamLogoB'],request.form['LeftTeamB'],request.form['LeftAbbB']],[request.form['RightIDB'],request.form['RightTeamLogoB'],request.form['RightTeamB'],request.form['RightAbbB']]]
+    return redirect("/")
 
 @bp.route('/CasterWidget/', methods=['POST'])
 def CasterWidget():
@@ -441,9 +459,9 @@ def scheduleoverlay_data():
 @bp.route('/Overlay/', methods=['POST'])
 def overlay_data():
     if request.args.get('stream') == 'A':
-        Astream.Team = [[request.form['LeftID'],request.form['LeftTeamLogo'],request.form['LeftTeam']],[request.form['RightID'],request.form['RightTeamLogo'],request.form['RightTeam']]]
+        Astream.Team = [[request.form['LeftID'],request.form['LeftTeamLogo'],request.form['LeftTeam'],request.form['LeftAbb']],[request.form['RightID'],request.form['RightTeamLogo'],request.form['RightTeam'],request.form['RightAbb']]]
     elif request.args.get('stream') == 'B':
-        Bstream.Team = [[request.form['LeftID'],request.form['LeftTeamLogo'],request.form['LeftTeam']],[request.form['RightID'],request.form['RightTeamLogo'],request.form['RightTeam']]]
+        Bstream.Team = [[request.form['LeftID'],request.form['LeftTeamLogo'],request.form['LeftTeam'],request.form['LeftAbb']],[request.form['RightID'],request.form['RightTeamLogo'],request.form['RightTeam'],request.form['RightAbb']]]
 
     return overlay()
 
@@ -451,9 +469,9 @@ def overlay_data():
 def overlay():
     data = Teams.query.all()
     if request.args.get('stream') == 'A':
-        return render_template('Overlays/Overlay.html', data = data, LeftTeam = Astream.Team[0][2], RightTeam=Astream.Team[1][2], LeftTeamLogo = Astream.Team[0][1], RightTeamLogo=Astream.Team[1][1], LeftID = Astream.Team[0][0], RightID = Astream.Team[1][0], strm = "A")
+        return render_template('Overlays/Overlay.html', data = data, LeftTeam = Astream.Team[0][2], RightTeam=Astream.Team[1][2], LeftTeamLogo = Astream.Team[0][1], RightTeamLogo=Astream.Team[1][1], LeftID = Astream.Team[0][0], RightID = Astream.Team[1][0], LeftAbb = Astream.Team[0][3] , RightAbb = Astream.Team[1][3], strm = "A")
     elif request.args.get('stream') == 'B':
-        return render_template('Overlays/Overlay.html', data = data, LeftTeam = Bstream.Team[0][2], RightTeam=Bstream.Team[1][2], LeftTeamLogo = Bstream.Team[0][1], RightTeamLogo=Bstream.Team[1][1], LeftID = Bstream.Team[0][0], RightID = Bstream.Team[1][0], strm = "B") 
+        return render_template('Overlays/Overlay.html', data = data, LeftTeam = Bstream.Team[0][2], RightTeam=Bstream.Team[1][2], LeftTeamLogo = Bstream.Team[0][1], RightTeamLogo=Bstream.Team[1][1], LeftID = Bstream.Team[0][0], RightID = Bstream.Team[1][0], LeftAbb = Bstream.Team[0][3] , RightAbb = Bstream.Team[1][3], strm = "B") 
 
 @bp.route('/Stats/', methods=['GET'])
 def stats():

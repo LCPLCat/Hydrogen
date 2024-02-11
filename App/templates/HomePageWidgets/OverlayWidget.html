@@ -8,39 +8,45 @@
     }
 </style>
 <div class="container">
+  <h3>Ingame Overlay</h3>
     <div class="top">
         <div class="row">
             <div class="col-sm"></div>
             <div class="col-sm">
               <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {{LeftTeam}} 
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1{{Xid}}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{LeftAbb}} 
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   {% for team in data1%}
-                  <li><a class="dropdown-item" onclick="ChangeImage1('{{team.logoBL}}','{{team.name}}','{{team.abbreviation}}','{{team.id}}') ">{{team.name}} | {{team.abbreviation}}</a></li>
+                  <li><a class="dropdown-item" onclick="ChangeTeam1{{Xid}}('{{team.logoTOP}}','{{team.name}}','{{team.abbreviation}}','{{team.id}}') ">{{team.name}} | {{team.abbreviation}}</a></li>
                   {% endfor %}
                 </div>
               </div>
             </div>
             <div class="col-sm">
-              {% set URL = url_for('main.overlay_data',stream = strm) %}
-              <form id="SetTeams" action="{{URL}}" method="post">
-              <input type="hidden" id="LeftTeam" name="LeftTeam" value="{{LeftTeam}}">
-              <input type="hidden" id="RightTeam" name="RightTeam" value="{{RightTeam}}">
-              <input type="hidden" id="LeftTeamLogo" name="LeftTeamLogo" value="{{LeftTeamLogo}}">
-              <input type="hidden" id="RightTeamLogo" name="RightTeamLogo" value="{{RightTeamLogo}}">
-              <input type="hidden" id="LeftID" name="LeftID" value="{{LeftID}}">
-              <input type="hidden" id="RightID" name="RightID" value="{{RightID}}">
+              {% set URL = url_for('main.OverlayWidget',stream = "{{Xid}}") %}
+            </form>
+              <form id="SetTeams{{Xid}}" action="{{URL}}" method="post">
+                <input type="hidden" id="XID" name="XID" value="{{Xid}}">
+                <input type="hidden" id="LeftTeam{{Xid}}" name="LeftTeam{{Xid}}" value="{{LeftTeam}}">
+                <input type="hidden" id="RightTeam{{Xid}}" name="RightTeam{{Xid}}" value="{{RightTeam}}">
+                <input type="hidden" id="LeftTeamLogo{{Xid}}" name="LeftTeamLogo{{Xid}}" value="{{LeftTeamLogo}}">
+                <input type="hidden" id="RightTeamLogo{{Xid}}" name="RightTeamLogo{{Xid}}" value="{{RightTeamLogo}}">
+                <input type="hidden" id="LeftID{{Xid}}" name="LeftID{{Xid}}" value="{{LeftID}}">
+                <input type="hidden" id="RightID{{Xid}}" name="RightID{{Xid}}" value="{{RightID}}">
+                <input type="hidden" id="RightAbb{{Xid}}" name="RightAbb{{Xid}}" value="{{RightAbb}}">
+                <input type="hidden" id="LeftAbb{{Xid}}" name="LeftAbb{{Xid}}" value="{{LeftAbb}}">
+              </form>
             </div>
             <div class="col-sm">
               <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {{RightTeam}}
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2{{Xid}}" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{RightAbb}}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   {% for team in data1%}
-                <li><a class="dropdown-item" onclick="ChangeImage2('{{team.logoBL}}','{{team.name}}','{{team.abbreviation}}','{{team.id}}')">{{team.name}} | {{team.abbreviation}}</a></li>
+                <li><a class="dropdown-item" onclick="ChangeTeam2{{Xid}}('{{team.logoTOP}}','{{team.name}}','{{team.abbreviation}}','{{team.id}}')">{{team.name}} | {{team.abbreviation}}</a></li>
                   {% endfor %}
                 </div>
               </div>
@@ -52,14 +58,14 @@
             <div class="col-sm">
               {% if LeftTeamLogo == None %}
               {% else %}
-              <img id="Img1" src=../static/logos/{{LeftTeamLogo}} alt="">
+              <img id="Img1{{Xid}}" src=../static/logos/{{LeftTeamLogo}} alt="">
               {% endif %}
             </div>
             <div class="col-sm"></div>
             <div class="col-sm">
               {% if RightTeamLogo == None %}
               {% else %}
-              <img id="Img2" src=../static/logos/{{RightTeamLogo}} alt="">
+              <img id="Img2{{Xid}}" src=../static/logos/{{RightTeamLogo}} alt="">
               {% endif %}
             </div>
             <div class="col-sm"></div>
@@ -67,20 +73,25 @@
     </div>
   </div>
   <script>
-    function ChangeImage1(Logo, TeamName, abb, id) {
-      document.getElementById("Img1").src = "../static/logos/"+Logo;
-      document.getElementById("LeftTeam").value = TeamName +" | "+abb
-      document.getElementById("LeftTeamLogo").value = Logo
-      document.getElementById("dropdownMenuButton1").innerText = TeamName+" | "+abb;
-      document.getElementById("LeftID").value = id
-      document.getElementById('SetTeams').submit()
+    function ChangeTeam1{{Xid}}(Logo, TeamName, abb, id) {
+      document.getElementById("Img1{{Xid}}").src = "../static/logos/"+Logo;
+      document.getElementById("LeftTeam{{Xid}}").value = TeamName +" | "+abb
+      document.getElementById("LeftAbb{{Xid}}").value = abb
+      document.getElementById("LeftTeamLogo{{Xid}}").value = Logo
+      document.getElementById("dropdownMenuButton1{{Xid}}").innerText = abb;
+      document.getElementById("LeftID{{Xid}}").value = id
+      document.getElementById('SetTeams{{Xid}}').submit()
     }
-    function ChangeImage2(Logo, TeamName, abb, id) {
-      document.getElementById("Img2").src = "../static/logos/"+Logo;
-      document.getElementById("RightTeam").value = TeamName +" | "+abb
-      document.getElementById("RightTeamLogo").value = Logo
-      document.getElementById("RightID").value = id
-      document.getElementById("dropdownMenuButton2").innerText = TeamName+" | "+abb;
-      document.getElementById('SetTeams').submit()
+    function ChangeTeam2{{Xid}}(Logo, TeamName, abb, id) {
+      document.getElementById("Img2{{Xid}}").src = "../static/logos/"+Logo;
+      document.getElementById("RightTeam{{Xid}}").value = TeamName +" | "+abb
+      document.getElementById("RightAbb{{Xid}}").value = abb
+      document.getElementById("RightTeamLogo{{Xid}}").value = Logo
+      document.getElementById("RightID{{Xid}}").value = id
+      document.getElementById("dropdownMenuButton2{{Xid}}").innerText = abb;
+      document.getElementById('SetTeams{{Xid}}').submit()
     } 
+    $("#SetTeams{{Xid}}").submit(function(e) {
+      e.preventDefault();
+  });
   </script>

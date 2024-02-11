@@ -147,6 +147,7 @@ class Casters(db.Model):
 class Players(db.Model):
     __tablename__="Players"
     id = db.Column(db.Integer, primary_key=True)
+    puid = db.Column(db.String(64))
     name = db.Column(db.String(64))
     team = db.Column(db.String(64))
     killsavg = db.Column(db.String(64))

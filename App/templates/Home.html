@@ -8,13 +8,13 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"
     integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
     crossorigin="anonymous"></script>
-<div class="row justify-content-evenly">
+<div class="row justify-content-evenly accordion" id="accordion2" >
     <div class="col-4">
         <h1>A Stream</h1>
         <br>
         <br>
         <br>
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNA_Stream_Stats" data-bs-target="#A_Stream_Stats" aria-expanded="false" aria-controls="collapseExample">
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" onclick="savestate('A_Stream_Stats')" id="BTNA_Stream_Stats" data-parent="#accordion2" data-bs-target="#A_Stream_Stats" aria-expanded="false" aria-controls="collapseExample">
             Stream Stats
         </button>
         <div class="collapse" id="A_Stream_Stats">
@@ -26,7 +26,7 @@
         </div>
         <br>
         <br>
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNA_Casters" data-bs-target="#A_Casters" aria-expanded="false" aria-controls="collapseExample" >
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" onclick="savestate('A_Casters')" id="BTNA_Casters" data-parent="#accordion2" data-bs-target="#A_Casters" aria-expanded="false" aria-controls="collapseExample" >
           Casters
         </button>
           <div class="collapse" id="A_Casters">
@@ -39,16 +39,31 @@
           </div>
           <br>
           <br>
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNA_Player_Stats" data-bs-target="#A_Player_Stats" aria-expanded="false" aria-controls="collapseExample" >
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" onclick="savestate('A_Player_Stats')" id="BTNA_Player_Stats" data-parent="#accordion2" data-bs-target="#A_Player_Stats" aria-expanded="false" aria-controls="collapseExample" >
           Player Stats
         </button>
           <div class="collapse" id="A_Player_Stats">
             <div class="card card-body">
+              {% set player1name = AStream.Stats[0][0]%}
+              {% set player2name = AStream.Stats[1][0]%}
+              {% set player1id = AStream.Stats[0][2]%}
+              {% set player2id = AStream.Stats[1][2]%}
+              {% set player1team = AStream.Stats[0][1]%}
+              {% set player2team = AStream.Stats[1][1]%}
+              {% set LeftTeam = AStream.Team[0][2]%}
+              {% set RightTeam = AStream.Team[1][2]%}
+              {% set LeftTeamLogo = AStream.Team[0][1]%}
+              {% set RightTeamLogo = AStream.Team[1][1]%}
+              {% set LeftID = AStream.Team[0][0]%}
+              {% set RightID = AStream.Team[1][0]%}
+              {% set RightAbb = AStream.Team[1][3]%}
+              {% set LeftAbb = AStream.Team[0][3]%}
+              {% include "HomePageWidgets/PlayersStatsWidget.html" %}
             </div>
           </div>
           <br>
           <br>
-          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNA_Overlay" data-bs-target="#A_Overlay" aria-expanded="false" aria-controls="collapseExample" >
+          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" onclick="savestate('A_Overlay')" id="BTNA_Overlay" data-parent="#accordion2" data-bs-target="#A_Overlay" aria-expanded="false" aria-controls="collapseExample" >
             Overlay
           </button>
             <div class="collapse" id="A_Overlay">
@@ -58,7 +73,7 @@
             </div>
             <br>
             <br>
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNA_Schedule" data-bs-target="#A_Schedule" aria-expanded="false" aria-controls="collapseExample" >
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" onclick="savestate('A_Schedule')" id="BTNA_Schedule" data-parent="#accordion2" data-bs-target="#A_Schedule" aria-expanded="false" aria-controls="collapseExample" >
               Schedule
             </button>
               <div class="collapse" id="A_Schedule">
@@ -72,7 +87,7 @@
         <br>
         <br>
         
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNB_Stream_Stats" data-bs-target="#B_Stream_Stats" aria-expanded="false" aria-controls="collapseExample">
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" onclick="savestate('B_Stream_Stats')" id="BTNB_Stream_Stats" data-parent="#accordion2" data-bs-target="#B_Stream_Stats" aria-expanded="false" aria-controls="collapseExample">
           Stream Stats
         </button>
         <div class="collapse" id="B_Stream_Stats">
@@ -84,28 +99,42 @@
         </div>
         <br>
         <br>
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNB_Casters" data-bs-target="#B_Casters" aria-expanded="false" aria-controls="collapseExample">
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" onclick="savestate('B_Casters')" id="BTNB_Casters" data-parent="#accordion2" data-bs-target="#B_Casters" aria-expanded="false" aria-controls="collapseExample">
           Casters
         </button>
           <div class="collapse" id="B_Casters">
             <div class="card card-body">
               {% set Xid = "B"%}
+              {% set player1name = BStream.Stats[0][0]%}
+              {% set player2name = BStream.Stats[1][0]%}
+              {% set player1id = BStream.Stats[0][2]%}
+              {% set player2id = BStream.Stats[1][2]%}
+              {% set player1team = BStream.Stats[0][1]%}
+              {% set player2team = BStream.Stats[1][1]%}
+              {% set LeftTeam = BStream.Team[0][2]%}
+              {% set RightTeam = BStream.Team[1][2]%}
+              {% set LeftTeamLogo = BStream.Team[0][1]%}
+              {% set RightTeamLogo = BStream.Team[1][1]%}
+              {% set LeftID = BStream.Team[0][0]%}
+              {% set RightID = BStream.Team[1][0]%}
+              {% set RightAbb = BStream.Team[1][3]%}
+              {% set LeftAbb = BStream.Team[0][3]%}
               {% include "HomePageWidgets/CastersWidget.html" %}
             </div>
           </div>
           <br>
           <br>
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNB_Player_Stats" data-bs-target="#B_Player_Stats" aria-expanded="false" aria-controls="collapseExample" >
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" onclick="savestate('B_Player_Stats')" id="BTNB_Player_Stats" data-parent="#accordion2" data-bs-target="#B_Player_Stats" aria-expanded="false" aria-controls="collapseExample" >
           Player Stats
         </button>
           <div class="collapse" id="B_Player_Stats">
             <div class="card card-body">
-            
+              {% include "HomePageWidgets/PlayersStatsWidget.html" %}
             </div>
           </div>
           <br>
           <br>
-          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNB_Overlay" data-bs-target="#B_Overlay" aria-expanded="false" aria-controls="collapseExample" >
+          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" onclick="savestate('B_Overlay')" id="BTNB_Overlay" data-parent="#accordion2" data-bs-target="#B_Overlay" aria-expanded="false" aria-controls="collapseExample" >
             Overlay
           </button>
             <div class="collapse" id="B_Overlay">
@@ -115,7 +144,7 @@
             </div>
             <br>
             <br>
-            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" id="BTNB_Schedule" data-bs-target="#B_Schedule" aria-expanded="false" aria-controls="collapseExample" >
+            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" onclick="savestate('B_Schedule')" id="BTNB_Schedule" data-parent="#accordion2" data-bs-target="#B_Schedule" aria-expanded="false" aria-controls="collapseExample" >
               Schedule
             </button>
               <div class="collapse" id="B_Schedule">
@@ -124,4 +153,44 @@
               </div>
     </div>
 </div>
+<script>
+  var arry = ['A_Stream_Stats',
+  'A_Casters',
+  'A_Player_Stats',
+  'A_Overlay',
+  'A_Schedule',
+  'B_Stream_Stats',
+  'B_Casters',
+  'B_Player_Stats',
+  'B_Overlay',
+  'B_Schedule']
+loadstate(arry)
+  function loadstate(id)
+  {
+    console.log('loaded')
+    id.forEach((id)=>{
+      if (localStorage.getItem(id) == 'shown')
+    {
+        document.getElementById(id).classList.value = "collapse show"
+    }
+    else
+    {
+      document.getElementById(id).classList.value = "collapse"
+    } 
+    })
+  }
+  function savestate(id)
+  {
+    
+    if (localStorage.getItem(id) == 'shown')
+    {
+
+      localStorage.setItem(id, 'hidden')
+    }
+    else
+    {
+      localStorage.setItem(id, 'shown')
+    } 
+  } 
+</script>
 {% endblock %}

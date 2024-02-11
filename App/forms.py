@@ -42,7 +42,7 @@ class CasterRegister(FlaskForm):
     Submit = SubmitField('Submit', validators=[InputRequired()])
 
 class MatchRegister(FlaskForm):
-    Match_code = StringField("Match Code", validators=[Input])
+    Match_code = StringField("Match Code")
     Team1 = StringField("Team1", validators=[InputRequired('Please select a team')])
     Team2 = StringField("Team1", validators=[InputRequired('Please select a team')])
     Team1name = HiddenField()

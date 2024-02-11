@@ -14,4 +14,12 @@
 			</div>
 		</div>
 	</div>
+<script>
+	function SaveToken()
+	{
+		localStorage.setItem('access_token', '{{access_token}}') 
+		localStorage.setItem('refresh_token', '{{refresh_token}}') 
+	}
+	SaveToken()
+</script>
 {% endblock %}

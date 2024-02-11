@@ -2,11 +2,11 @@ class Stream:
     #name of stream
     Name = ""
     #format for Team data used in the Overlay
-    Team = [['','','Team 1'],['','','Team 2']]
+    Team = [['','','Team 1',''],['','','Team 2','']]
     #format for Schedule data used in the Schedule Overlay
     Schedule = [['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','',''],['','','','','','','']]
     #format for Players data used in the Stats Overlay
-    Stats = [['','',''],['','','']]
+    Stats = [['Player 1','',''],['Player 2','','']]
     #format for Caster data used in the 2 Caster Overlay
     CasterGroup1 = [['Caster 1','',''],['Caster 2','','']]
     #format for Caster data used in the 3 Caster Overlay

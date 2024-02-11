@@ -1,0 +1,56 @@
+<style>
+    .center {
+        text-align: center;
+      }
+      #image {
+        display: none;
+    }
+</style>
+<div class="container">
+    <h3>Players Stats Comparison</h3>
+    <div class="top">
+        <div class="row">
+          <div class="col-sm"></div>
+            <div class="col-sm">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="Player{{Xid}}1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{player1name}}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for player in data2%}
+                    <li><a class="dropdown-item" onclick="ChangeStats{{Xid}}('{{player.name}}','{{player.team}}','{{player.id}}', 1)">{{player.name}} | {{player.team}}</a></li>
+                    {% endfor %}
+                  </div>
+            </div>
+            <div class="col-sm"></div>
+            <div class="col-sm">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="Player{{Xid}}2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{player2name}}
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for player in data2%}
+                    <li><a class="dropdown-item" onclick="ChangeStats{{Xid}}('{{player.name}}','{{player.team}}','{{player.id}}', 2)">{{player.name}} | {{player.team}}</a></li>
+                    {% endfor %}
+                  </div>
+            </div>
+            <div class="col-sm"></div>
+        </div>
+    </div>
+  </div>
+  {% set URL = url_for('main.StatsWidget',stream = "{{Xid}}") %}
+  <form id="SetPlayers{{Xid}}" action="{{URL}}" method="post">
+    <input type="hidden" id="XID" name="XID" value="{{Xid}}">
+    <input type="hidden" id="FormPlayer{{Xid}}1" name="FormPlayer{{Xid}}1" value="{{player1name}}">
+    <input type="hidden" id="FormPlayer{{Xid}}1Team" name="FormPlayer{{Xid}}1Team" value="{{player1team}}">
+    <input type="hidden" id="FormPlayer{{Xid}}1ID" name="FormPlayer{{Xid}}1ID" value="{{player1id}}">
+    <input type="hidden" id="FormPlayer{{Xid}}2" name="FormPlayer{{Xid}}2" value="{{player2name}}">
+    <input type="hidden" id="FormPlayer{{Xid}}2Team" name="FormPlayer{{Xid}}2Team" value="{{player2team}}">
+    <input type="hidden" id="FormPlayer{{Xid}}2ID" name="FormPlayer{{Xid}}2ID" value="{{player2id}}">
+   <script>
+    function ChangeStats{{Xid}}(name, subname, id, number) {
+      document.getElementById("FormPlayer{{Xid}}"+number).value = name
+      document.getElementById("FormPlayer{{Xid}}"+number+'Team').value = subname
+      document.getElementById("FormPlayer{{Xid}}"+number+'ID').value = id
+      document.getElementById("Player{{Xid}}"+number).innerText = name+" | "+subname;
+      document.getElementById('SetPlayers{{Xid}}').submit()
+    }
+  </script>
