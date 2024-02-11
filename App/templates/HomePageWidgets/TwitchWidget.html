@@ -1,0 +1,12 @@
+<div><a>Twtich Authorized</a>
+<script>
+    function GetTwtichDetails(){
+        const xhr = new XMLHttpRequest();
+        var access_token = localStorage.getItem('access_token')
+        xhr.open('GET', 'https://api.twitch.tv/helix/user/?id=168881491');
+        xhr.send();
+        xhr.responseType = 'json';
+        setTimeout(GetTwtichDetails, 5000);
+    }
+    GetTwtichDetails();
+</script></div>

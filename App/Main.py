@@ -84,7 +84,7 @@ def twitchredirect():
     }
     text = requests.request('POST', 'https://id.twitch.tv/oauth2/token', headers=headers, data=data).json()
     
-    return render_template('RiotAPI/RiotAPI.html',access_token=text["access_token"],refresh_token=text["refresh_token"])
+    return render_template('TwtichAPI/TwtichAPI.html',access_token=text["access_token"],refresh_token=text["refresh_token"], CLIENT_ID = CLIENT_ID)
 
 @bp.route('/Oauth2/', methods = ["POST","GET"])
 def oauth2():
