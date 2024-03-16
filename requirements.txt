@@ -24,3 +24,5 @@ visitor
 Werkzeug
 WTForms
 waitress
+python-dotenv
+matplotlib

@@ -139,6 +139,10 @@ def CasterWidget():
                 ,[request.form['BFormCaster5'],request.form['BFormCaster5Sub'],request.form['BFormCaster5ID']]]
     
     return redirect("/")
+
+@bp.route('/riot.txt/',  methods = ["POST","GET"])
+def riot():
+    return render_template('riot.txt')
 #---------------------------------------------------------------------------------
 # All routes for Matches
 #---------------------------------------------------------------------------------

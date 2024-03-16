@@ -4,6 +4,6 @@ dev = False
 if __name__=='__main__':
     app=create_app()
     if dev == True:
-        app.run(debug=True)
+        app.run(debug=False)
     else:
-        serve(app, host='0.0.0.0', port=25565, threads = 7)
+        serve(app, host='0.0.0.0', port=80, threads = 7)
