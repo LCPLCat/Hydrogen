@@ -25,4 +25,4 @@ Werkzeug
 WTForms
 waitress
 dotenv-python
-matlibplot
+matplotlib
