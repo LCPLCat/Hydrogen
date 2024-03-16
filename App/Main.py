@@ -549,7 +549,9 @@ def statsAPI():
 def overlayAPI():
     response = make_response()
     if request.args.get('stream') == 'A':
-        response = make_response(render_template('XML/OverlayAPI.xml', Left = Teams.query.get(Astream.Team[0][0]), Right = Teams.query.get(Astream.Team[1][0])))
+        Left = Teams.query.get(Astream.Team[0][0])
+        Right = Teams.query.get(Astream.Team[1][0])
+        response = make_response(render_template('XML/OverlayAPI.xml', Left=Left , Right=Right))
     elif request.args.get('stream') == 'B':
         response = make_response(render_template('XML/OverlayAPI.xml', Left = Teams.query.get(Bstream.Team[0][0]), Right = Teams.query.get(Bstream.Team[1][0])))
     response.headers['Content-Type'] = 'application/xml'
@@ -573,11 +575,12 @@ def castersAPI():
 
 @bp.route('/Match/API.xml')
 def MatchAPI():
+    teams = Teams.query.all()
     response = make_response()
     if request.args.get('stream') == 'A':
-        response = make_response(render_template('XML/MatchAPI.xml', matches = Astream.Schedule))
+        response = make_response(render_template('XML/MatchAPI.xml', matches = Astream.Schedule, teams=teams))
     elif request.args.get('stream') == 'B':
-        response = make_response(render_template('XML/MatchAPI.xml', matches = Bstream.Schedule))
+        response = make_response(render_template('XML/MatchAPI.xml', matches = Bstream.Schedule, teams=teams))
     response.headers['Content-Type'] = 'application/xml'
     return response
 

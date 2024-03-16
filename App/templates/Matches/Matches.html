@@ -39,14 +39,14 @@ h4 {
                     <td>
                         {% for team in teams%}
                             {%if team.id == match.team1%}
-                            {{team.name}} | {{team.abbreviation}} 
+                            {{team.name}} | {{team.abbreviation}} | {{team.description}}
                             {%endif%}
                         {% endfor %} 
                     </td>
                     <td>
                         {% for team in teams%}
                             {%if team.id == match.team2%}
-                            {{team.name}} | {{team.abbreviation}}
+                            {{team.name}} | {{team.abbreviation}} | {{team.description}}
                             {%endif%}    
                         {% endfor %} 
                     </td>

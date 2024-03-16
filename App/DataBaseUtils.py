@@ -23,7 +23,7 @@ def add_to_database(form):
     db.session.commit()
 
 def add_team_to_database(form):
-    item1=Teams(name = form.Name.data, abbreviation = form.Abbreviation.data, logoTXT = form.LogoTXT.data.filename, logoBL = form.LogoBL.data.filename, logoBR = form.LogoBR.data.filename, logoTOP = form.LogoTOP.data.filename, wins =0, losses = 0)
+    item1=Teams(name = form.Name.data, abbreviation = form.Abbreviation.data, logoBlue = form.LogoBlue.data.filename, logoRed = form.LogoRed.data.filename,  description = form.Description.data, colour = form.Colour.data, wins =0, losses = 0 )
     db.session.add(item1)
     db.session.commit()
 
@@ -36,7 +36,7 @@ def add_casters_to_database(form):
     db.session.commit()
 
 def add_players_to_database(form):
-    r = requests.get('https://oc1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{}?api_key={}'.format(form.Name.data, RIOT_KEY)).json()
-    db.session.add(Players(name = form.Name.data, team = form.Team.data, puid = r['puuid']))
+    #r = requests.get('https://oc1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{}?api_key={}'.format(form.Name.data, RIOT_KEY)).json()
+    db.session.add(Players(name = form.Name.data, team = form.Team.data, puid = 'null'))
     db.session.commit()
 

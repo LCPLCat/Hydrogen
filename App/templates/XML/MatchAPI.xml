@@ -2,8 +2,18 @@
 <AllMatches>
     {% for match in matches%}
     <Match>
-    <Team1>{{match[5]}}</Team1>
-    <Team2>{{match[6]}}</Team2>
+    <Team1>{{match[5]}} VS {{match[6]}}</Team1>
+    {% for Team in teams %}
+        {% if Team.id|int() == match[1]|int() %}
+            <Team1Logo>{{Team.logoBlue}}</Team1Logo>
+        {% endif %}
+    {% endfor %}
+     {% for Team in teams %}
+        {% if Team.id|int() == match[2]|int() %}
+            <Team2Logo>{{Team.logoBlue}}</Team2Logo>
+        {% endif %}
+    {% endfor %}
+    <Team2></Team2>
     <Time>{{match[3]}}</Time>
     <Format>{{match[4]}}</Format>
     </Match>

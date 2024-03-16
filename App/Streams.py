@@ -34,7 +34,7 @@ class Headings:
     MusicHeadings = ("#", "Title", "Author","Music", "Actions")
 
     #headings used for the Team page
-    TeamHeadings = ("#", "Name", "Abbreviation","Logo TXT","Logo BL","Logo BR","Logo TOP", "Actions")
+    TeamHeadings = ("#", "Name", "Abbreviation","Description","Logo Blue","Logo Red", "Colour", "Actions")
 
     #headings used for the Players page
     PlayerHeadings = ("Name", "Team", "Actions")

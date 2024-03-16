@@ -19,7 +19,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   {% for team in data%}
-                  <li><a class="dropdown-item" onclick="ChangeImage1('{{team.logoBL}}','{{team.name}}','{{team.abbreviation}}','{{team.id}}') ">{{team.name}} | {{team.abbreviation}}</a></li>
+                  <li><a class="dropdown-item" onclick="ChangeImage1('{{team.logoBlue}}','{{team.name}}','{{team.abbreviation}}','{{team.id}}') ">{{team.abbreviation}} | {{team.description}}</a></li>
                   {% endfor %}
                 </div>
               </div>
@@ -43,7 +43,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   {% for team in data%}
-                <li><a class="dropdown-item" onclick="ChangeImage2('{{team.logoBL}}','{{team.name}}','{{team.abbreviation}}','{{team.id}}')">{{team.name}} | {{team.abbreviation}}</a></li>
+                <li><a class="dropdown-item" onclick="ChangeImage2('{{team.logoBlue}}','{{team.name}}','{{team.abbreviation}}','{{team.id}}')">{{team.abbreviation}} | {{team.description}}</a></li>
                   {% endfor %}
                 </div>
               </div>
@@ -53,11 +53,11 @@
         <div class="row">
           <div class="col-sm"></div>
             <div class="col-sm">
-              <img id="Img1" src=../static/logos/{{LeftTeamLogo}}>
+              <img id="Img1" style="width:192px;" src=../static/logos/{{LeftTeamLogo}}>
             </div>
             <div class="col-sm"></div>
             <div class="col-sm">
-              <img id="Img2" src=../static/logos/{{RightTeamLogo}}>
+              <img id="Img2" style="width:192px;" src=../static/logos/{{RightTeamLogo}}>
             </div>
             <div class="col-sm"></div>
         </div>

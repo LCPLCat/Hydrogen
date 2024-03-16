@@ -15,13 +15,13 @@
 								<button class="btn btn-secondary dropdown-toggle" type="button" id="TeamButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									{% for team in teams%}
                                     {%if team.id == matches.team1%}
-                                    {{team.name}} | {{team.abbreviation}} 
+                                    {{team.name}} | {{team.abbreviation}} | {{team.description}} 
                                     {%endif%}
                                     {% endfor%}
 								</a>
 								<ul class="dropdown-menu" id="Team1Dropdown" aria-labelledby="dropdownMenuButton">
 									{% for team in teams%}
-									<li><a class="dropdown-item" onclick="SetTeam1('{{team.id}}','{{team.name}}','{{team.abbreviation}}')">{{team.name}} | {{team.abbreviation}}</a></li>
+									<li><a class="dropdown-item" onclick="SetTeam1('{{team.id}}','{{team.name}}','{{team.abbreviation}}')">{{team.name}} | {{team.description}}</a></li>
 									{% endfor %}
 								</ul>
 								
@@ -33,13 +33,13 @@
 								<button class="btn btn-secondary dropdown-toggle" type="button" id="TeamButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									{% for team in teams%}
                                     {%if team.id == matches.team2%}
-                                    {{team.name}} | {{team.abbreviation}} 
+                                    {{team.name}} | {{team.abbreviation}} | {{team.description}} 
                                     {%endif%}
                                     {% endfor%}
 								</a>
 								<ul class="dropdown-menu" id="Team2Dropdown" aria-labelledby="dropdownMenuButton">
 									{% for team in teams%}
-									<li><a class="dropdown-item" onclick="SetTeam2('{{team.id}}','{{team.name}}','{{team.abbreviation}}')">{{team.name}} | {{team.abbreviation}}</a></li>
+									<li><a class="dropdown-item" onclick="SetTeam2('{{team.id}}','{{team.name}}','{{team.abbreviation}}')">{{team.name}} | {{team.description}}</a></li>
 									{% endfor %}
 								</ul>
 								

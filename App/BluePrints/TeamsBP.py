@@ -46,22 +46,15 @@ def teamchanged():
     BASE_PATH = os.path.dirname(__file__)
     temp.name = request.form['Name']
     temp.abbreviation = request.form['Abbreviation']
-    if request.files['LogoTXT'].filename != "":
-        LogoTXT = request.files['LogoTXT']
-        print(LogoTXT.filename)
-        LogoTXT.save(os.path.join(BASE_PATH, 'static/logos', secure_filename(LogoTXT.filename)))
-        temp.logoTXT = request.files['LogoTXT'].filename
-    if request.files['LogoTOP'].filename != "":
-        LogoTOP = request.files['LogoTOP']
-        LogoTOP.save(os.path.join(BASE_PATH, 'static\logos', secure_filename(LogoTOP.filename)))
-        temp.logoTOP = request.files['LogoTOP'].filename
-    if request.files['LogoBR'].filename != "":
-        LogoBR = request.files['LogoBR']
-        LogoBR.save(os.path.join(BASE_PATH, 'static\logos', secure_filename(LogoBR.filename)))
-        temp.logoBR = request.files['LogoBR'].filename
-    if request.files['LogoBL'].filename != "":
-        LogoBL = request.files['LogoBL']
-        LogoBL.save(os.path.join(BASE_PATH, 'static\logos', secure_filename(LogoBL.filename)))
-        temp.logoBL = request.files['LogoBL'].filename
+    temp.description = request.form['Description']
+    temp.colour = request.form['Colour']
+    temp.logoBlue = request.files['LogoBlue'].filename
+    temp.logoRed = request.files['LogoRed'].filename
+    if request.files['LogoBlue'].filename != "":
+        LogoBlue = request.files['LogoBlue']
+        LogoBlue.save(os.path.join(BASE_PATH, '..\static\logos', secure_filename(LogoBlue.filename)))
+    if request.files['LogoRed'].filename != "":
+        LogoRed = request.files['LogoRed']
+        LogoRed.save(os.path.join(BASE_PATH, '..\static\logos', secure_filename(LogoRed.filename)))
     db.session.commit()
     return teams()

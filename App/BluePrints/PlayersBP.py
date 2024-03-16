@@ -14,12 +14,14 @@ bp = Blueprint('PlayersBP', __name__)
 @bp.route('/Players/')
 def players():
     data = Players.query.all()
-    return render_template('Players/Players.html', headings = headings.PlayerHeadings, data = data)
+    teams = Teams.query.all()
+    return render_template('Players/Players.html', headings = headings.PlayerHeadings, data = data, teams=teams)
 
 @bp.route('/PlayersAdd/')
 def playeradd():
     Form = PlayerRegister()
     data = Players.query.all()
+    Form.Team.choices = [(T.id, T.name+' | '+T.description) for T in Teams.query.order_by('id')]
     return render_template('Players/PlayersAdd.html', form = Form, data =data )
 
 @bp.route('/PlayersEdit/', methods=['POST'])
@@ -41,4 +43,4 @@ def playerdel():
     db.session.delete(Players.query.get(request.form['id']))
     db.session.commit()
     data = Players.query.all()
-    return render_template('Players/Players.html', headings = headings.PlayerHeadings, data = data)
+    return players()

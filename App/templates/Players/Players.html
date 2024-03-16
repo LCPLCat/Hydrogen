@@ -22,23 +22,29 @@
     <div style="height: 20px;"> </div>
   <div class="row">
     <div class="col-12">
+      {% for Team in teams%}
       <table class="table table-bordered">
         <thead>
           <tr>
-            {% for header in headings%}
-            <th scope="col">{{ header }}</th>
-            {% endfor %}
+            <th scope="col">Name</th>
+            <th scope="col">Team</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
           {% for player in data%}
+          {% if Team.id|int() == player.team|int() %}
           <tr>
-              <td>
+            
+              <th scope="row">
                   {{player.name}}
-              </td>
+              </th>
               <td>
-                  {{player.team}}
+                    
+                      {{Team.name}} | {{Team.description}}
+                    
               </td>
+            
               <td>
                 <button type="button" class="btn btn-success" onclick="Edit('{{player.id}}')">Edit<i class="fas fa-edit"></i></button>
                 <form id="Edit{{player.id}}" action="{{ url_for('PlayersBP.playeredit') }}" method="post">
@@ -50,9 +56,11 @@
                 </form>
               </td>
           </tr>    
+          {% endif %}
       {% endfor %}
         </tbody>
       </table>
+      {% endfor %}
     </div>
   </div>
 </div>

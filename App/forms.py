@@ -26,10 +26,10 @@ class MusicUpload(FlaskForm):
 class TeamRegister(FlaskForm):
     Name=StringField("Team Name", validators=[InputRequired('Enter Team Name')])
     Abbreviation=StringField("Team Abbreviation", validators=[InputRequired('Enter Team Abbreviation')])
-    LogoTXT = FileField('LogoTXT', validators=[FileRequired('A Logo TXT is required!')])
-    LogoBL = FileField('LogoBL', validators=[FileRequired('A Logo BL is required!')])
-    LogoBR = FileField('LogoBR', validators=[FileRequired('A Logo BR is required!')])
-    LogoTOP = FileField('LogoTOP', validators=[FileRequired('A Logo TOP is required!')])
+    Description=StringField("Team Description", validators=[InputRequired('Enter Team Description')])
+    Colour = StringField('Colour', validators=[FileRequired('A Colour is required!')])
+    LogoBlue = FileField('LogoBlue', validators=[FileRequired('A Logo Blue is required!')])
+    LogoRed = FileField('LogoRed', validators=[FileRequired('A Logo Red is required!')])
     Submit = SubmitField('Submit', validators=[InputRequired()])
 
 class ROLF(FlaskForm):
@@ -52,7 +52,7 @@ class MatchRegister(FlaskForm):
 
 class PlayerRegister(FlaskForm):
     Name=StringField("Player Name", validators=[InputRequired('Enter Player Name')])
-    Team = StringField("Team Abbreviated", validators=[InputRequired('Team Abbreviated Name')])
+    Team = SelectField(u'Team', coerce=str)
     Submit = SubmitField('Submit', validators=[InputRequired()])
 
 ALLOWED_FILE = {'png', 'jpg', 'JPG', 'PNG', 'BMP'}

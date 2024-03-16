@@ -19,7 +19,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   {% for team in data1%}
-                  <li><a class="dropdown-item" onclick="ChangeTeam1{{Xid}}('{{team.logoTOP}}','{{team.name}}','{{team.abbreviation}}','{{team.id}}') ">{{team.name}} | {{team.abbreviation}}</a></li>
+                  <li><a class="dropdown-item" onclick="ChangeTeam1{{Xid}}('{{team.logoBlue}}','{{team.name}}','{{team.abbreviation}} | '+'{{team.description}}','{{team.id}}') ">{{team.abbreviation}} | {{team.description}}</a></li>
                   {% endfor %}
                 </div>
               </div>
@@ -46,7 +46,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   {% for team in data1%}
-                <li><a class="dropdown-item" onclick="ChangeTeam2{{Xid}}('{{team.logoTOP}}','{{team.name}}','{{team.abbreviation}}','{{team.id}}')">{{team.name}} | {{team.abbreviation}}</a></li>
+                <li><a class="dropdown-item" onclick="ChangeTeam2{{Xid}}('{{team.logoBlue}}','{{team.name}}','{{team.abbreviation}} | '+'{{team.description}}','{{team.id}}')">{{team.abbreviation}} | {{team.description}}</a></li>
                   {% endfor %}
                 </div>
               </div>
@@ -58,14 +58,14 @@
             <div class="col-sm">
               {% if LeftTeamLogo == None %}
               {% else %}
-              <img id="Img1{{Xid}}" src=../static/logos/{{LeftTeamLogo}} alt="">
+              <img id="Img1{{Xid}}" style="width:192px;" src=../static/logos/{{LeftTeamLogo}} alt="">
               {% endif %}
             </div>
             <div class="col-sm"></div>
             <div class="col-sm">
               {% if RightTeamLogo == None %}
               {% else %}
-              <img id="Img2{{Xid}}" src=../static/logos/{{RightTeamLogo}} alt="">
+              <img id="Img2{{Xid}}" style="width:192px;" src=../static/logos/{{RightTeamLogo}} alt="">
               {% endif %}
             </div>
             <div class="col-sm"></div>

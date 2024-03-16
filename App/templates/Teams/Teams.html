@@ -43,16 +43,16 @@
                         {{team.abbreviation}}
                     </td>
                     <td>
-                        <img src="../static/logos/{{team.logoTXT}}">
+                        {{team.description}}
                     </td>
                     <td>
-                        <img src="../static/logos/{{team.logoBL}}">
+                        <img style="width:192px;" src="../static/logos/{{team.logoBlue}}">
                     </td>
                     <td>
-                        <img src="../static/logos/{{team.logoBR}}">
+                        <img style="width:192px;" src="../static/logos/{{team.logoRed}}">
                     </td>
                     <td>
-                        <img src="../static/logos/{{team.logoTOP}}">
+                        {{team.colour}}
                     </td>
                     <td>
                         <button type="button" class="btn btn-success" onclick="Edit('{{team.id}}')">Edit<i class="fas fa-edit"></i></button>

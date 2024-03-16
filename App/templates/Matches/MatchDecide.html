@@ -10,12 +10,12 @@
                 {%else%}
                 {% for team in teams%}
                     {%if team.id == match.team1%}
-                        <button type="button" class="btn btn-success" onclick="Submit('{{team.id}}','{{match.team2}}')">{{team.name}} | {{team.abbreviation}} </button>
+                        <button type="button" class="btn btn-success" onclick="Submit('{{team.id}}','{{match.team2}}')">{{team.name}} | {{team.abbreviation}} | {{team.description}} </button>
                     {%endif%}
                 {% endfor %} 
                 {% for team in teams%}
                     {%if team.id == match.team2%}
-                        <button type="button" class="btn btn-success" onclick="Submit('{{team.id}}','{{match.team1}}')">{{team.name}} | {{team.abbreviation}} </button>
+                        <button type="button" class="btn btn-success" onclick="Submit('{{team.id}}','{{match.team1}}')">{{team.name}} | {{team.abbreviation}} | {{team.description}} </button>
                     {%endif%}    
                 {% endfor %} 
                 {%endif%}

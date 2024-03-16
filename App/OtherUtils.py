@@ -77,8 +77,6 @@ def upload_rofl(form):
 
 def check_logo_upload(form):
     BASE_PATH = os.path.dirname(__file__)
-    form.LogoTXT.data.save(os.path.join(BASE_PATH, 'static/logos', secure_filename(form.LogoTXT.data.filename)))
-    form.LogoBL.data.save(os.path.join(BASE_PATH, 'static/logos', secure_filename(form.LogoBL.data.filename)))
-    form.LogoBR.data.save(os.path.join(BASE_PATH, 'static/logos', secure_filename(form.LogoBR.data.filename)))
-    form.LogoTOP.data.save(os.path.join(BASE_PATH, 'static/logos', secure_filename(form.LogoTOP.data.filename)))
+    form.LogoBlue.data.save(os.path.join(BASE_PATH, 'static/logos', secure_filename(form.LogoBlue.data.filename)))
+    form.LogoRed.data.save(os.path.join(BASE_PATH, 'static/logos', secure_filename(form.LogoRed.data.filename)))
 

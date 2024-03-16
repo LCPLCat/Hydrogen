@@ -2,16 +2,16 @@
 <AllTeams>
     <Team>
         <Name>{{Left.name}}</Name>
-        <LogoBR>{{Left.logoBR}}</LogoBR>
-        <LogoBL>{{Left.logoBL}}</LogoBL>
-        <LogoTOP>{{Left.logoTOP}}</LogoTOP>
-        <LogoTXT>{{Left.logoTXT}}</LogoTXT>
+        <logoBlue>{{Left.logoBlue}}</logoBlue>
+        <logoRed>{{Left.logoRed}}</logoRed>
+        <colour>{{Left.colour}}</colour>
+        <abbreviation>{{Left.abbreviation}}</abbreviation>
     </Team>
     <Team>
         <Name>{{Right.name}}</Name>
-        <LogoBR>{{Right.logoBR}}</LogoBR>
-        <LogoBL>{{Right.logoBL}}</LogoBL>
-        <LogoTOP>{{Right.logoTOP}}</LogoTOP>
-        <LogoTXT>{{Right.logoTXT}}</LogoTXT>
+        <logoBlue>{{Right.logoBlue}}</logoBlue>
+        <logoRed>{{Right.logoRed}}</logoRed>
+        <colour>{{Right.colour}}</colour>
+        <abbreviation>{{Right.abbreviation}}</abbreviation>
     </Team>
 </AllTeams>
