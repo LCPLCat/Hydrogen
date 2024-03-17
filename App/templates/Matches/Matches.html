@@ -75,6 +75,10 @@ h4 {
                       <form id="Decide{{match.id}}" action="{{ url_for('MatchesBP.matchdecide') }}" method="post">
                         <input type="hidden" id="id" name="id" value="{{match.id}}">
                       </form>
+                      <button type="button" class="btn btn-success" onclick="Stats('{{match.id}}')">Get Stats<i class="fas fa-edit"></i></button>
+                      <form id="Stats{{match.id}}" action="{{ url_for('MatchesBP.matchgetstats') }}" method="post">
+                          <input type="hidden" id="id" name="id" value="{{match.id}}">
+                      </form>
                       <button type="button" class="btn btn-success" onclick="Edit('{{match.id}}')">Edit<i class="fas fa-edit"></i></button>
                       <form id="Edit{{match.id}}" action="{{ url_for('MatchesBP.matchsave') }}" method="post">
                           <input type="hidden" id="id" name="id" value="{{match.id}}">
@@ -102,6 +106,9 @@ h4 {
     }
     function Decide(id){
       document.getElementById('Decide'+id).submit() 
-  }
+    }
+    function Stats(id){
+      document.getElementById('Stats'+id).submit() 
+    }
   </script>
 {% endblock %}

@@ -27,7 +27,8 @@ def playeradd():
 @bp.route('/PlayersEdit/', methods=['POST'])
 def playeredit():
     temp = Players.query.get(request.form['id'])
-    return render_template('Players/PlayersEdit.html', data = temp)
+    teamname = Teams.query.get(request.form['id'])
+    return render_template('Players/PlayersEdit.html', data = temp, teamname=teamname)
 
 @bp.route('/PlayersChanged/', methods=['POST'])
 def playerchanged():

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, make_response
-from ..forms import MusicUpload, Bid, TeamRegister, CasterRegister, PlayerRegister, MatchRegister, ROLF, APIKey
-from ..models import Item, Music, Teams, Casters, Players, Match, ROLFFile
+from ..forms import MusicUpload, Bid, TeamRegister, CasterRegister, PlayerRegister, MatchRegister, ROLF, APIKey, MatchID
+from ..models import Item, Music, Teams, Casters, Players, Match, ROLFFile, MatchStas
 from .. import db
 from ..Streams import Stream, Headings
 from ..replay_metadata import *
@@ -8,6 +8,7 @@ from sqlalchemy import *
 from werkzeug.utils import secure_filename
 from ..Streams import Stream, Headings
 import os
+from . import RiotAPIBP
 headings = Headings
 bp = Blueprint('MatchesBP', __name__)
 
@@ -80,4 +81,18 @@ def matchchanged():
     temp.time = request.form['Time']
     temp.format = request.form['Format']
     db.session.commit()
+    return match()
+
+@bp.route('/MatchGetStats/', methods=['POST'])
+def matchgetstats():
+    Form = MatchID()
+    temp = Match.query.filter_by(id=request.form['id']).first()
+    Form.Players.choices = [(T.id, T.name) for T in Players.query.filter_by(team=temp.team1)]
+    #print(Form.Players.choices)
+    return render_template('Matches/MatchGetStats.html', form=Form)
+
+
+@bp.route('/StatsSubmit/', methods=['POST'])
+def StatsSubmit():
+    RiotAPIBP.GetMatchIDFromPlayer(Players.query.filter_by(id=request.form['Players']).first().name)
     return match()

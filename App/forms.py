@@ -18,7 +18,7 @@ class APIKey(FlaskForm):
     sumbit = SubmitField('submit')
 
 class MatchID(FlaskForm):
-    ID = StringField('Match ID', validators=[InputRequired('A Match ID is required!')])
+    Players = SelectField(u'Players', coerce=str, validators=[InputRequired('Please select a player')])
     Submit = SubmitField('Submit', validators=[InputRequired()])
 
 class MusicUpload(FlaskForm):
