@@ -1,0 +1,25 @@
+{% extends "Base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<style>
+    .center {
+        text-align: center;
+      }
+      #image {
+        display: none;
+    }
+</style>
+
+<div class="container center">
+    <h1 class="center">RIOT API stat ingest</h1>
+    <form id="MatchCreation" action="{{ url_for('RiotAPIBP.MatchSubmitStats') }}" method="post">
+        <div class="form-group  required"><label class="control-label" for="Match ID">Match ID</label>
+            <input class="form-control" id="Match ID" name="Match ID" required type="text" value="">
+        </div>
+        <input class="btn btn-default" id="Submit" name="Submit" required type="submit" value="Submit">
+    </form>
+    
+</div>
+
+
+{% endblock %}

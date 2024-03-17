@@ -17,6 +17,10 @@ class Testform(FlaskForm):
 class APIKey(FlaskForm):
     sumbit = SubmitField('submit')
 
+class MatchID(FlaskForm):
+    ID = StringField('Match ID', validators=[InputRequired('A Match ID is required!')])
+    Submit = SubmitField('Submit', validators=[InputRequired()])
+
 class MusicUpload(FlaskForm):
     Title = StringField('Title', validators=[InputRequired('A Title is required!')])
     Audio = FileField('Audio', validators=[FileRequired('Audio is required!')])
