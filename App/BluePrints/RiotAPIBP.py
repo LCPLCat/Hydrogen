@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, make_response
 from ..forms import MusicUpload, Bid, TeamRegister, CasterRegister, PlayerRegister, MatchRegister, ROLF, APIKey, MatchID
 from ..models import Item, Music, Teams, Casters, Players, Match, ROLFFile, MatchStas
+from ..OtherUtils import * 
 from .. import db
 from ..Streams import Stream, Headings
 from ..replay_metadata import *
@@ -36,10 +37,13 @@ def GetMatchIDFromPlayer(name):
     json = requests.get('https://sea.api.riotgames.com/lol/match/v5/matches/by-puuid/'+puuid+'/ids?type=tourney&start=0&count=1&api_key='+RIOT_KEY).json()
     GetStatsRIOTAPI(json[0])
     link_player_PUUID()
+    #player_stats_average()
 
 
 def GetStatsRIOTAPI(Match_id):
     global RIOT_KEY
+    #TimeLine = requests.get('https://sea.api.riotgames.com/lol/match/v5/matches/'+Match_id+"/timeline?api_key="+RIOT_KEY).json()
+    #print(TimeLine['metadata']['participants'])
     json = requests.get('https://sea.api.riotgames.com/lol/match/v5/matches/'+Match_id+"?api_key="+RIOT_KEY).json()
     JsonExtract(json['info'], json['metadata'])
 
