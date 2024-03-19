@@ -339,6 +339,15 @@ def MatchAPI():
     response.headers['Content-Type'] = 'application/xml'
     return response
 
+@bp.route('/Standings/API.xml')
+def StandingsAPI():
+    teams = Teams.query.filter_by(description='Div 1').order_by(Teams.wins.desc(),Teams.losses.asc())
+    response = make_response()
+    response = make_response(render_template('XML/StandingsAPI.xml', teams=teams))
+    response.headers['Content-Type'] = 'application/xml'
+    return response
+        
+
 #---------------------------------------------------------------------------------
 # All routes for Riot API
 #---------------------------------------------------------------------------------

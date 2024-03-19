@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AllStandings>
+    {% for team in teams%}
+    <Team>
+        <TeamName>{{team.name}}</TeamName>
+        <Wins>{{team.wins}}</Wins>
+        <Losses>{{team.losses}}</Losses>
+    </Team>
+    {% endfor %}
+</AllStandings>
