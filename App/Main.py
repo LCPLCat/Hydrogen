@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, make_response, Response
 from .forms import MusicUpload, Bid, TeamRegister, CasterRegister, PlayerRegister, MatchRegister, ROLF, APIKey
-from .models import Item, Music, Teams, Casters, Players, Match, ROLFFile
+from .models import Item, Music, Teams, Casters, Players, Match, ROLFFile, MatchStas
 from . import db
 from .Streams import Stream, Headings
 from .replay_metadata import *
@@ -10,6 +10,7 @@ from .BluePrints import MatchesBP, PlayersBP, TeamsBP, CastersBP, PlayersBP, Mus
 from . import OtherUtils, DataBaseUtils
 import os
 import time
+from datetime import datetime
 from dotenv import load_dotenv
 load_dotenv()
 import requests
@@ -341,13 +342,40 @@ def MatchAPI():
 
 @bp.route('/Standings/API.xml')
 def StandingsAPI():
-    teams = Teams.query.filter_by(description='Div 1').order_by(Teams.wins.desc(),Teams.losses.asc())
+    Ateams = Teams.query.filter_by(description='Div 1A').order_by(Teams.wins.desc(),Teams.losses.asc())
+    Bteams = Teams.query.filter_by(description='Div 1B').order_by(Teams.wins.desc(),Teams.losses.asc())
     response = make_response()
-    response = make_response(render_template('XML/StandingsAPI.xml', teams=teams))
+    response = make_response(render_template('XML/StandingsAPI.xml', Ateams=Ateams, Bteams=Bteams ))
     response.headers['Content-Type'] = 'application/xml'
     return response
         
-
+@bp.route('/SuperTeams')
+def SuperTeams():
+    Scores = []
+    players = Players.query.all()
+    for i, player in enumerate(players):
+        temp2 = []
+        stats = MatchStas.query.filter_by(puuid=player.puid)
+        temp2.append(player.puid)
+        temp2.append(player.name)
+        for i, stat in enumerate(stats):
+            temp = 0
+            temp += int(stat.assists)
+            temp += (int(stat.kills)*2)
+            temp += (int(stat.quadraKills)*5)
+            temp += (round(int(stat.visionScore)/100)*5)
+            temp += (int(stat.pentaKills)*10)
+            if (stat.visionScore != 0):
+                temp -= (round(int(stat.visionScore)/100)*5)
+            temp += (int(stat.baronKills)*3)
+            temp += int(stat.dragonKills)
+            temp += (round(int(stat.totalMinionsKilled)/300)*3)
+            temp2.append(temp)
+        Scores.append(temp2) 
+    response = make_response()
+    response = make_response(render_template('XML/SuperTeamsAPI.xml', scores=Scores))
+    response.headers['Content-Type'] = 'application/xml'
+    return response
 #---------------------------------------------------------------------------------
 # All routes for Riot API
 #---------------------------------------------------------------------------------

@@ -171,6 +171,7 @@ class Match(db.Model):
     winner = db.Column(db.String(64))
     loser = db.Column(db.String(64))
     decided = db.Column(db.String(64))
+    recorddate = db.Column(db.String(64))
 
 class Bid(db.Model):
     __tablename__='bids'

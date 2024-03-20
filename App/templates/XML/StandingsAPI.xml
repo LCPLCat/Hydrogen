@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AllStandings>
-    {% for team in teams%}
+    {% for team in Ateams%}
+    <Team>
+        <TeamName>{{team.name}}</TeamName>
+        <Wins>{{team.wins}}</Wins>
+        <Losses>{{team.losses}}</Losses>
+    </Team>
+    {% endfor %}
+    {% for team in Bteams%}
     <Team>
         <TeamName>{{team.name}}</TeamName>
         <Wins>{{team.wins}}</Wins>

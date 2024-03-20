@@ -16,7 +16,16 @@ h4 {
 }</style>
 <div class="container">
   <div>
-    <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('MatchesBP.matchadd')}}><img src="../static/img/plus.svg"></a> 
+    <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('MatchesBP.matchadd')}}><img src="../static/img/plus.svg"></a>
+    <div class="dropdown">
+      <a type="button" class="btn btn-secondary btn-lg btn-block dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img src="../static/img/sort.svg"></a>
+      <ul class="dropdown-menu" >
+        <li><a class="dropdown-item" href={{url_for('MatchesBP.match')}}?time=hour>Last 10 hours</a></li>
+        <li><a class="dropdown-item" href={{url_for('MatchesBP.match')}}?time=week>Last week</a></li>
+        <li><a class="dropdown-item" href={{url_for('MatchesBP.match')}}?time=month>last month</a></li>
+        <li><a class="dropdown-item" href={{url_for('MatchesBP.match')}}?time=all>All</a></li>
+      </ul> 
+    </div>
   </div>
     <div class="row">
             <div class="d-grid gap-2">
