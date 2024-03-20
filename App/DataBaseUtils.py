@@ -8,6 +8,7 @@ from sqlalchemy import *
 from werkzeug.utils import secure_filename
 from .BluePrints import MatchesBP, PlayersBP, TeamsBP, CastersBP, PlayersBP, MusicBP
 import os
+from datetime import *
 import requests
 from dotenv import load_dotenv
 load_dotenv()
@@ -28,7 +29,7 @@ def add_team_to_database(form):
     db.session.commit()
 
 def add_match_to_database(form):
-    db.session.add(Match(team1 = form.Team1.data, team2 = form.Team2.data, time = form.Time.data, format = form.Format.data, team1name = form.Team1name.data, team2name = form.Team2name.data))
+    db.session.add(Match(team1 = form.Team1.data, team2 = form.Team2.data, time = form.Time.data, format = form.Format.data, team1name = form.Team1name.data, team2name = form.Team2name.data, recorddate=datetime.now()))
     db.session.commit()
 
 def add_casters_to_database(form):

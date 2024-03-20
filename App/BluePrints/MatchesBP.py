@@ -8,15 +8,36 @@ from sqlalchemy import *
 from werkzeug.utils import secure_filename
 from ..Streams import Stream, Headings
 import os
+from datetime import *
 from . import RiotAPIBP
 headings = Headings
 bp = Blueprint('MatchesBP', __name__)
 
 @bp.route('/Matches/')
 def match():
-    data = Match.query.all()
+    time = datetime.now()
+    if request.args.get('time') == 'hour':
+        time = time - timedelta(hours=10)
+        data = Match.query.filter(Match.recorddate >= time)
+    elif request.args.get('time') == 'week':
+        time = time - timedelta(weeks=1)
+        data = Match.query.filter(Match.recorddate >= time)
+    elif request.args.get('time') == 'month':
+        time = time - timedelta(weeks=4)
+        data = Match.query.filter(Match.recorddate >= time)
+    elif request.args.get('time') == 'all':
+        data = Match.query.all()
+    else:
+        data = Match.query.all()
+    
     teams = Teams.query.all()
     return render_template('Matches/Matches.html', headings = headings.MatchHeadings, data = data,teams=teams)
+
+# @bp.route('/Matches/')
+# def SortMatches():
+#     data = Match.query.all()
+#     teams = Teams.query.all()
+#     return render_template('Matches/Matches.html', headings = headings.MatchHeadings, data = data,teams=teams)
 
 @bp.route('/Matches/Add')
 def matchadd():
