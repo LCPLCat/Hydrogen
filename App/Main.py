@@ -344,8 +344,10 @@ def MatchAPI():
 def StandingsAPI():
     Ateams = Teams.query.filter_by(description='Div 1A').order_by(Teams.wins.desc(),Teams.losses.asc())
     Bteams = Teams.query.filter_by(description='Div 1B').order_by(Teams.wins.desc(),Teams.losses.asc())
+    Womens = Teams.query.filter_by(description='Womens').order_by(Teams.wins.desc(),Teams.losses.asc())
+    odt = Teams.query.filter_by(description='ODT').order_by(Teams.wins.desc(),Teams.losses.asc())
     response = make_response()
-    response = make_response(render_template('XML/StandingsAPI.xml', Ateams=Ateams, Bteams=Bteams ))
+    response = make_response(render_template('XML/StandingsAPI.xml', Ateams=Ateams, Bteams=Bteams, Womens=Womens, ODT=odt ))
     response.headers['Content-Type'] = 'application/xml'
     return response
         
