@@ -3,29 +3,25 @@
     {% for team in Ateams%}
     <ATeam>
         <TeamName>{{team.name}}</TeamName>
-        <Wins>{{team.wins}}</Wins>
-        <Losses>{{team.losses}}</Losses>
+        <Score>{{team.wins}} - {{team.losses}}</Score>
     </ATeam>
     {% endfor %}
     {% for team in Bteams%}
     <BTeam>
         <TeamName>{{team.name}}</TeamName>
-        <Wins>{{team.wins}}</Wins>
-        <Losses>{{team.losses}}</Losses>
+        <Score>{{team.wins}} - {{team.losses}}</Score>
     </BTeam>
     {% endfor %}
     {% for team in Womens%}
     <WomensTeam>
         <TeamName>{{team.name}}</TeamName>
-        <Wins>{{team.wins}}</Wins>
-        <Losses>{{team.losses}}</Losses>
+        <Score>{{team.wins}} - {{team.losses}}</Score>
     </WomensTeam>
     {% endfor %}
     {% for team in ODT%}
     <ODTTeam>
         <TeamName>{{team.name}}</TeamName>
-        <Wins>{{team.wins}}</Wins>
-        <Losses>{{team.losses}}</Losses>
+        <Score>{{team.wins}} - {{team.losses}}</Score>
     </ODTTeam>
     {% endfor %}
 </AllStandings>
