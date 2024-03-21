@@ -3,7 +3,7 @@
     <Player1>
     <Name>{{player1.name}}</Name>
     <Team>{{player1.team}}</Team>
-    <KillsAvg>{{player1.killsavg}}</KillsAvg>
+    <KillsAvg>{{player1.killsavg}}/{{player1.deathsavg}}/{{player1.assistsavg}}</KillsAvg>
     <DeathsAvg>{{player1.deathsavg}}</DeathsAvg>
     <AssistsAvg>{{player1.assistsavg}}</AssistsAvg>
     <GoldAvg>{{player1.goldavg}}</GoldAvg>

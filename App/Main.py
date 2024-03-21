@@ -345,9 +345,10 @@ def StandingsAPI():
     Ateams = Teams.query.filter_by(description='Div 1A').order_by(Teams.wins.desc(),Teams.losses.asc())
     Bteams = Teams.query.filter_by(description='Div 1B').order_by(Teams.wins.desc(),Teams.losses.asc())
     Womens = Teams.query.filter_by(description='Womens').order_by(Teams.wins.desc(),Teams.losses.asc())
-    odt = Teams.query.filter_by(description='ODT').order_by(Teams.wins.desc(),Teams.losses.asc())
+    odt = Teams.query.filter_by(description='ODTA').order_by(Teams.wins.desc(),Teams.losses.asc())
+    odtb = Teams.query.filter_by(description='ODTB').order_by(Teams.wins.desc(),Teams.losses.asc())
     response = make_response()
-    response = make_response(render_template('XML/StandingsAPI.xml', Ateams=Ateams, Bteams=Bteams, Womens=Womens, ODT=odt ))
+    response = make_response(render_template('XML/StandingsAPI.xml', Ateams=Ateams, Bteams=Bteams, Womens=Womens, ODTA=odt, ODTB=odtb ))
     response.headers['Content-Type'] = 'application/xml'
     return response
         

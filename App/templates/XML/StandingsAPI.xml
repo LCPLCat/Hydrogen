@@ -18,10 +18,16 @@
         <Score>{{team.wins}} - {{team.losses}}</Score>
     </WomensTeam>
     {% endfor %}
-    {% for team in ODT%}
-    <ODTTeam>
+    {% for team in ODTA%}
+    <ODTATeam>
         <TeamName>{{team.name}}</TeamName>
         <Score>{{team.wins}} - {{team.losses}}</Score>
-    </ODTTeam>
+    </ODTATeam>
+    {% endfor %}
+    {% for team in ODTB%}
+    <ODTBTeam>
+        <TeamName>{{team.name}}</TeamName>
+        <Score>{{team.wins}} - {{team.losses}}</Score>
+    </ODTBTeam>
     {% endfor %}
 </AllStandings>
