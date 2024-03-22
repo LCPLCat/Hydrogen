@@ -43,7 +43,6 @@ def player_stats_average():
                 Deaths.append(int(i.deaths))
                 Assists.append(int(i.assists))
                 Gold.append(int(i.goldEarned))
-                #Wins.append(i.WIN)
                 Dmg.append(int(i.totalDamageDealt))
                 CreepScore.append(int(i.totalMinionsKilled))
             Assists = [int(i) for i in Assists]

@@ -16,16 +16,21 @@ bp = Blueprint('MatchesBP', __name__)
 @bp.route('/Matches/')
 def match():
     time = datetime.now()
+    args = ''
     if request.args.get('time') == 'hour':
+        args = '?time=hour'
         time = time - timedelta(hours=10)
         data = Match.query.filter(Match.recorddate >= time)
     elif request.args.get('time') == 'week':
+        args = '?time=week'
         time = time - timedelta(weeks=1)
         data = Match.query.filter(Match.recorddate >= time)
     elif request.args.get('time') == 'month':
+        args = '?time=month'
         time = time - timedelta(weeks=4)
         data = Match.query.filter(Match.recorddate >= time)
     elif request.args.get('time') == 'all':
+        args = '?time=all'
         data = Match.query.all()
     else:
         data = Match.query.all()
@@ -101,6 +106,7 @@ def matchchanged():
     temp.team2 = request.form['Team2']
     temp.time = request.form['Time']
     temp.format = request.form['Format']
+    temp.matchstats = request.form['GameID']
     db.session.commit()
     return match()
 

@@ -1,0 +1,75 @@
+{% extends "Base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+<style>.container {
+    padding: 2rem 0rem;
+  }
+  
+  h4 {
+    margin: 2rem 0rem 1rem;
+  }
+  
+  .table-image {
+    td, th {
+      vertical-align: middle;
+    }
+  }</style>
+
+<div class="container">
+    <div>
+        <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('MatchesBP.match')}}><img src="../static/img/back.svg"></a>
+    </div> 
+    <div style="height: 20px;"> </div>
+  <div class="row">
+    <div class="col-12">
+    
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">K/D/A</th>
+            <th scope="col">Kill Participation</th>
+            <th scope="col">Gold - Per min</th>
+            <th scope="col">Damage - Per min</th>
+            <th scope="col">First Bloods</th>
+            <th scope="col">Vision Score</th>
+            <th scope="col">Control Wards Purchased</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for stats in data%}
+                <tr>
+                    <td>
+                        {{stats.riotIdGameName}}#{{stats.riotIdTagline}}
+                    </td>
+                    <td>
+                        {{stats.kills}}/{{stats.deaths}}/{{stats.assists}}
+                    </td>
+                    <td>
+                        {{stats.killparticipation}}
+                    </td>
+                    <td>
+                        {{stats.goldPerMinute}}
+                    </td>
+                    <td>
+                        {{stats.damageperminute}}
+                    </td>
+                    <td>
+                        {{stats.firstBloodKill}}
+                    </td>
+                    <td>
+                        {{stats.visionScore}}
+                    </td>
+                    <td>
+                        {{stats.controlwardsplaced}}
+                    </td>
+                </tr>    
+            {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -72,6 +72,7 @@ def JsonExtract(info, metadata):
         for i, match in enumerate(stats):
             if name == match.id2:
                 return
+        challenges = player['challenges']
         statment = f"""INSERT INTO StatsRiotAPI VALUES(
             "{player['puuid']+metadata['matchId']}",
             "{info['gameId']}",
@@ -150,18 +151,6 @@ def JsonExtract(info, metadata):
             "{player['playerAugment2']}",
             "{player['playerAugment3']}",
             "{player['playerAugment4']}",
-            "{player['missions']['PlayerScore0']}",
-            "{player['missions']['PlayerScore1']}",
-            "{player['missions']['PlayerScore10']}",
-            "{player['missions']['PlayerScore11']}",
-            "{player['missions']['PlayerScore2']}",
-            "{player['missions']['PlayerScore3']}",
-            "{player['missions']['PlayerScore4']}",
-            "{player['missions']['PlayerScore5']}",
-            "{player['missions']['PlayerScore6']}",
-            "{player['missions']['PlayerScore7']}",
-            "{player['missions']['PlayerScore8']}",
-            "{player['missions']['PlayerScore9']}",
             "{player['playerSubteamId']}",
             "{player['profileIcon']}",
             "{player['pushPings']}",
@@ -214,8 +203,20 @@ def JsonExtract(info, metadata):
             "{player['wardsKilled']}",
             "{player['wardsPlaced']}",
             "{player['win']}",
-            "{datetime.now()}"
+            "{datetime.now()}",
+            "{challenges['killParticipation']}",
+            "{challenges['teamElderDragonKills']}",
+            "{challenges['soloKills']}",
+            "{challenges['maxCsAdvantageOnLaneOpponent']}",
+            "{challenges['goldPerMinute']}",
+            "{challenges['controlWardsPlaced']}",
+            "{challenges['damagePerMinute']}"
             )"""
         cur.execute(statment)
     cur.execute("COMMIT;")
     con.close()
+
+@bp.route('/Matches/Stats', methods=['GET','POST'])
+def MatchStats():
+    data = MatchStas.query.filter_by(Gameid=request.form['id'])
+    return render_template('Stats/Stats.html', data = data)

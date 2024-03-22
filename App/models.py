@@ -171,7 +171,9 @@ class Match(db.Model):
     winner = db.Column(db.String(64))
     loser = db.Column(db.String(64))
     decided = db.Column(db.String(64))
+    matchstats = db.Column(db.String(64))
     recorddate = db.Column(db.String(64))
+
 
 class Bid(db.Model):
     __tablename__='bids'
@@ -269,18 +271,6 @@ class MatchStas(db.Model):
     playerAugment2 = db.Column(db.String(256))
     playerAugment3 = db.Column(db.String(256))
     playerAugment4 = db.Column(db.String(256))
-    playerScore0 = db.Column(db.String(256))
-    playerScore1 = db.Column(db.String(256))
-    playerScore10 = db.Column(db.String(256))
-    playerScore11 = db.Column(db.String(256))
-    playerScore2 = db.Column(db.String(256))
-    playerScore3 = db.Column(db.String(256))
-    playerScore4 = db.Column(db.String(256))
-    playerScore5 = db.Column(db.String(256))
-    playerScore6 = db.Column(db.String(256))
-    playerScore7 = db.Column(db.String(256))
-    playerScore8 = db.Column(db.String(256))
-    playerScore9 = db.Column(db.String(256))
     playerSubteamId = db.Column(db.String(256))
     profileIcon = db.Column(db.String(256))
     pushPings = db.Column(db.String(256))
@@ -334,3 +324,12 @@ class MatchStas(db.Model):
     wardsPlaced = db.Column(db.String(256))
     win = db.Column(db.String(256))
     recorddate = db.Column(db.String(64))
+    killparticipation = db.Column(db.String(256))
+    teamElderDragonKills = db.Column(db.String(256))
+    soloKills = db.Column(db.String(256))
+    maxCsAdvantageOnLaneOpponent = db.Column(db.String(256))
+    goldPerMinute = db.Column(db.String(256))
+    controlwardsplaced = db.Column(db.String(256))
+    damageperminute = db.Column(db.String(256))
+
+
