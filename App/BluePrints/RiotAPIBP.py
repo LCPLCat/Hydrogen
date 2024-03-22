@@ -11,6 +11,7 @@ from ..Streams import Stream, Headings
 import os
 import json
 import requests
+from datetime import datetime
 from types import SimpleNamespace
 from dotenv import load_dotenv
 load_dotenv()
@@ -37,7 +38,7 @@ def GetMatchIDFromPlayer(name):
     json = requests.get('https://sea.api.riotgames.com/lol/match/v5/matches/by-puuid/'+puuid+'/ids?type=tourney&start=0&count=1&api_key='+RIOT_KEY).json()
     GetStatsRIOTAPI(json[0])
     link_player_PUUID()
-    #player_stats_average()
+    player_stats_average()
 
 
 def GetStatsRIOTAPI(Match_id):
@@ -212,7 +213,8 @@ def JsonExtract(info, metadata):
             "{player['visionWardsBoughtInGame']}",
             "{player['wardsKilled']}",
             "{player['wardsPlaced']}",
-            "{player['win']}"
+            "{player['win']}",
+            "{datetime.now()}"
             )"""
         cur.execute(statment)
     cur.execute("COMMIT;")

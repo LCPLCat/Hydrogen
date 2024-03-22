@@ -37,7 +37,6 @@ def add_casters_to_database(form):
     db.session.commit()
 
 def add_players_to_database(form):
-    #r = requests.get('https://oc1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{}?api_key={}'.format(form.Name.data, RIOT_KEY)).json()
     db.session.add(Players(name = form.Name.data, team = form.Team.data, puid = 'null'))
     db.session.commit()
 

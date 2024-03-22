@@ -47,14 +47,12 @@ def player_stats_average():
                 Dmg.append(int(i.totalDamageDealt))
                 CreepScore.append(int(i.totalMinionsKilled))
             Assists = [int(i) for i in Assists]
-            player.killsavg = (sum(Kills)/len(Kills))
-            print(player.killsavg)
-            player.deathsavg = (sum(Deaths)/len(Deaths))
-            player.assistsavg = (sum(Assists)/len(Assists))
-            player.goldavg = (sum(Gold)/len(Gold))
-            #player.winpercentage = (sum(Wins)/len(Wins))
-            player.dmgavg = (sum(Dmg)/len(Dmg))
-            player.creepscoreavg = (sum(CreepScore)/len(CreepScore))
+            player.killsavg = round(sum(Kills)/len(Kills))
+            player.deathsavg = round(sum(Deaths)/len(Deaths))
+            player.assistsavg = round(sum(Assists)/len(Assists))
+            player.goldavg = round(sum(Gold)/len(Gold))
+            player.dmgavg = round(sum(Dmg)/len(Dmg))
+            player.creepscoreavg = round(sum(CreepScore)/len(CreepScore))
             db.session.commit()
 
 #---------------------------------------------------------------------------------

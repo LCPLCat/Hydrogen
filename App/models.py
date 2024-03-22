@@ -333,3 +333,4 @@ class MatchStas(db.Model):
     wardsKilled = db.Column(db.String(256))
     wardsPlaced = db.Column(db.String(256))
     win = db.Column(db.String(256))
+    recorddate = db.Column(db.String(64))
