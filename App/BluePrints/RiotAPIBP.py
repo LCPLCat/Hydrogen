@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, make_response
 from ..forms import MusicUpload, Bid, TeamRegister, CasterRegister, PlayerRegister, MatchRegister, ROLF, APIKey, MatchID
 from ..models import Item, Music, Teams, Casters, Players, Match, ROLFFile, MatchStas
+from ..OtherUtils import * 
 from .. import db
 from ..Streams import Stream, Headings
 from ..replay_metadata import *
@@ -10,6 +11,7 @@ from ..Streams import Stream, Headings
 import os
 import json
 import requests
+from datetime import datetime
 from types import SimpleNamespace
 from dotenv import load_dotenv
 load_dotenv()
@@ -36,10 +38,13 @@ def GetMatchIDFromPlayer(name):
     json = requests.get('https://sea.api.riotgames.com/lol/match/v5/matches/by-puuid/'+puuid+'/ids?type=tourney&start=0&count=1&api_key='+RIOT_KEY).json()
     GetStatsRIOTAPI(json[0])
     link_player_PUUID()
+    player_stats_average()
 
 
 def GetStatsRIOTAPI(Match_id):
     global RIOT_KEY
+    #TimeLine = requests.get('https://sea.api.riotgames.com/lol/match/v5/matches/'+Match_id+"/timeline?api_key="+RIOT_KEY).json()
+    #print(TimeLine['metadata']['participants'])
     json = requests.get('https://sea.api.riotgames.com/lol/match/v5/matches/'+Match_id+"?api_key="+RIOT_KEY).json()
     JsonExtract(json['info'], json['metadata'])
 
@@ -67,6 +72,7 @@ def JsonExtract(info, metadata):
         for i, match in enumerate(stats):
             if name == match.id2:
                 return
+        challenges = player['challenges']
         statment = f"""INSERT INTO StatsRiotAPI VALUES(
             "{player['puuid']+metadata['matchId']}",
             "{info['gameId']}",
@@ -145,18 +151,6 @@ def JsonExtract(info, metadata):
             "{player['playerAugment2']}",
             "{player['playerAugment3']}",
             "{player['playerAugment4']}",
-            "{player['playerScore0']}",
-            "{player['playerScore1']}",
-            "{player['playerScore10']}",
-            "{player['playerScore11']}",
-            "{player['playerScore2']}",
-            "{player['playerScore3']}",
-            "{player['playerScore4']}",
-            "{player['playerScore5']}",
-            "{player['playerScore6']}",
-            "{player['playerScore7']}",
-            "{player['playerScore8']}",
-            "{player['playerScore9']}",
             "{player['playerSubteamId']}",
             "{player['profileIcon']}",
             "{player['pushPings']}",
@@ -208,8 +202,21 @@ def JsonExtract(info, metadata):
             "{player['visionWardsBoughtInGame']}",
             "{player['wardsKilled']}",
             "{player['wardsPlaced']}",
-            "{player['win']}"
+            "{player['win']}",
+            "{datetime.now()}",
+            "{challenges['killParticipation']}",
+            "{challenges['teamElderDragonKills']}",
+            "{challenges['soloKills']}",
+            "{challenges['maxCsAdvantageOnLaneOpponent']}",
+            "{challenges['goldPerMinute']}",
+            "{challenges['controlWardsPlaced']}",
+            "{challenges['damagePerMinute']}"
             )"""
         cur.execute(statment)
     cur.execute("COMMIT;")
     con.close()
+
+@bp.route('/Matches/Stats', methods=['GET','POST'])
+def MatchStats():
+    data = MatchStas.query.filter_by(Gameid=request.form['id'])
+    return render_template('Stats/Stats.html', data = data)

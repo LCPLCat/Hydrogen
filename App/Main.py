@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, make_response, Response
 from .forms import MusicUpload, Bid, TeamRegister, CasterRegister, PlayerRegister, MatchRegister, ROLF, APIKey
-from .models import Item, Music, Teams, Casters, Players, Match, ROLFFile
+from .models import Item, Music, Teams, Casters, Players, Match, ROLFFile, MatchStas
 from . import db
 from .Streams import Stream, Headings
 from .replay_metadata import *
@@ -10,6 +10,7 @@ from .BluePrints import MatchesBP, PlayersBP, TeamsBP, CastersBP, PlayersBP, Mus
 from . import OtherUtils, DataBaseUtils
 import os
 import time
+from datetime import datetime
 from dotenv import load_dotenv
 load_dotenv()
 import requests
@@ -143,255 +144,6 @@ def CasterWidget():
 @bp.route('/riot.txt/',  methods = ["POST","GET"])
 def riot():
     return render_template('riot.txt')
-#---------------------------------------------------------------------------------
-# All routes for Matches
-#---------------------------------------------------------------------------------
-'''
-@bp.route('/Matches/')
-def match():
-    data = Match.query.all()
-    teams = Teams.query.all()
-    return render_template('Matches.html', headings = headings.MatchHeadings, data = data,teams=teams)
-
-@bp.route('/Matches/Add')
-def matchadd():
-    data = Match.query.all()
-    teams = Teams.query.all()
-    return render_template('MatchAdd.html', data = data, teams=teams)
-
-@bp.route('/Matches/Edit', methods=['POST'])
-def matchsave():
-    data = Match.query.filter_by(id=request.form['id']).first()
-    teams = Teams.query.all()
-    return render_template('MatchEdit.html', matches = data, teams=teams)
-
-@bp.route('/Matches/Decide', methods=['POST'])
-def matchdecide():
-    data = Match.query.filter_by(id=request.form['id']).first()
-    teams = Teams.query.all()
-    return render_template('MatchDecide.html', match = data, teams=teams)
-
-@bp.route('/Matches/Decided', methods=['POST'])
-def matchdecide_submit():
-    data = Match.query.filter_by(id=request.form['matchid']).first()
-    print(request.form['winnerid'])
-    print(request.form['loserid'])
-    winner = Teams.query.filter_by(id=request.form['winnerid']).first()
-    loser = Teams.query.filter_by(id=request.form['loserid']).first()
-    loser.losses = int(loser.losses) + 1
-    winner.wins = int(winner.wins) + 1
-    data.winner = winner.id
-    data.loser = loser.id
-    data.decided = 1
-    db.session.commit()
-    return match()
-
-@bp.route('/Matches/Swap', methods=['POST'])
-def matchswap():
-    data = Match.query.filter_by(id=request.form['matchid']).first()
-    winner = Teams.query.filter_by(id=request.form['winnerid']).first()
-    loser = Teams.query.filter_by(id=request.form['loserid']).first()
-    loser.losses = int(loser.losses) - 1
-    winner.wins = int(winner.wins) - 1
-    loser.wins = int(loser.wins) + 1
-    winner.losses = int(winner.losses) + 1
-    data.loser = winner.id
-    data.winner = loser.id
-    db.session.commit()
-    return match()
-
-#Matches Del
-@bp.route('/Matches/', methods=['POST'])
-def matchdel():
-    db.session.delete(Match.query.get(request.form['id']))
-    db.session.commit()
-    data = Match.query.get(request.form['id'])
-    teams = Teams.query.all()
-    return match()
-
-@bp.route('/MatchChanged/', methods=['POST'])
-def matchchanged():
-    temp = Match.query.filter_by(id=request.form['id']).first()
-    print(request.form['id'])
-    temp.team1 = request.form['Team1']
-    temp.team2 = request.form['Team2']
-    temp.time = request.form['Time']
-    temp.format = request.form['Format']
-    db.session.commit()
-    return match()
-
-
-
-#---------------------------------------------------------------------------------
-# All routes for Casters
-#---------------------------------------------------------------------------------
-
-@bp.route('/Casters/')
-def casters():
-    data = Casters.query.all()
-    return render_template('Casters.html', headings = headings.CasterHeadings , data = data)
-
-@bp.route('/CastersAdd/')
-def castersadd():
-    headings = ("#", "Name", "SubHeading", "Actions")
-    data = Casters.query.all()
-    Form = CasterRegister()
-    return render_template('CastersAdd.html',form = Form, headings = headings, data = data)
-
-#Caster Del
-@bp.route('/Casters/', methods=['POST'])
-def casterdel():
-    headings = ("#", "Name", "SubHeading", "Actions")
-    db.session.delete(Casters.query.get(request.form['id']))
-    db.session.commit()
-    data = Casters.query.all()
-    return render_template('Casters.html', headings = headings, data = data)
-
-@bp.route('/CasterEdit/', methods=['POST'])
-def casteredit():
-    temp = Casters.query.get(request.form['id'])
-    return render_template('CasterEdit.html', data = temp)
-
-#Caster Edit
-@bp.route('/CasterChanged/', methods=['POST'])
-def casterchanged():
-    temp = Casters.query.filter_by(id=request.form['id']).first()
-    temp.name = request.form['Name']
-    temp.subname = request.form['SubName']
-    db.session.commit()
-    return casters()
-
-#---------------------------------------------------------------------------------
-# All routes for Teams
-#---------------------------------------------------------------------------------
-
-@bp.route('/Teams/')
-def teams():
-    data = Teams.query.all()
-    return render_template('Teams.html', headings = headings.TeamHeadings, data = data)
-
-@bp.route('/TeamsAdd/')
-def teamadd():
-    data = Teams.query.all()
-    Form = TeamRegister()
-    return render_template('TeamAdd.html',form = Form, headings = headings.TeamHeadings, data = data)
-
-#Team Del
-@bp.route('/Teams/', methods=['POST'])
-def teamdel():
-    headings = ("#", "Title", "Author","Music", "Actions")
-    db.session.delete(Teams.query.get(request.form['id']))
-    db.session.commit()
-    data = Teams.query.all()
-    return render_template('Teams.html', headings = headings.TeamHeadings, data = data)
-
-@bp.route('/TeamsEdit/', methods=['POST'])
-def teamedit():
-    temp = Teams.query.get(request.form['id'])
-    return render_template('TeamEdit.html', data = temp)
-
-#Caster Edit
-@bp.route('/TeamsChanged/', methods=['POST'])
-def teamchanged():
-    temp = Teams.query.filter_by(id=request.form['id']).first()
-    BASE_PATH = os.path.dirname(__file__)
-    temp.name = request.form['Name']
-    temp.abbreviation = request.form['Abbreviation']
-    if request.files['LogoTXT'].filename != "":
-        LogoTXT = request.files['LogoTXT']
-        print(LogoTXT.filename)
-        LogoTXT.save(os.path.join(BASE_PATH, 'static/logos', secure_filename(LogoTXT.filename)))
-        temp.logoTXT = request.files['LogoTXT'].filename
-    if request.files['LogoTOP'].filename != "":
-        LogoTOP = request.files['LogoTOP']
-        LogoTOP.save(os.path.join(BASE_PATH, 'static\logos', secure_filename(LogoTOP.filename)))
-        temp.logoTOP = request.files['LogoTOP'].filename
-    if request.files['LogoBR'].filename != "":
-        LogoBR = request.files['LogoBR']
-        LogoBR.save(os.path.join(BASE_PATH, 'static\logos', secure_filename(LogoBR.filename)))
-        temp.logoBR = request.files['LogoBR'].filename
-    if request.files['LogoBL'].filename != "":
-        LogoBL = request.files['LogoBL']
-        LogoBL.save(os.path.join(BASE_PATH, 'static\logos', secure_filename(LogoBL.filename)))
-        temp.logoBL = request.files['LogoBL'].filename
-    db.session.commit()
-    return teams()
-
-#---------------------------------------------------------------------------------
-# All routes for Music
-#---------------------------------------------------------------------------------
-
-@bp.route('/Music/')
-def music():
-    data = Music.query.all()
-    return render_template('Music.html', headings = headings.MusicHeadings, data = data)
-
-@bp.route('/MusicAdd/')
-def musicadd():
-    data = Music.query.all()
-    Form = MusicUpload()
-    return render_template('MusicAdd.html', form = Form, headings = headings.MusicHeadings, data = data)
-
-#Music Del
-@bp.route('/Music/', methods=['POST'])
-def musicdel():
-    db.session.delete(Music.query.get(request.form['id']))
-    db.session.commit()
-    data = Music.query.all()
-    return render_template('Music.html', headings = headings.MusicHeadings, data = data)
-
-@bp.route('/MusicEdit/', methods=['POST'])
-def musicedit():
-    Musictemp = Music.query.get(request.form['id'])
-    return render_template('MusicEdit.html', data = Musictemp)
-
-#Music Edit
-@bp.route('/MusicChanged/', methods=['POST'])
-def musicchanged():
-    temp = Music.query.filter_by(id=request.form['id']).first()
-    temp.title = request.form['Title']
-    temp.author = request.form['Author']
-    if request.form['Audio'] != "":
-        temp.audio = request.form['Audio']
-    db.session.commit()
-    return music()
-
-#---------------------------------------------------------------------------------
-# All routes for Player
-#---------------------------------------------------------------------------------
-
-@bp.route('/Players/')
-def players():
-    data = Players.query.all()
-    return render_template('Players.html', headings = headings.PlayerHeadings, data = data)
-
-@bp.route('/PlayersAdd/')
-def playeradd():
-    Form = PlayerRegister()
-    data = Players.query.all()
-    return render_template('PlayersAdd.html', form = Form, data =data )
-
-@bp.route('/PlayersEdit/', methods=['POST'])
-def playeredit():
-    temp = Players.query.get(request.form['id'])
-    return render_template('PlayersEdit.html', data = temp)
-
-@bp.route('/PlayersChanged/', methods=['POST'])
-def playerchanged():
-    temp = Players.query.filter_by(id=request.form['id']).first()
-    temp.name = request.form['Name']
-    temp.team = request.form['Team']
-    db.session.commit()
-    return players()
-
-#Players Del
-@bp.route('/Players/', methods=['POST'])
-def playerdel():
-    db.session.delete(Players.query.get(request.form['id']))
-    db.session.commit()
-    data = Players.query.all()
-    return render_template('Players.html', headings = headings.PlayerHeadings, data = data)
-'''
 #---------------------------------------------------------------------------------
 # All routes for Overlays including Caster lower third, Schedule, Stats, and Team Vs overlays
 #---------------------------------------------------------------------------------
@@ -588,6 +340,45 @@ def MatchAPI():
     response.headers['Content-Type'] = 'application/xml'
     return response
 
+@bp.route('/Standings/API.xml')
+def StandingsAPI():
+    Ateams = Teams.query.filter_by(description='Div 1A').order_by(Teams.wins.desc(),Teams.losses.asc())
+    Bteams = Teams.query.filter_by(description='Div 1B').order_by(Teams.wins.desc(),Teams.losses.asc())
+    Womens = Teams.query.filter_by(description='Womens').order_by(Teams.wins.desc(),Teams.losses.asc())
+    odt = Teams.query.filter_by(description='ODTA').order_by(Teams.wins.desc(),Teams.losses.asc())
+    odtb = Teams.query.filter_by(description='ODTB').order_by(Teams.wins.desc(),Teams.losses.asc())
+    response = make_response()
+    response = make_response(render_template('XML/StandingsAPI.xml', Ateams=Ateams, Bteams=Bteams, Womens=Womens, ODTA=odt, ODTB=odtb ))
+    response.headers['Content-Type'] = 'application/xml'
+    return response
+        
+@bp.route('/SuperTeams')
+def SuperTeams():
+    Scores = []
+    players = Players.query.all()
+    for i, player in enumerate(players):
+        temp2 = []
+        stats = MatchStas.query.filter_by(puuid=player.puid)
+        temp2.append(player.puid)
+        temp2.append(player.name)
+        for i, stat in enumerate(stats):
+            temp = 0
+            temp += int(stat.assists)
+            temp += (int(stat.kills)*2)
+            temp += (int(stat.quadraKills)*5)
+            temp += (round(int(stat.visionScore)/100)*5)
+            temp += (int(stat.pentaKills)*10)
+            if (stat.visionScore != 0):
+                temp -= (round(int(stat.visionScore)/100)*5)
+            temp += (int(stat.baronKills)*3)
+            temp += int(stat.dragonKills)
+            temp += (round(int(stat.totalMinionsKilled)/300)*3)
+            temp2.append(temp)
+        Scores.append(temp2) 
+    response = make_response()
+    response = make_response(render_template('XML/SuperTeamsAPI.xml', scores=Scores))
+    response.headers['Content-Type'] = 'application/xml'
+    return response
 #---------------------------------------------------------------------------------
 # All routes for Riot API
 #---------------------------------------------------------------------------------

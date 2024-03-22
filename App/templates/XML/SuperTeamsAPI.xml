@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AllSuperTeams>
+    {% for score in scores%}
+    <Score>
+        <Name>{{score[1]}}</Name>
+        <Score>{{score[2]}}</Score>
+    </Score>
+    {% endfor %}
+</AllSuperTeams>

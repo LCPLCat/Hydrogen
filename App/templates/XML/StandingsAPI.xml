@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AllStandings>
+    {% for team in Ateams%}
+    <ATeam>
+        <TeamName>{{team.name}}</TeamName>
+        <Score>{{team.wins}} - {{team.losses}}</Score>
+    </ATeam>
+    {% endfor %}
+    {% for team in Bteams%}
+    <BTeam>
+        <TeamName>{{team.name}}</TeamName>
+        <Score>{{team.wins}} - {{team.losses}}</Score>
+    </BTeam>
+    {% endfor %}
+    {% for team in Womens%}
+    <WomensTeam>
+        <TeamName>{{team.name}}</TeamName>
+        <Score>{{team.wins}} - {{team.losses}}</Score>
+    </WomensTeam>
+    {% endfor %}
+    {% for team in ODTA%}
+    <ODTATeam>
+        <TeamName>{{team.name}}</TeamName>
+        <Score>{{team.wins}} - {{team.losses}}</Score>
+    </ODTATeam>
+    {% endfor %}
+    {% for team in ODTB%}
+    <ODTBTeam>
+        <TeamName>{{team.name}}</TeamName>
+        <Score>{{team.wins}} - {{team.losses}}</Score>
+    </ODTBTeam>
+    {% endfor %}
+</AllStandings>

@@ -128,3 +128,8 @@ dmypy.json
 .pyre/
 keys.txt
 instance/auction_alchemy.db
+Stats.csv
+.env
+.env
+stats.json
+.env

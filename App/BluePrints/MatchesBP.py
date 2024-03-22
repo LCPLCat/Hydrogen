@@ -8,15 +8,41 @@ from sqlalchemy import *
 from werkzeug.utils import secure_filename
 from ..Streams import Stream, Headings
 import os
+from datetime import *
 from . import RiotAPIBP
 headings = Headings
 bp = Blueprint('MatchesBP', __name__)
 
 @bp.route('/Matches/')
 def match():
-    data = Match.query.all()
+    time = datetime.now()
+    args = ''
+    if request.args.get('time') == 'hour':
+        args = '?time=hour'
+        time = time - timedelta(hours=10)
+        data = Match.query.filter(Match.recorddate >= time)
+    elif request.args.get('time') == 'week':
+        args = '?time=week'
+        time = time - timedelta(weeks=1)
+        data = Match.query.filter(Match.recorddate >= time)
+    elif request.args.get('time') == 'month':
+        args = '?time=month'
+        time = time - timedelta(weeks=4)
+        data = Match.query.filter(Match.recorddate >= time)
+    elif request.args.get('time') == 'all':
+        args = '?time=all'
+        data = Match.query.all()
+    else:
+        data = Match.query.all()
+    
     teams = Teams.query.all()
     return render_template('Matches/Matches.html', headings = headings.MatchHeadings, data = data,teams=teams)
+
+# @bp.route('/Matches/')
+# def SortMatches():
+#     data = Match.query.all()
+#     teams = Teams.query.all()
+#     return render_template('Matches/Matches.html', headings = headings.MatchHeadings, data = data,teams=teams)
 
 @bp.route('/Matches/Add')
 def matchadd():
@@ -80,6 +106,7 @@ def matchchanged():
     temp.team2 = request.form['Team2']
     temp.time = request.form['Time']
     temp.format = request.form['Format']
+    temp.matchstats = request.form['GameID']
     db.session.commit()
     return match()
 

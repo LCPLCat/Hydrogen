@@ -6,6 +6,7 @@
         <logoRed>{{Left.logoRed}}</logoRed>
         <colour>{{Left.colour}}</colour>
         <abbreviation>{{Left.abbreviation}}</abbreviation>
+        <standings>{{Left.wins}} - {{Left.losses}}</standings>
     </Team>
     <Team>
         <Name>{{Right.name}}</Name>
@@ -13,5 +14,6 @@
         <logoRed>{{Right.logoRed}}</logoRed>
         <colour>{{Right.colour}}</colour>
         <abbreviation>{{Right.abbreviation}}</abbreviation>
+        <standings>{{Right.wins}} - {{Right.losses}}</standings>
     </Team>
 </AllTeams>

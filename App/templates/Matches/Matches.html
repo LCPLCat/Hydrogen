@@ -16,7 +16,16 @@ h4 {
 }</style>
 <div class="container">
   <div>
-    <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('MatchesBP.matchadd')}}><img src="../static/img/plus.svg"></a> 
+    <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('MatchesBP.matchadd')}}><img src="../static/img/plus.svg"></a>
+    <div class="dropdown">
+      <a type="button" class="btn btn-secondary btn-lg btn-block dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img src="../static/img/sort.svg"></a>
+      <ul class="dropdown-menu" >
+        <li><a class="dropdown-item" href={{url_for('MatchesBP.match')}}?time=hour>Last 10 hours</a></li>
+        <li><a class="dropdown-item" href={{url_for('MatchesBP.match')}}?time=week>Last week</a></li>
+        <li><a class="dropdown-item" href={{url_for('MatchesBP.match')}}?time=month>last month</a></li>
+        <li><a class="dropdown-item" href={{url_for('MatchesBP.match')}}?time=all>All</a></li>
+      </ul> 
+    </div>
   </div>
     <div class="row">
             <div class="d-grid gap-2">
@@ -71,13 +80,19 @@ h4 {
                       {% endfor %}
                     </td>
                     <td>
-                      <button type="button" class="btn btn-primary" onclick="Decide('{{match.id}}')">Pick Winner<i class="far fa-trash-alt"></i></button>
-                      <form id="Decide{{match.id}}" action="{{ url_for('MatchesBP.matchdecide') }}" method="post">
-                        <input type="hidden" id="id" name="id" value="{{match.id}}">
-                      </form>
-                      <button type="button" class="btn btn-success" onclick="Stats('{{match.id}}')">Get Stats<i class="fas fa-edit"></i></button>
+                      {% if match.decided == 0 %}
+                        <button type="button" class="btn btn-primary" onclick="Decide('{{match.id}}')">Pick Winner<i class="far fa-trash-alt"></i></button>
+                        <form id="Decide{{match.id}}" action="{{ url_for('MatchesBP.matchdecide') }}" method="post">
+                          <input type="hidden" id="id" name="id" value="{{match.id}}">
+                        </form>
+                      {% endif %}
+                      <button type="button" class="btn btn-warning" onclick="Stats('{{match.id}}')">Get Stats<i class="fas fa-edit"></i></button>
                       <form id="Stats{{match.id}}" action="{{ url_for('MatchesBP.matchgetstats') }}" method="post">
                           <input type="hidden" id="id" name="id" value="{{match.id}}">
+                      </form>
+                      <button type="button" class="btn btn-info" onclick="matchStats('{{match.matchstats}}')">Show Stats<i class="fas fa-edit"></i></button>
+                      <form id="matchStats{{match.matchstats}}" action="{{ url_for('RiotAPIBP.MatchStats') }}" method="post">
+                          <input type="hidden" id="id" name="id" value="{{match.matchstats}}">
                       </form>
                       <button type="button" class="btn btn-success" onclick="Edit('{{match.id}}')">Edit<i class="fas fa-edit"></i></button>
                       <form id="Edit{{match.id}}" action="{{ url_for('MatchesBP.matchsave') }}" method="post">
@@ -87,7 +102,6 @@ h4 {
                       <form id="Del{{match.id}}" action="{{ url_for('MatchesBP.matchdel') }}" method="post">
                           <input type="hidden" id="id" name="id" value="{{match.id}}">
                       </form>
-                      
                     </td>
                 </tr>    
             {% endfor %}
@@ -109,6 +123,9 @@ h4 {
     }
     function Stats(id){
       document.getElementById('Stats'+id).submit() 
+    }
+    function matchStats(id){
+      document.getElementById('matchStats'+id).submit() 
     }
   </script>
 {% endblock %}

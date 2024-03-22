@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, make_response
 from .forms import MusicUpload, Bid, TeamRegister, CasterRegister, PlayerRegister, MatchRegister, ROLF, APIKey
-from .models import Item, Music, Teams, Casters, Players, Match, ROLFFile
+from .models import Item, Music, Teams, Casters, Players, Match, ROLFFile, MatchStas
 from . import db
 from .Streams import Stream, Headings
 from .replay_metadata import *
@@ -23,12 +23,12 @@ def link_player_ID():
             db.session.commit()
 
 def player_stats_average():
-    stmt = select(Players.id)
+    stmt = select(Players.puid)
     res = db.session.execute(stmt) 
     for x in res:
-        if bool(db.session.query(Players).filter_by(id=x[0]).first()):
-            player = Players.query.filter_by(id=x[0]).first()
-            rolfs = ROLFFile.query.filter_by(ID=x[0]).all()
+        if bool(db.session.query(Players).filter_by(puid=x[0]).first()):
+            player = Players.query.filter_by(puid=x[0]).first()
+            rolfs = MatchStas.query.filter_by(puuid=x[0]).all()
             if len(rolfs) == 0:
                 continue
             Kills = []
@@ -39,21 +39,19 @@ def player_stats_average():
             Dmg = []
             CreepScore = []
             for i in rolfs:
-                Kills.append(i.CHAMPIONS_KILLED)
-                Deaths.append(i.NUM_DEATHS)
-                Assists.append(i.ASSISTS)
-                Gold.append(i.GOLD_EARNED)
-                Wins.append(i.WIN)
-                Dmg.append(i.TOTAL_DAMAGE_DEALT)
-                CreepScore.append(i.MINIONS_KILLED)
+                Kills.append(int(i.kills))
+                Deaths.append(int(i.deaths))
+                Assists.append(int(i.assists))
+                Gold.append(int(i.goldEarned))
+                Dmg.append(int(i.totalDamageDealt))
+                CreepScore.append(int(i.totalMinionsKilled))
             Assists = [int(i) for i in Assists]
-            player.killsavg = (sum(Kills)/len(Kills))
-            player.deathsavg = (sum(Deaths)/len(Deaths))
-            player.assistsavg = (sum(Assists)/len(Assists))
-            player.goldavg = (sum(Gold)/len(Gold))
-            #player.winpercentage = (sum(Wins)/len(Wins))
-            player.dmgavg = (sum(Dmg)/len(Dmg))
-            player.creepscoreavg = (sum(CreepScore)/len(CreepScore))
+            player.killsavg = round(sum(Kills)/len(Kills))
+            player.deathsavg = round(sum(Deaths)/len(Deaths))
+            player.assistsavg = round(sum(Assists)/len(Assists))
+            player.goldavg = round(sum(Gold)/len(Gold))
+            player.dmgavg = round(sum(Dmg)/len(Dmg))
+            player.creepscoreavg = round(sum(CreepScore)/len(CreepScore))
             db.session.commit()
 
 #---------------------------------------------------------------------------------
