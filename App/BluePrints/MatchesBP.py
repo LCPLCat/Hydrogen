@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, make_response
+from flask import Blueprint, render_template, request, flash, redirect, url_for, make_response, jsonify
 from ..forms import MusicUpload, Bid, TeamRegister, CasterRegister, PlayerRegister, MatchRegister, ROLF, APIKey, MatchID
 from ..models import Item, Music, Teams, Casters, Players, Match, ROLFFile, MatchStas
 from .. import db
@@ -37,12 +37,6 @@ def match():
     
     teams = Teams.query.all()
     return render_template('Matches/Matches.html', headings = headings.MatchHeadings, data = data,teams=teams)
-
-# @bp.route('/Matches/')
-# def SortMatches():
-#     data = Match.query.all()
-#     teams = Teams.query.all()
-#     return render_template('Matches/Matches.html', headings = headings.MatchHeadings, data = data,teams=teams)
 
 @bp.route('/Matches/Add')
 def matchadd():

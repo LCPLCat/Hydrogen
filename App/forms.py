@@ -40,6 +40,10 @@ class ROLF(FlaskForm):
     Rolf = FileField('ROLF', validators=[FileRequired('ROLF file is required!')])
     Submit = SubmitField('Submit', validators=[InputRequired()])
 
+class TournementRegister(FlaskForm):
+    Name=StringField("Tournement Name", validators=[InputRequired("Enter Tournment Name")])
+    Submit = SubmitField('Submit', validators=[InputRequired()])
+
 class CasterRegister(FlaskForm):
     Name=StringField("Caster Name", validators=[InputRequired('Enter Caster Name')])
     Subheading=StringField("Caster Subheading")

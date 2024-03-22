@@ -174,6 +174,12 @@ class Match(db.Model):
     matchstats = db.Column(db.String(64))
     recorddate = db.Column(db.String(64))
 
+class Tournment(db.Model):
+    __tablename__='Tournements'
+    id = db.Column(db.Integer, primary_key=True)
+    tournementname = db.Column(db.String(256))
+    tournementid  = db.Column(db.String(256))
+    recorddate  = db.Column(db.String(256))
 
 class Bid(db.Model):
     __tablename__='bids'
