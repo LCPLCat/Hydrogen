@@ -13,8 +13,8 @@ import requests
 import os
 from dotenv import load_dotenv
 load_dotenv()
-RIOT_KEY = os.environ['RIOT_KEY']
-PROVIDER=os.environ['PROVIDER']
+global PROVIDER
+PROVIDER = os.environ['PROVIDER']
 headings = Headings
 bp = Blueprint('TournementsBP', __name__)
 
@@ -30,11 +30,9 @@ def Tournementsadd():
 
 @bp.route('/Tournements/Submit', methods=['POST'])
 def submit():
-    global RIOT_KEY, PROVIDER
 
     form = TournementRegister()
     response = requests.post('https://americas.api.riotgames.com/lol/tournament/v5/tournaments?api_key='+RIOT_KEY, json={"name": form.Name.data,"providerId": PROVIDER}).json()
-    print(response)
     add_touranment_to_database(form, response)
     return redirect('/Tournements/')
 

@@ -28,8 +28,17 @@ def add_team_to_database(form):
     db.session.add(item1)
     db.session.commit()
 
-def add_match_to_database(form):
-    db.session.add(Match(team1 = form.Team1.data, team2 = form.Team2.data, time = form.Time.data, format = form.Format.data, team1name = form.Team1name.data, team2name = form.Team2name.data, matchstats = form.GameID.data,recorddate=datetime.now()))
+def add_match_to_database(form, request):
+    db.session.add(Match(
+        team1 = form.Team1.data, 
+        team2 = form.Team2.data, 
+        time = form.Time.data, 
+        format = form.Format.data, 
+        team1name = form.Team1name.data, 
+        team2name = form.Team2name.data,
+        recorddate=datetime.now(), 
+        tournament=form.Tournament.data,
+        tournamentcode = request[0]))
     db.session.commit()
 
 def add_casters_to_database(form):

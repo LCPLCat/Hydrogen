@@ -22,6 +22,8 @@ global CLIENT_SECRET
 CLIENT_SECRET = os.environ['CLIENT_SECRET']
 global RIOT_KEY
 RIOT_KEY = os.environ['RIOT_KEY']
+global PROVIDER
+PROVIDER = os.environ['PROVIDER']
 #format for which stream is selected
 Astream = Stream("A")
 Bstream = Stream("B")
@@ -268,10 +270,7 @@ def castersubmit():
     DataBaseUtils.add_casters_to_database(CasterRegister())
     return CastersBP.casters()
 
-@bp.route('/matchsubmit', methods=['GET','POST'])
-def matchsubmit():
-    DataBaseUtils.add_match_to_database(MatchRegister())
-    return MatchesBP.match()
+
 
 @bp.route('/playersubmit', methods=['GET','POST'])
 def playersubmit():

@@ -6,75 +6,13 @@
 		<div class="row">
 			<div class="col-3">
 			</div>
-			<div class="col-6">
+			<div class="col-6" data-bs-theme="dark">
 				<h1 align="center">Match Creation</h1>
-				<form id="MatchCreation" action="{{ url_for('main.matchsubmit') }}" method="post">
-					<div class="row">
-						<div class="col-sm">
-							<div class="dropdown">
-								<button class="btn btn-secondary dropdown-toggle" type="button" id="TeamButton1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Team 1
-								</a>
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="Team1Dropdown">
-									{% for team in teams%}
-									<li><a class="dropdown-item" onclick="SetTeam1('{{team.id}}','{{team.name}}','{{team.abbreviation}}')">{{team.abbreviation}} | {{team.description}}</a></li>
-									{% endfor %}
-								</ul>
-								
-							</div>
-						</div>
-						<div class="col-sm"><h2 align="center">VS</h2></div>
-						<div class="col-sm">
-							<div class="dropdown" align="right">
-								<button class="btn btn-secondary dropdown-toggle" type="button" id="TeamButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Team 2
-								</a>
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="Team2Dropdown">
-									{% for team in teams%}
-									<li><a class="dropdown-item" onclick="SetTeam2('{{team.id}}','{{team.name}}','{{team.abbreviation}}')">{{team.abbreviation}} | {{team.description}}</a></li>
-									{% endfor %}
-								</ul>
-								
-							</div>
-						</div>
-					</div>
-					<div class="form-group  required"><label class="control-label" for="Time">Time</label>
-                        <input class="form-control" id="Time" name="Time" required type="text" value="">
-						<input type="hidden" class="form-control" id="Team1" name="Team1" required type="text">
-                    </div>
-					<div class="form-group  required"><label class="control-label" for="Format">Format</label>
-                        <input class="form-control" id="Format" name="Format" required type="text" value="">
-                    </div>
-					<div class="form-group"><label class="control-label" for="GameID">GameID</label>
-                        <input class="form-control" id="GameID" name="GameID" required type="text" value="">
-                    </div>
-                    <input class="btn btn-default" id="Submit" name="Submit" required type="submit" value="Submit">
-					<input type="hidden" class="form-control" id="Team2" name="Team2" required type="text">
-					<input type="hidden" class="form-control" id="Team1name" name="Team1name" required type="text">
-					<input type="hidden" class="form-control" id="Team2name" name="Team2name" required type="text">
-                </form>
+				{{wtf.quick_form(form, action=url_for('MatchesBP.matchsubmit'))}}
 			</div>
 			<div class="col-2">
 			</div>
 		</div>
 	</div>
 </div>
-<script>
-	function SetTeam1(id, name, abb) 
-	{
-		Dropdown = document.getElementById("Team1Dropdown")
-		document.getElementById("Team1").value =id
-		document.getElementById("TeamButton1").innerHTML = name+" | "+abb
-		document.getElementById("Team1name").value = abb
-		document.getElementById("TeamButton1").appendChild(Dropdown)
-	}
-	function SetTeam2(id, name, abb) 
-	{
-		Dropdown = document.getElementById("Team2Dropdown")
-		document.getElementById("Team2").value =id
-		document.getElementById("TeamButton2").innerHTML = abb+" | "+name
-		document.getElementById("Team2name").value = abb
-		document.getElementById("TeamButton2").appendChild(Dropdown)
-	}
-</script>
 {% endblock %}

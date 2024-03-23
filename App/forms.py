@@ -50,13 +50,18 @@ class CasterRegister(FlaskForm):
     Submit = SubmitField('Submit', validators=[InputRequired()])
 
 class MatchRegister(FlaskForm):
-    Match_code = StringField("Match Code")
-    Team1 = StringField("Team1", validators=[InputRequired('Please select a team')])
-    Team2 = StringField("Team1", validators=[InputRequired('Please select a team')])
+    Tournament = SelectField(u'Tournament', coerce=str)
+    Team1 = SelectField(u'Team1', coerce=str)
+    Team2 = SelectField(u'Team2', coerce=str)
     Team1name = HiddenField()
     Team2name = HiddenField()
-    Time = StringField("Team1", validators=[InputRequired('Please select a team')])
-    Format = StringField("Team1", validators=[InputRequired('Please select a team')])
+    Time = StringField("Time", validators=[InputRequired('Please select a team')])
+    Format = StringField("Format", validators=[InputRequired('Please select a team')])
+    enoughPlayers = SelectField(u'Require All Players', choices=[(True, 'True'), (False, 'False')])
+    mapType = SelectField(u'Map', choices=[('SUMMONERS_RIFT', 'Summoners Rift'), ('HOWLING_ABYSS', 'Howling Abyss')])
+    pickType = SelectField(u'Draft', choices=[('TOURNAMENT_DRAFT', 'Tournament Draft'), ('DRAFT_MODE', 'Draft Mode'), ('ALL_RANDOM', 'All Random'), ('BLIND_PICK', 'Blind Pick')])
+    spectatorType = SelectField(u'Spectaors', choices=[('ALL', 'All'), ('LOBBYONLY', 'Lobby Only'), ('NONE', 'None')])
+    teamSize = SelectField(u'Team size', choices=[(5, 5), (2, 2), (3, 3), (4, 4), (1, 1)])
 
 class PlayerRegister(FlaskForm):
     Name=StringField("Player Name", validators=[InputRequired('Enter Player Name')])

@@ -172,7 +172,9 @@ class Match(db.Model):
     loser = db.Column(db.String(64))
     decided = db.Column(db.String(64))
     matchstats = db.Column(db.String(64))
+    tournament = db.Column(db.String(64))
     recorddate = db.Column(db.String(64))
+    tournamentcode = db.Column(db.String(256))
 
 class Tournment(db.Model):
     __tablename__='Tournements'

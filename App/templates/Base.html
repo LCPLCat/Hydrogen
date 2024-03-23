@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -20,14 +20,15 @@
   .pt-5 {
 	padding: (spacer * 3)!important;
 	}
+  .custom-element {
+	color: #000;
+	}
   </style>
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
   </head>
   <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		
-
-		<div class="position-relative" id="navbarSupportedContent">
+	<nav class="navbar navbar-expand-lg custom-element">
+		<div class="position-relative" id="navbarSupportedContent" data-bs-theme="dark">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active">
 					<a class="nav-link" href={{url_for('main.index')}}>Home</a>
@@ -58,10 +59,23 @@
 						</ul>
 					</div>
 				</li>
+				<li class="nav-item dropdown">
+					<div class="dropdown">
+						<a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							Tournament Admin
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<li ><a class="dropdown-item" href={{url_for('TournementsBP.Tournements')}}?time=hour>Tournaments</a></li>
+							<li ><a class="dropdown-item" href={{url_for('MatchesBP.match')}}?time=hour>Matches</a></li>
+							<li ><a class="dropdown-item" href={{url_for('TeamsBP.teams')}}>Teams</a></li>
+							<li ><a class="dropdown-item" href={{url_for('PlayersBP.players')}}>Players</a></li>
+						</ul>
+					</div>
+				</li>
 				<li class="nav-item"><a class="nav-link" href={{url_for('CastersBP.casters')}}>Casters</a></li>
-				<li class="nav-item"><a class="nav-link" href={{url_for('MatchesBP.match')}}?time=hour>Matches</a></li>
+				
 				<li class="nav-item"><a class="nav-link" href={{url_for('MusicBP.music')}}>Music</a></li>
-				<li class="nav-item"><a class="nav-link" href={{url_for('TeamsBP.teams')}}>Teams</a></li>
+				
 				<li class="nav-item dropdown">
 					<div class="dropdown">
 						<a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -91,11 +105,9 @@
 					</div>
 				</li>
 				<li class="nav-item"><a class="nav-link" href={{url_for('ROLFBP.rolf')}}>ROLF</a></li>
-				<li class="nav-item"><a class="nav-link" href={{url_for('PlayersBP.players')}}>Players</a></li>
 				<li class="nav-item"><a class="nav-link" href={{url_for('main.RiotAPI')}}>RiotAPI</a></li>
 				<li class="nav-item"><a class="nav-link" href={{url_for('Plot.plot_png')}}>plot_png</a></li>
 				<li class="nav-item nav=link disabled text-muted" href = "#">
-					<span>Welcome, me</span>
 				</li>
 			</ul>
 		</div>

@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, make_response, jsonify
 from ..forms import MusicUpload, Bid, TeamRegister, CasterRegister, PlayerRegister, MatchRegister, ROLF, APIKey, MatchID
-from ..models import Item, Music, Teams, Casters, Players, Match, ROLFFile, MatchStas
+from ..models import Item, Music, Teams, Casters, Players, Match, ROLFFile, MatchStas, Tournment
 from .. import db
 from ..Streams import Stream, Headings
+from ..DataBaseUtils import *
 from ..replay_metadata import *
 from sqlalchemy import *
 from werkzeug.utils import secure_filename
@@ -10,12 +11,19 @@ from ..Streams import Stream, Headings
 import os
 from datetime import *
 from . import RiotAPIBP
+import sys
 headings = Headings
 bp = Blueprint('MatchesBP', __name__)
-
+global PROVIDER
+PROVIDER = os.environ['PROVIDER']
 @bp.route('/Matches/')
 def match():
     time = datetime.now()
+    matchs = Match.query.all()
+    Form = MatchRegister()
+    Form.Team1.choices = [(T.id, T.name+' | '+T.description) for T in Teams.query.order_by('id')]
+    Form.Team2.choices = [(T.id, T.name+' | '+T.description) for T in Teams.query.order_by('id')]
+    Form.Tournament.choices = [(T.id, T.tournementname) for T in Tournment.query.all()]
     args = ''
     if request.args.get('time') == 'hour':
         args = '?time=hour'
@@ -34,15 +42,30 @@ def match():
         data = Match.query.all()
     else:
         data = Match.query.all()
-    
+    tournaments = Tournment.query.all()
+    Forms = []
+    for i, match in enumerate(matchs):
+        tempForm = MatchRegister(
+                                Tournament=match.tournament,
+                                Team1=match.team1,
+                                Team2=match.team2,
+                                Team1name=match.team1name,
+                                Team2name=match.team2name,
+                                Time=match.time,
+                                Format=match.format)
+        Forms.append(tempForm)
     teams = Teams.query.all()
-    return render_template('Matches/Matches.html', headings = headings.MatchHeadings, data = data,teams=teams)
+    return render_template('Matches/Matches.html', headings = headings.MatchHeadings, data = data,teams=teams, form=Form, tournaments=tournaments, forms=Forms)
 
 @bp.route('/Matches/Add')
 def matchadd():
     data = Match.query.all()
-    teams = Teams.query.all()
-    return render_template('Matches/MatchAdd.html', data = data, teams=teams)
+    Form = MatchRegister()
+    Form.Team1.choices = [(T.id, T.name+' | '+T.description) for T in Teams.query.order_by('id')]
+    Form.Team2.choices = [(T.id, T.name+' | '+T.description) for T in Teams.query.order_by('id')]
+    Form.Tournament.choices = [(T.id, T.tournementname) for T in Tournment.query.all()]
+
+    return render_template('Matches/MatchAdd.html', data = data, form=Form)
 
 @bp.route('/Matches/Edit', methods=['POST'])
 def matchsave():
@@ -67,7 +90,7 @@ def matchdecide_submit():
     data.loser = loser.id
     data.decided = 1
     db.session.commit()
-    return match()
+    return redirect('/Matches/')
 
 @bp.route('/Matches/Swap', methods=['POST'])
 def matchswap():
@@ -81,7 +104,7 @@ def matchswap():
     data.loser = winner.id
     data.winner = loser.id
     db.session.commit()
-    return match()
+    return redirect('/Matches/')
 
 #Matches Del
 @bp.route('/Matches/', methods=['POST'])
@@ -90,7 +113,7 @@ def matchdel():
     db.session.commit()
     data = Match.query.get(request.form['id'])
     teams = Teams.query.all()
-    return match()
+    return redirect('/Matches/')
 
 @bp.route('/MatchChanged/', methods=['POST'])
 def matchchanged():
@@ -100,9 +123,8 @@ def matchchanged():
     temp.team2 = request.form['Team2']
     temp.time = request.form['Time']
     temp.format = request.form['Format']
-    temp.matchstats = request.form['GameID']
     db.session.commit()
-    return match()
+    return redirect('/Matches/')
 
 @bp.route('/MatchGetStats/', methods=['POST'])
 def matchgetstats():
@@ -116,4 +138,18 @@ def matchgetstats():
 @bp.route('/StatsSubmit/', methods=['POST'])
 def StatsSubmit():
     RiotAPIBP.GetMatchIDFromPlayer(Players.query.filter_by(id=request.form['Players']).first().name)
-    return match()
+    return redirect('/Matches/')
+
+@bp.route('/matchsubmit', methods=['GET','POST'])
+def matchsubmit():
+    Codedata = {
+        "enoughPlayers": request.form['enoughPlayers'],
+        "mapType": request.form['mapType'],
+        "pickType": request.form['pickType'],
+        "spectatorType": request.form['spectatorType'],
+        "teamSize": request.form['teamSize']
+    }
+    Tournmentid = Tournment.query.filter_by(id=request.form['Tournament']).first()
+    response = requests.post('https://americas.api.riotgames.com/lol/tournament/v5/codes?count=1&tournamentId='+Tournmentid.tournementid+'&api_key='+RIOT_KEY, json=Codedata).json()
+    add_match_to_database(MatchRegister(), response)
+    return redirect('/Matches/')

@@ -25,7 +25,7 @@ class Stream:
 
 class Headings:
     #headings used for the Match page
-    MatchHeadings = ("Team 1", "Team 2", "Time","Format","Winner","Loser","Actions")
+    MatchHeadings = ("Team 1", "Team 2", "Time","Format","Winner","Loser","Tournament Code","Actions")
 
     #headings used for the Caster page
     CasterHeadings = ("#", "Name", "SubHeading", "Actions")

@@ -14,9 +14,29 @@ h4 {
     vertical-align: middle;
   }
 }</style>
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal" tabindex="-1" id="Add">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Match Add</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {{wtf.quick_form(form, id='AddMatch', action=url_for('MatchesBP.matchsubmit'))}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="document.getElementById('AddMatch').submit()">Add match</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="container">
   <div>
-    <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('MatchesBP.matchadd')}}><img src="../static/img/plus.svg"></a>
+    <a type="button" class="btn btn-secondary btn-lg btn-block" id="AddButton" data-bs-toggle="modal" data-bs-target="#Add"><img src="../static/img/plus.svg"></a>
+    <!---  --->
     <div class="dropdown">
       <a type="button" class="btn btn-secondary btn-lg btn-block dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img src="../static/img/sort.svg"></a>
       <ul class="dropdown-menu" >
@@ -25,8 +45,6 @@ h4 {
         <li><a class="dropdown-item" href={{url_for('MatchesBP.match')}}?time=month>last month</a></li>
         <li><a class="dropdown-item" href={{url_for('MatchesBP.match')}}?time=all>All</a></li>
       </ul> 
-
-      <input type="text" id="search" placeholder="Search...">
     </div>
   </div>
     <div class="row">
@@ -50,14 +68,14 @@ h4 {
                     <td>
                         {% for team in teams%}
                             {%if team.id == match.team1%}
-                            {{team.name}} | {{team.abbreviation}} | {{team.description}}
+                            {{team.name}} | {{team.description}}
                             {%endif%}
                         {% endfor %} 
                     </td>
                     <td>
                         {% for team in teams%}
                             {%if team.id == match.team2%}
-                            {{team.name}} | {{team.abbreviation}} | {{team.description}}
+                            {{team.name}} | {{team.description}}
                             {%endif%}    
                         {% endfor %} 
                     </td>
@@ -82,6 +100,9 @@ h4 {
                       {% endfor %}
                     </td>
                     <td>
+                      {{match.tournamentcode}}
+                    </td>
+                    <td>
                       {% if match.decided == 0 %}
                         <button type="button" class="btn btn-primary" onclick="Decide('{{match.id}}')">Pick Winner<i class="far fa-trash-alt"></i></button>
                         <form id="Decide{{match.id}}" action="{{ url_for('MatchesBP.matchdecide') }}" method="post">
@@ -96,7 +117,7 @@ h4 {
                       <form id="matchStats{{match.matchstats}}" action="{{ url_for('RiotAPIBP.MatchStats') }}" method="post">
                           <input type="hidden" id="id" name="id" value="{{match.matchstats}}">
                       </form>
-                      <button type="button" class="btn btn-success" onclick="Edit('{{match.id}}')">Edit<i class="fas fa-edit"></i></button>
+                      <button type="button" class="btn btn-success" id="EditButton" onclick="Edit('{{match.id}}')">Edit<i class="fas fa-edit"></i></button>
                       <form id="Edit{{match.id}}" action="{{ url_for('MatchesBP.matchsave') }}" method="post">
                           <input type="hidden" id="id" name="id" value="{{match.id}}">
                       </form>
@@ -129,5 +150,6 @@ h4 {
     function matchStats(id){
       document.getElementById('matchStats'+id).submit() 
     }
+    
   </script>
 {% endblock %}
