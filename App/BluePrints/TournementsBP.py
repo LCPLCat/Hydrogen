@@ -19,9 +19,9 @@ def Tournements():
 
 @bp.route('/Tournements/Add')
 def Tournementsadd():
-    form = TournementRegister
+    form = TournementRegister()
     return render_template('Tournements/TournementsAdd.html', form=form)
 
-@bp.route('/Tournements/Submit')
+@bp.route('/Tournements/Submit', methods=['POST'])
 def submit():
-    return Tournements
+    return Tournements()
