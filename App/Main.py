@@ -54,6 +54,10 @@ def Countdown():
             yield str(i)
     return Response(timer(timing), mimetype='text/html')
     
+@bp.route('/callback', methods=['GET', 'POST'])
+def callback():
+    return 200
+
 @bp.route('/CountdownTimer', methods=['GET', 'POST'])
 def CountdownTimer():
     value = "Bonjour"
@@ -62,11 +66,6 @@ def CountdownTimer():
         global timing
         timing = int(request.form['timing'])
     return render_template('Countdown/Countdown.html', message=title_html)
-
-@bp.route('/RiotData')
-def riotdata():
-    Name = 'pip4pig'
-    return requests.get("https://oc1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{Name}?api_key={Key}".format(Name=Name, Key=RIOT_KEY)).json()
     
 @bp.route('/TwitchAuth/')
 def twitchauth():

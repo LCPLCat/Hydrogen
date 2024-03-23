@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, make_response
 from .forms import MusicUpload, Bid, TeamRegister, CasterRegister, PlayerRegister, MatchRegister, ROLF, APIKey
-from .models import Item, Music, Teams, Casters, Players, Match, ROLFFile
+from .models import Item, Music, Teams, Casters, Players, Match, ROLFFile, Tournment
 from . import db
 from .Streams import Stream, Headings
 from .replay_metadata import *
@@ -38,5 +38,9 @@ def add_casters_to_database(form):
 
 def add_players_to_database(form):
     db.session.add(Players(name = form.Name.data, team = form.Team.data, puid = 'null'))
+    db.session.commit()
+
+def add_touranment_to_database(form, id):
+    db.session.add(Tournment(tournementname = form.Name.data, tournementid = id, recorddate=datetime.now()))
     db.session.commit()
 

@@ -39,13 +39,9 @@
                         {{Tournement.tournementname}}
                     </td>
                     <td>
-                      <button type="button" class="btn btn-success" onclick="Edit('{{music.id}}')">Edit<i class="fas fa-edit"></i></button>
-                      <form id="Edit{{music.id}}" action="{{ url_for('MusicBP.musicedit') }}" method="post">
-                          <input type="hidden" id="id" name="id" value="{{music.id}}">
-                      </form>
-                      <button type="button" class="btn btn-danger" onclick="Del('{{music.id}}')">Delete<i class="far fa-trash-alt"></i></button>
-                      <form id="Del{{music.id}}" action="{{ url_for('MusicBP.musicdel') }}" method="post">
-                          <input type="hidden" id="id" name="id" value="{{music.id}}">
+                      <button type="button" class="btn btn-info" onclick="Codes('{{Tournement.tournementid}}')">Codes<i class="fas fa-edit"></i></button>
+                      <form id="Codes{{Tournement.tournementid}}" action="{{ url_for('TournementsBP.TournementsCodes') }}" method="post">
+                          <input type="hidden" id="id" name="id" value="{{Tournement.tournementid}}">
                       </form>
                     </td>
                 </tr>    
@@ -56,11 +52,8 @@
   </div>
 </div>
 <script>
-  function Del(id){
-      document.getElementById('Del'+id).submit()
-  }
-  function Edit(id){
-      document.getElementById('Edit'+id).submit()
+  function Codes(id){
+      document.getElementById('Codes'+id).submit()
   }
 </script>
 {% endblock %}
