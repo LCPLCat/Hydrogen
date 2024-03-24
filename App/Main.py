@@ -198,12 +198,12 @@ def headtoheadpost():
     if request.args.get('stream') == 'A':
         AStrm[0]= str(request.form['Match'])
         AStrm[1]= team1.logoBlue
-        AStrm[2]= team2.logoRed
+        AStrm[2]= team2.logoBlue
         return redirect('/HeadToHead?stream=A')
     if request.args.get('stream') == 'B':
         BStrm[0]= str(request.form['Match'])
         BStrm[1]= team1.logoBlue
-        BStrm[2]= team2.logoRed
+        BStrm[2]= team2.logoBlue
         return redirect('/HeadToHead?stream=B')
     
 
@@ -222,7 +222,6 @@ def headtoheadxml():
     if request.args.get('stream') == 'A':
         response = make_response(render_template('XML/HeadToHead.xml', data=AStrm))
     elif request.args.get('stream') == 'B':
-        
         response = make_response(render_template('XML/HeadToHead.xml', data=BStrm))  
     response.headers['Content-Type'] = 'application/xml'
     return response

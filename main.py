@@ -1,4 +1,5 @@
 from App import create_app
+from flask import Flask
 from waitress import serve
 dev = False
 if __name__=='__main__':
