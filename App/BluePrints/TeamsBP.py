@@ -19,13 +19,20 @@ bp = Blueprint('TeamsBP', __name__)
 @bp.route('/Teams/')
 @login_required
 def teams():
-    if request.args.get('div') == "ODTA":data = Teams.query.filter_by(description = 'ODTA').all()
-    elif request.args.get('div') == "ODTB":data = Teams.query.filter_by(description = 'ODTB').all()
-    elif request.args.get('div') == "Div 1A":data = Teams.query.filter_by(description = 'Div 1A').all()
-    elif request.args.get('div') == "Div 1B":data = Teams.query.filter_by(description = 'Div 1B').all()
-    elif request.args.get('div') == "Womens":data = Teams.query.filter_by(description = 'Womens').all()
-    elif request.args.get('div') == "all":data = Teams.query.all()
-    else:data = Teams.query.all()
+    if request.args.get('div') == "odtpoola":
+        data = Teams.query.filter_by(description = 'ODTA').all()
+    elif request.args.get('div') == "odtpoolb":
+        data = Teams.query.filter_by(description = 'ODTB').all()
+    elif request.args.get('div') == "div1poola":
+        data = Teams.query.filter_by(description = 'Div 1A').all()
+    elif request.args.get('div') == "div1poolb":
+        data = Teams.query.filter_by(description = 'Div 1B').all()
+    elif request.args.get('div') == "womens":
+        data = Teams.query.filter_by(description = 'Womens').all()
+    elif request.args.get('div') == "all":
+        data = Teams.query.all()
+    else:
+        data = Teams.query.all()
     return render_template('Teams/Teams.html', headings = headings.TeamHeadings, data = data)
 
 @bp.route('/TeamsAdd/')
