@@ -112,7 +112,7 @@
 				<li class="nav-item"><a class="nav-link" href={{url_for('main.RiotAPI')}}>RiotAPI</a></li>
 				<li class="nav-item"><a class="nav-link" href={{url_for('Plot.plot_png')}}>plot_png</a></li>
 				<li class="nav-item"><a class="nav-link" href={{url_for('LoginBP.logout')}}>Logout</a></li>
-				<li class="nav-item nav=link disabled text-muted" href = "#">
+				<li class="nav-item">{{session['username']}}</li>
 				</li>
 			</ul>
 		</div>

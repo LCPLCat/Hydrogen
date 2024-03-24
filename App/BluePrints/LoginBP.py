@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, make_response
+from flask import Blueprint, render_template, request, flash, redirect, url_for, make_response,session
 from flask_login import login_user, login_required, logout_user
 from ..forms import MusicUpload, Bid, TeamRegister, CasterRegister, PlayerRegister, MatchRegister, ROLF, APIKey, Login
 from ..models import Item, Music, Teams, Casters, Players, Match, ROLFFile, User
@@ -45,8 +45,15 @@ def login_post():
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
     user = User.query.filter_by(username=username).first()
-    if not user or not check_password_hash(user.password, password):
-        flash('Please check your login details and try again.')
+    if user == None:
+        print('This 1', flush=True)
+        return redirect('/login')
+        
+    if not check_password_hash(user.password, password):
+        print('This 2', flush=True)
+        return redirect('/login')
+
+    session['username']=username
     login_user(user, remember=remember)
     return redirect('/')
 

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, make_response
+from flask import Blueprint, render_template, request, flash, redirect, url_for, make_response, session
 from ..forms import MusicUpload, Bid, TeamRegister, CasterRegister, PlayerRegister, MatchRegister, ROLF, APIKey, TournementRegister
 from ..models import Item, Music, Teams, Casters, Players, Match, ROLFFile, Tournment
 from .. import db
@@ -35,7 +35,7 @@ def Tournementsadd():
 @bp.route('/Tournements/Submit', methods=['POST'])
 @login_required
 def submit():
-
+    
     form = TournementRegister()
     response = requests.post('https://americas.api.riotgames.com/lol/tournament/v5/tournaments?api_key='+RIOT_KEY, json={"name": form.Name.data,"providerId": PROVIDER}).json()
     add_touranment_to_database(form, response)
