@@ -24,7 +24,7 @@ bp = Blueprint('TournementsBP', __name__)
 def Tournements():
     Matches = Match.query.all()
     Tournements = Tournment.query.all()
-    return render_template('Tournements/Tournements.html', Tournements=Tournements , matches=Matches)
+    return render_template('Tournements/Tournements.html', Tournements=Tournements , matches=Matches, form=TournementRegister())
 
 @bp.route('/Tournements/Add')
 @login_required

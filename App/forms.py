@@ -43,7 +43,6 @@ class ROLF(FlaskForm):
 
 class TournementRegister(FlaskForm):
     Name=StringField("Tournement Name", validators=[InputRequired("Enter Tournment Name")])
-    Submit = SubmitField('Submit', validators=[InputRequired()])
 
 class CasterRegister(FlaskForm):
     Name=StringField("Caster Name", validators=[InputRequired('Enter Caster Name')])

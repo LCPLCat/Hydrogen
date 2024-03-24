@@ -23,6 +23,7 @@ class Stream:
     def __init__(self, Name):
         self.Name = Name
 
+    HeadToHead=['','','']
 class Headings:
     #headings used for the Match page
     MatchHeadings = ("Team 1", "Team 2", "Time","Format","Winner","Loser","Tournament Code","Actions")

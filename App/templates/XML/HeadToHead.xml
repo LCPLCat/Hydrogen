@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HeadToHead>
+    <Text>{{data[0]}}</Text>
+    <LeftImg>{{data[1]}}</LeftImg>
+    <RightImg>{{data[2]}}</RightImg>
+</HeadToHead>

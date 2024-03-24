@@ -1,0 +1,56 @@
+{% extends "Base.html" %}
+{% block content %}
+
+<style>
+    .center {
+        text-align: center;
+      }
+      #image {
+        display: none;
+    }
+</style>
+<div class="container">
+    <div class="top">
+        <div class="row">
+            <div class="col-sm">
+              <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="Match4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{data[0]}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  {% for matches in data1%}
+                    <li><a class="dropdown-item" onclick="ChangeImage1('{{matches.team1}}','{{matches.team2}}','{{matches.team1name}}','{{matches.team2name}}')">
+                        {% for team in teams%}
+                            {%if team.id == matches.team1%}
+                            {{team.abbreviation}} VS
+                            {%endif%}
+                        {% endfor %} 
+                        {% for team in teams%}
+                            {%if team.id == matches.team2%}
+                            {{team.abbreviation}}
+                            {%endif%}
+                        {% endfor %} 
+                    </a></li>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <form id="SetSchedule" action="/HeadToHead?stream={{strm}}" method="post">
+    <input type="hidden" id="Match" name="Match">
+    <input type="hidden" id="Team1" name="Team1">
+    <input type="hidden" id="Team2" name="Team2">
+  </form>
+  <script>
+    function ChangeImage1(team1,team2,team1name, team2name) {
+      document.getElementById("Match").innerText = team1name+" Vs "+team2name;
+      console.log(team1name+" Vs "+team2name);
+      document.getElementById("Match").value=team1name+" Vs "+team2name
+      document.getElementById("Team1").value=team1
+      document.getElementById("Team2").value=team2
+      document.getElementById('SetSchedule').submit()
+    }
+  </script>
+{% endblock %}

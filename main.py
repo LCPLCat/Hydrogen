@@ -1,6 +1,6 @@
 from App import create_app
 from waitress import serve
-dev = False
+dev = True
 if __name__=='__main__':
     app=create_app()
     if dev == True:

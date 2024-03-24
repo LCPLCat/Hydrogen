@@ -10,6 +10,7 @@ from .BluePrints import MatchesBP, PlayersBP, TeamsBP, CastersBP, PlayersBP, Mus
 from flask_login import login_required, current_user
 from . import OtherUtils, DataBaseUtils
 import os
+import sys
 import time
 from datetime import datetime
 from dotenv import load_dotenv
@@ -39,7 +40,6 @@ timing=10
 @bp.route('/')
 @login_required
 def index():
-    
     OtherUtils.link_player_ID()
     OtherUtils.player_stats_average()
     data = Casters.query.all()
@@ -183,19 +183,56 @@ def scheduleoverlay():
     data = Match.query.all()
     teams = Teams.query.all()
     if request.args.get('stream') == 'A':
-        print("A")
-        print(Astream.Schedule)
         return render_template('Overlays/Schedule.html', data = data,teams = teams, schedule=Astream.Schedule, strm = "A")
         
     elif request.args.get('stream') == 'B':
-        print("B")
-        print(Bstream.Schedule)
         return render_template('Overlays/Schedule.html', data = data,teams = teams, schedule=Bstream.Schedule, strm = "B")  
-           
+BStrm = ['','','']
+AStrm = ['','','']
+@bp.route('/HeadToHead',  methods = ["POST"])
+def headtoheadpost():
+    print(Astream.HeadToHead[0] + 'A', flush=True)
+    print(Bstream.HeadToHead[0] + 'B', flush=True)
+    team1 = Teams.query.filter_by(id=request.form['Team1']).first()
+    team2 = Teams.query.filter_by(id=request.form['Team2']).first()
+    if request.args.get('stream') == 'A':
+        AStrm[0]= str(request.form['Match'])
+        AStrm[1]= team1.logoBlue
+        AStrm[2]= team2.logoRed
+        print('this a', flush=True)
+        return redirect('/HeadToHead?stream=A')
+    if request.args.get('stream') == 'B':
+        BStrm[0]= str(request.form['Match'])
+        BStrm[1]= team1.logoBlue
+        BStrm[2]= team2.logoRed
+        print('this b', flush=True)
+        return redirect('/HeadToHead?stream=B')
+    
+
+@bp.route('/HeadToHead',  methods = ["GET"])
+@login_required
+def headtohead():
+    Matches = Match.query.all()
+    teams = Teams.query.all()
+    if request.args.get('stream') == 'A':
+        return render_template('Overlays/HeadToHead.html', data=AStrm, data1=Matches,teams=teams, strm='A')
+    elif request.args.get('stream') == 'B':
+        return render_template('Overlays/HeadToHead.html', data=BStrm, data1=Matches,teams=teams, strm='B')
+
+@bp.route('/HeadToHead/API.xml',  methods = ["POST","GET"])
+def headtoheadxml():
+    print(request.args.get('stream'), flush=True)
+    if request.args.get('stream') == 'A':
+        response = make_response(render_template('XML/HeadToHead.xml', data=AStrm))
+    elif request.args.get('stream') == 'B':
+        
+        response = make_response(render_template('XML/HeadToHead.xml', data=BStrm))  
+    response.headers['Content-Type'] = 'application/xml'
+    return response
+
 @bp.route('/Schedule/', methods=['POST'])
 def scheduleoverlay_data():
     if request.args.get('stream') == 'A':
-        print("A")
         for idx, x in enumerate(Astream.Schedule, start=1):
             x[0]= request.form['MatchID'+str(idx)]
             x[1]= request.form['Team1'+str(idx)]
@@ -204,9 +241,7 @@ def scheduleoverlay_data():
             x[4]= request.form['Format'+str(idx)]
             x[5]= request.form['Team1name'+str(idx)]
             x[6]= request.form['Team2name'+str(idx)]
-        print(Astream.Schedule)
     elif request.args.get('stream') == 'B':
-        print("B")
         for idx, x in enumerate(Bstream.Schedule, start=1):
             x[0]= request.form['MatchID'+str(idx)]
             x[1]= request.form['Team1'+str(idx)]
@@ -215,7 +250,6 @@ def scheduleoverlay_data():
             x[4]= request.form['Format'+str(idx)]
             x[5]= request.form['Team1name'+str(idx)]
             x[6]= request.form['Team2name'+str(idx)] 
-        print(Bstream.Schedule) 
     return scheduleoverlay()
 
 @bp.route('/Overlay/', methods=['POST'])
