@@ -223,7 +223,6 @@ def JsonExtract(info, metadata):
 @bp.route('/Matches/Stats', methods=['GET','POST'])
 def MatchStats():
     data = MatchStas.query.filter_by(Gameid=request.form['id'])
-    print(data, flush=True)
     for i, player in enumerate(data):
         data[i].killparticipation = round(float(data[i].killparticipation), 2)
         data[i].goldPerMinute = round(float(data[i].goldPerMinute), 1)
