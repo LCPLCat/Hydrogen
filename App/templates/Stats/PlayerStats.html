@@ -18,7 +18,7 @@
 
 <div class="container">
     <div>
-        <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('MatchesBP.match')}}><img src="../static/img/back.svg"></a>
+        <a type="button" class="btn btn-secondary btn-lg btn-block" onclick="back()"><img src="../../static/img/back.svg"></a>
     </div> 
     <div style="height: 20px;"> </div>
   <div class="row">
@@ -28,7 +28,7 @@
         <thead>
           <tr>
             <th scope="col">Name</th>
-            <th scope="col">Team</th>
+            <th scope="col">Champion</th>
             <th scope="col">K/D/A</th>
             <th scope="col">Kill Participation</th>
             <th scope="col">Gold - Per min</th>
@@ -36,22 +36,16 @@
             <th scope="col">First Bloods</th>
             <th scope="col">Vision Score</th>
             <th scope="col">Control Wards Purchased</th>
-            <th scope="col">Champion</th>
-            <th scope="col">Actions</th>
+            <th scope="col">Team</th>
           </tr>
         </thead>
         <tbody>
-            {% for stats in data%}
                 <tr>
                     <td>
                         {{stats.riotIdGameName}}#{{stats.riotIdTagline}}
                     </td>
                     <td>
-                      {% if stats.teamId == '100'%}
-                      <a class="text-primary">Blue</a>
-                      {% else %}
-                      <a class="text-danger">Red</a>
-                      {% endif %}
+                        <img src="https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/{{stats.championName}}.png">
                     </td>
                     <td>
                         {{stats.kills}}/{{stats.deaths}}/{{stats.assists}}
@@ -75,17 +69,25 @@
                         {{stats.controlwardsplaced}}
                     </td>
                     <td>
-                      <img src="https://ddragon.leagueoflegends.com/cdn/14.6.1/img/champion/{{stats.championName}}.png">
-                  </td>
-                  <td>
-                    <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('MatchesBP.IndividualStats')}}?player={{stats.id2}}>Individual Stats</a>
-                  </td>
-                </tr>    
-            {% endfor %}
+                        {% if stats.teamId == '100'%}
+                      <a class="text-primary">Blue</a>
+                      {% else %}
+                      <a class="text-danger">Red</a>
+                      {% endif %}
+                    </td>
+                </tr>
         </tbody>
       </table>
-
+      <form id="matchStats" action="/Matches/Stats" method="post">
+        <input type="hidden" id="id" name="id" value="{{stats.Gameid}}">
+        </form>
     </div>
   </div>
 </div>
+<script>
+    function back()
+    {
+        document.getElementById('matchStats').submit()
+    }
+</script>
 {% endblock %}

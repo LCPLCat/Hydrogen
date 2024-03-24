@@ -19,7 +19,22 @@ bp = Blueprint('TeamsBP', __name__)
 @bp.route('/Teams/')
 @login_required
 def teams():
-    data = Teams.query.all()
+    
+    match request.args.get('div'):
+        case "odtpoola":
+            data = Teams.query.filter_by(description = 'ODTA').all()
+        case "odtpoolb":
+            data = Teams.query.filter_by(description = 'ODTB').all()
+        case "div1poola":
+            data = Teams.query.filter_by(description = 'Div 1A').all()
+        case "div1poolb":
+            data = Teams.query.filter_by(description = 'Div 1B').all()
+        case "womens":
+            data = Teams.query.filter_by(description = 'Womens').all()
+        case "all":
+            data = Teams.query.all()
+        case _:
+            data = Teams.query.all()
     return render_template('Teams/Teams.html', headings = headings.TeamHeadings, data = data)
 
 @bp.route('/TeamsAdd/')

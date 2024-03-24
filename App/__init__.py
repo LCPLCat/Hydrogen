@@ -3,6 +3,7 @@ from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+#from flask_scss import Scss
 from flask import Blueprint, render_template, request
 db=SQLAlchemy()
 
@@ -19,6 +20,7 @@ def create_app():
     
     db.init_app(app)
 
+    #Scss(app, static_dir='static', asset_dir='assets')
     bootstrap = Bootstrap(app)
     UPLOAD_FOLDER = '/static/img'
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER

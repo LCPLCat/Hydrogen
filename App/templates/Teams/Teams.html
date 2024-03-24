@@ -18,6 +18,17 @@
 <div class="container">
     <div>
         <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('TeamsBP.teamadd')}}><img src="../static/img/plus.svg"></a>
+        <div class="dropdown">
+          <a type="button" class="btn btn-secondary btn-lg btn-block dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><img src="../static/img/sort.svg"></a>
+          <ul class="dropdown-menu" >
+            <li><a class="dropdown-item" href={{url_for('TeamsBP.teams')}}?div=odtpoola>ODT Pool A</a></li>
+            <li><a class="dropdown-item" href={{url_for('TeamsBP.teams')}}?div=odtpoolb>ODT Pool B</a></li>
+            <li><a class="dropdown-item" href={{url_for('TeamsBP.teams')}}?div=div1poola>Div 1 Pool A</a></li>
+            <li><a class="dropdown-item" href={{url_for('TeamsBP.teams')}}?div=div1poolb>Div 1 Pool B</a></li>
+            <li><a class="dropdown-item" href={{url_for('TeamsBP.teams')}}?div=womens>Womens</a></li>
+            <li><a class="dropdown-item" href={{url_for('TeamsBP.teams')}}?div=all>All</a></li>
+          </ul> 
+        </div>
     </div> 
     <div style="height: 20px;"> </div>
   <div class="row">

@@ -161,3 +161,8 @@ def matchsubmit():
     response = requests.post('https://americas.api.riotgames.com/lol/tournament/v5/codes?count=1&tournamentId='+Tournmentid.tournementid+'&api_key='+RIOT_KEY, json=Codedata).json()
     add_match_to_database(MatchRegister(), response)
     return redirect('/Matches/')
+
+@bp.route('/Match/Stats/Player',methods=['GET'])
+def IndividualStats():
+    res = MatchStas.query.filter_by(id2=request.args.get('player')).first()
+    return render_template('Stats/PlayerStats.html', stats=res)
