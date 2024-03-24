@@ -2,6 +2,7 @@
 from flask import Flask 
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 from flask import Blueprint, render_template, request
 db=SQLAlchemy()
 
@@ -22,7 +23,14 @@ def create_app():
     UPLOAD_FOLDER = '/static/img'
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     #initialize the login manager
-    
+    login_manager = LoginManager()
+    login_manager.login_view = 'LoginBP.login'
+    login_manager.init_app(app)
+    from .models import User
+    @login_manager.user_loader
+    def load_user(user_id):
+        # since the user_id is just the primary key of our user table, use it in the query for the user
+        return User.query.get(int(user_id))
     #set the name of the login function that lets user login
     # in our case it is auth.login (blueprintname.viewfunction name)
 
@@ -49,7 +57,7 @@ def create_app():
     #importing views module here to avoid circular references
     # a commonly used practice.
     from . import Main 
-    from .BluePrints import MatchesBP, CastersBP, MusicBP, PlayersBP, TeamsBP, ROLFBP, Plot, RiotAPIBP, TournementsBP
+    from .BluePrints import MatchesBP, CastersBP, MusicBP, PlayersBP, TeamsBP, ROLFBP, Plot, RiotAPIBP, TournementsBP, LoginBP
     app.register_blueprint(Main.bp)
     app.register_blueprint(ROLFBP.bp)
     app.register_blueprint(MatchesBP.bp)
@@ -60,5 +68,6 @@ def create_app():
     app.register_blueprint(Plot.bp)
     app.register_blueprint(RiotAPIBP.bp)
     app.register_blueprint(TournementsBP.bp)
+    app.register_blueprint(LoginBP.bp)
     return app
 

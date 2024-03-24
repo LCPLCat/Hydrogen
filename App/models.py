@@ -1,5 +1,5 @@
 from . import db
-
+from flask_login import UserMixin
 
 class Item(db.Model):
     __tablename__='items'
@@ -190,15 +190,11 @@ class Bid(db.Model):
     bid = db.Column(db.Integer)
     bid_id = db.Column(db.Integer, primary_key=True)
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__='users'
-    user_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(60), nullable=False)
-    email = db.Column(db.String(60), nullable=False)
     password = db.Column(db.String(500), nullable=False)
-    is_buyer = db.Column(db.Boolean)
-    def get_id(self):
-           return (self.user_id)
 
 class MatchStas(db.Model):
     __tablename__="StatsRiotAPI"

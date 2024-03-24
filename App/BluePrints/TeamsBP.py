@@ -6,6 +6,7 @@ from ..Streams import Stream, Headings
 from ..replay_metadata import *
 from sqlalchemy import *
 from werkzeug.utils import secure_filename
+from flask_login import login_required
 from ..Streams import Stream, Headings
 import os
 headings = Headings
@@ -16,11 +17,13 @@ bp = Blueprint('TeamsBP', __name__)
 #---------------------------------------------------------------------------------
 
 @bp.route('/Teams/')
+@login_required
 def teams():
     data = Teams.query.all()
     return render_template('Teams/Teams.html', headings = headings.TeamHeadings, data = data)
 
 @bp.route('/TeamsAdd/')
+@login_required
 def teamadd():
     data = Teams.query.all()
     Form = TeamRegister()
@@ -35,6 +38,7 @@ def teamdel():
     return render_template('Teams/Teams.html', headings = headings.TeamHeadings, data = data)
 
 @bp.route('/TeamsEdit/', methods=['POST'])
+@login_required
 def teamedit():
     temp = Teams.query.get(request.form['id'])
     return render_template('Teams/TeamEdit.html', data = temp)

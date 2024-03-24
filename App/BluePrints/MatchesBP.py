@@ -7,6 +7,7 @@ from ..DataBaseUtils import *
 from ..replay_metadata import *
 from sqlalchemy import *
 from werkzeug.utils import secure_filename
+from flask_login import login_required
 from ..Streams import Stream, Headings
 import os
 from datetime import *
@@ -17,6 +18,7 @@ bp = Blueprint('MatchesBP', __name__)
 global PROVIDER
 PROVIDER = os.environ['PROVIDER']
 @bp.route('/Matches/')
+@login_required
 def match():
     time = datetime.now()
     matchs = Match.query.all()
@@ -58,6 +60,7 @@ def match():
     return render_template('Matches/Matches.html', headings = headings.MatchHeadings, data = data,teams=teams, form=Form, tournaments=tournaments, forms=Forms)
 
 @bp.route('/Matches/Add')
+@login_required
 def matchadd():
     data = Match.query.all()
     Form = MatchRegister()
@@ -68,12 +71,14 @@ def matchadd():
     return render_template('Matches/MatchAdd.html', data = data, form=Form)
 
 @bp.route('/Matches/Edit', methods=['POST'])
+@login_required
 def matchsave():
     data = Match.query.filter_by(id=request.form['id']).first()
     teams = Teams.query.all()
     return render_template('Matches/MatchEdit.html', matches = data, teams=teams)
 
 @bp.route('/Matches/Decide', methods=['POST'])
+@login_required
 def matchdecide():
     data = Match.query.filter_by(id=request.form['id']).first()
     teams = Teams.query.all()
@@ -93,6 +98,7 @@ def matchdecide_submit():
     return redirect('/Matches/')
 
 @bp.route('/Matches/Swap', methods=['POST'])
+@login_required
 def matchswap():
     data = Match.query.filter_by(id=request.form['matchid']).first()
     winner = Teams.query.filter_by(id=request.form['winnerid']).first()
@@ -127,6 +133,7 @@ def matchchanged():
     return redirect('/Matches/')
 
 @bp.route('/MatchGetStats/', methods=['POST'])
+@login_required
 def matchgetstats():
     Form = MatchID()
     temp = Match.query.filter_by(id=request.form['id']).first()
@@ -141,6 +148,7 @@ def StatsSubmit():
     return redirect('/Matches/')
 
 @bp.route('/matchsubmit', methods=['GET','POST'])
+@login_required
 def matchsubmit():
     Codedata = {
         "enoughPlayers": request.form['enoughPlayers'],

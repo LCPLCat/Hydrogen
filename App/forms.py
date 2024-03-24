@@ -9,9 +9,10 @@ from . import db
 from .models import Teams
 
 
-class Testform(FlaskForm):
-    user_name = StringField('Name')
-    email = StringField('Email Address')
+class Login(FlaskForm):
+    username = StringField('Username', validators=[InputRequired('A Username is required!')])
+    password = PasswordField('Password', validators=[InputRequired('A Password is required!')])
+    remember = BooleanField('Remember me')
     sumbit = SubmitField('submit')
 
 class APIKey(FlaskForm):

@@ -6,6 +6,7 @@ from ..Streams import Stream, Headings
 from ..replay_metadata import *
 from sqlalchemy import *
 from werkzeug.utils import secure_filename
+from flask_login import login_required
 from ..Streams import Stream, Headings
 import os
 headings = Headings
@@ -16,11 +17,13 @@ bp = Blueprint('CastersBP', __name__)
 #---------------------------------------------------------------------------------
 
 @bp.route('/Casters/')
+@login_required
 def casters():
     data = Casters.query.all()
     return render_template('Casters/Casters.html', headings = headings.CasterHeadings , data = data)
 
 @bp.route('/CastersAdd/')
+@login_required
 def castersadd():
     headings = ("#", "Name", "SubHeading", "Actions")
     data = Casters.query.all()
@@ -37,6 +40,7 @@ def casterdel():
     return render_template('Casters/Casters.html', headings = headings, data = data)
 
 @bp.route('/CasterEdit/', methods=['POST'])
+@login_required
 def casteredit():
     temp = Casters.query.get(request.form['id'])
     return render_template('Casters/CasterEdit.html', data = temp)

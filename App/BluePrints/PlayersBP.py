@@ -6,18 +6,21 @@ from ..Streams import Stream, Headings
 from ..replay_metadata import *
 from sqlalchemy import *
 from werkzeug.utils import secure_filename
+from flask_login import login_required
 from ..Streams import Stream, Headings
 import os
 headings = Headings
 bp = Blueprint('PlayersBP', __name__)
 
 @bp.route('/Players/')
+@login_required
 def players():
     data = Players.query.all()
     teams = Teams.query.all()
     return render_template('Players/Players.html', headings = headings.PlayerHeadings, data = data, teams=teams)
 
 @bp.route('/PlayersAdd/')
+@login_required
 def playeradd():
     Form = PlayerRegister()
     data = Players.query.all()
@@ -25,6 +28,7 @@ def playeradd():
     return render_template('Players/PlayersAdd.html', form = Form, data =data )
 
 @bp.route('/PlayersEdit/', methods=['POST'])
+@login_required
 def playeredit():
     temp = Players.query.get(request.form['id'])
     teamname = Teams.query.get(request.form['id'])

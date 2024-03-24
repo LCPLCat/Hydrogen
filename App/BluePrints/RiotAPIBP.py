@@ -7,6 +7,7 @@ from ..Streams import Stream, Headings
 from ..replay_metadata import *
 from sqlalchemy import *
 from werkzeug.utils import secure_filename
+from flask_login import login_required
 from ..Streams import Stream, Headings
 import os
 import json
@@ -20,11 +21,14 @@ RIOT_KEY = os.environ['RIOT_KEY']
 bp = Blueprint('RiotAPIBP', __name__)
  
 @bp.route('/RiotAPI', methods=['GET','POST'])
+@login_required
 def MatchGetStats():
+    
     Form = MatchID()
     return render_template('RiotAPI/RiotAPI.html', form = Form)
 
 @bp.route('/RiotAPI/', methods=['POST'])
+@login_required
 def MatchSubmitStats():
     GetStatsRIOTAPI(request.form['Match ID'])
     return render_template('RiotAPI/RiotAPI.html')

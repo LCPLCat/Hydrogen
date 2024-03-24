@@ -6,6 +6,7 @@ from ..Streams import Stream, Headings
 from ..replay_metadata import *
 from sqlalchemy import *
 from werkzeug.utils import secure_filename
+from flask_login import login_required
 from ..Streams import Stream, Headings
 from ..OtherUtils import *
 import os
@@ -16,11 +17,13 @@ bp = Blueprint('ROLFBP', __name__)
 # All routes for rofl upload
 #---------------------------------------------------------------------------------
 @bp.route('/ROLF/')
+@login_required
 def rolf():
     Form = ROLF()
     return render_template('ROLF/ROFL.html', form = Form)
 
 @bp.route('/ROLF/', methods=['POST'])
+@login_required
 def rolfadd():
     Form = ROLF()
     upload_rofl(Form)

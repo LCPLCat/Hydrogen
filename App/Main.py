@@ -7,6 +7,7 @@ from .replay_metadata import *
 from sqlalchemy import *
 from werkzeug.utils import secure_filename
 from .BluePrints import MatchesBP, PlayersBP, TeamsBP, CastersBP, PlayersBP, MusicBP, ROLFBP
+from flask_login import login_required, current_user
 from . import OtherUtils, DataBaseUtils
 import os
 import time
@@ -36,7 +37,9 @@ timing=10
 # Base Route for the home page
 #---------------------------------------------------------------------------------
 @bp.route('/')
+@login_required
 def index():
+    
     OtherUtils.link_player_ID()
     OtherUtils.player_stats_average()
     data = Casters.query.all()
@@ -150,6 +153,7 @@ def riot():
 #---------------------------------------------------------------------------------
 
 @bp.route('/CastersOverlay/', methods=['GET'])
+@login_required
 def castersoverlay():
     data = Casters.query.all()
     if request.args.get('stream') == 'A':
@@ -174,6 +178,7 @@ def castersoverlay_data():
     return castersoverlay()
 
 @bp.route('/Schedule/')
+@login_required
 def scheduleoverlay():
     data = Match.query.all()
     teams = Teams.query.all()
@@ -223,6 +228,7 @@ def overlay_data():
     return overlay()
 
 @bp.route('/Overlay/', methods=['GET'])
+@login_required
 def overlay():
     data = Teams.query.all()
     if request.args.get('stream') == 'A':
@@ -231,6 +237,7 @@ def overlay():
         return render_template('Overlays/Overlay.html', data = data, LeftTeam = Bstream.Team[0][2], RightTeam=Bstream.Team[1][2], LeftTeamLogo = Bstream.Team[0][1], RightTeamLogo=Bstream.Team[1][1], LeftID = Bstream.Team[0][0], RightID = Bstream.Team[1][0], LeftAbb = Bstream.Team[0][3] , RightAbb = Bstream.Team[1][3], strm = "B") 
 
 @bp.route('/Stats/', methods=['GET'])
+@login_required
 def stats():
     OtherUtils.link_player_ID()
     OtherUtils.player_stats_average()
@@ -286,6 +293,7 @@ def streamchange():
 #---------------------------------------------------------------------------------
 
 @bp.route('/XML')
+@login_required
 def xml():
     return render_template('XML/XML.html')
 
@@ -351,6 +359,7 @@ def StandingsAPI():
     return response
         
 @bp.route('/SuperTeams')
+@login_required
 def SuperTeams():
     Scores = []
     players = Players.query.all()
@@ -382,6 +391,7 @@ def SuperTeams():
 #---------------------------------------------------------------------------------
 
 @bp.route('/RiotAPI')
+@login_required
 def RiotAPI():
     Form = APIKey()
     return render_template('RiotAPI/RiotAPI.html',form = Form)

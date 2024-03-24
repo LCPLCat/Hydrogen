@@ -15,6 +15,48 @@
     }
   }</style>
 
+
+<!---
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal" tabindex="-1" id="Add">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Codes</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-bordered">
+              
+              <thead>
+                <tr>
+                  <th scope="col">Tournament Name</th>
+                  <th scope="col">Tournament Code</th>
+                </tr>
+              </thead>
+              {% for Tournement in Tournements %}
+                <tbody>
+                    <tr>
+                    
+                    </tr>
+                    <tr>
+
+                    </tr>
+                </tbody>
+              {% endfor %}
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="document.getElementById('AddMatch').submit()">Add match</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+-->
+
+
 <div class="container">
     <div>
         <a type="button" class="btn btn-secondary btn-lg btn-block" href={{url_for('TournementsBP.Tournementsadd')}}><img src="../static/img/plus.svg"></img></a>

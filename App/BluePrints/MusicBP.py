@@ -6,17 +6,20 @@ from ..Streams import Stream, Headings
 from ..replay_metadata import *
 from sqlalchemy import *
 from werkzeug.utils import secure_filename
+from flask_login import login_required
 from ..Streams import Stream, Headings
 import os
 headings = Headings
 bp = Blueprint('MusicBP', __name__)
 
 @bp.route('/Music/')
+@login_required
 def music():
     data = Music.query.all()
     return render_template('Music/Music.html', headings = headings.MusicHeadings, data = data)
 
 @bp.route('/MusicAdd/')
+@login_required
 def musicadd():
     data = Music.query.all()
     Form = MusicUpload()
@@ -31,6 +34,7 @@ def musicdel():
     return render_template('Music/Music.html', headings = headings.MusicHeadings, data = data)
 
 @bp.route('/MusicEdit/', methods=['POST'])
+@login_required
 def musicedit():
     Musictemp = Music.query.get(request.form['id'])
     return render_template('Music/MusicEdit.html', data = Musictemp)
