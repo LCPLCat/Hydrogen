@@ -191,8 +191,6 @@ BStrm = ['','','']
 AStrm = ['','','']
 @bp.route('/HeadToHead',  methods = ["POST"])
 def headtoheadpost():
-    print(Astream.HeadToHead[0] + 'A', flush=True)
-    print(Bstream.HeadToHead[0] + 'B', flush=True)
     team1 = Teams.query.filter_by(id=request.form['Team1']).first()
     team2 = Teams.query.filter_by(id=request.form['Team2']).first()
     if request.args.get('stream') == 'A':
