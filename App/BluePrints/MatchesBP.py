@@ -29,7 +29,7 @@ def match():
     args = ''
     if request.args.get('time') == 'hour':
         args = '?time=hour'
-        time = time - timedelta(hours=10)
+        time = time - timedelta(hours=23)
         data = Match.query.filter(Match.recorddate >= time)
     elif request.args.get('time') == 'week':
         args = '?time=week'
