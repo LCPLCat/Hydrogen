@@ -151,7 +151,7 @@ def StatsSubmit():
 @bp.route('/matchsubmit', methods=['GET','POST'])
 @login_required
 def matchsubmit():
-    if not CheckUser(['Vmix']):
+    if not CheckUser(['Admin', 'TAdmin']):
         return redirect('/Matches/')
     Codedata = {
         "enoughPlayers": request.form['enoughPlayers'],
