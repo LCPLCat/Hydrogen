@@ -40,7 +40,7 @@ def Tournementsadd():
 def submit():
     if  CheckUser(['Admin','TAdmin']):
         form = TournementRegister()
-        response = requests.post('https://americas.api.riotgames.com/lol/tournament-stub/v5/tournaments?api_key='+RIOT_KEY, json={"name": form.Name.data,"providerId": PROVIDER}).json()
+        response = requests.post('https://americas.api.riotgames.com/lol/tournament/v5/tournaments?api_key='+RIOT_KEY, json={"name": form.Name.data,"providerId": PROVIDER}).json()
         add_touranment_to_database(form, response)
         return redirect('/Tournements/')
     else:
