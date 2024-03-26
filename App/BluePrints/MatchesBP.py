@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for,
 from ..forms import MusicUpload, Bid, TeamRegister, CasterRegister, PlayerRegister, MatchRegister, ROLF, APIKey, MatchID
 from ..models import Item, Music, Teams, Casters, Players, Match, ROLFFile, MatchStas, Tournment
 from .. import db
+from . import RiotAPIBP
 from ..Streams import Stream, Headings
 from ..DataBaseUtils import *
 from ..OtherUtils import *
@@ -96,7 +97,7 @@ def matchdecide_submit():
     data.loser = loser.id
     data.decided = 1
     db.session.commit()
-    return redirect('/Matches/')
+    return redirect('/Matches/?time=hour')
 
 @bp.route('/Matches/Swap', methods=['POST'])
 @login_required
@@ -136,11 +137,12 @@ def matchchanged():
 @bp.route('/MatchGetStats/', methods=['POST'])
 @login_required
 def matchgetstats():
-    Form = MatchID()
     temp = Match.query.filter_by(id=request.form['id']).first()
-    Form.Players.choices = [(T.id, T.name) for T in Players.query.filter_by(team=temp.team1)]
-    #print(Form.Players.choices)
-    return render_template('Matches/MatchGetStats.html', form=Form)
+    response = requests.get('https://americas.api.riotgames.com/lol/tournament/v5/games/by-code/'+temp.tournamentcode+'?api_key='+RIOT_KEY).json()
+    temp.matchstats = str(response[0]['gameId'])
+    db.session.commit()
+    RiotAPIBP.GetStatsRIOTAPI('OC1_'+str(response[0]['gameId']))
+    return redirect('/Matches/?time=hour')
 
 
 @bp.route('/StatsSubmit/', methods=['POST'])
