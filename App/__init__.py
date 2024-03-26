@@ -1,5 +1,5 @@
 #import flask - from the package import class
-from flask import Flask 
+from flask import Flask , session
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -38,6 +38,9 @@ def create_app():
 
     #create a user loader function takes userid and returns User# importing here to avoid circular references
     
+    
+            
+
     @app.errorhandler(403)
     def forbidden(error):
         return render_template('Errors/forbidden.html', title = '403'), 403

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, make_response
+from flask import Blueprint, render_template, request, flash, redirect, url_for, make_response, session
 from .forms import MusicUpload, Bid, TeamRegister, CasterRegister, PlayerRegister, MatchRegister, ROLF, APIKey
 from .models import Item, Music, Teams, Casters, Players, Match, ROLFFile, MatchStas
 from . import db
@@ -12,6 +12,13 @@ import os
 #---------------------------------------------------------------------------------
 # All functions for player stats and averages
 #---------------------------------------------------------------------------------
+
+def CheckUser(Usernames):
+    for user in Usernames:
+        if session['username'] == user:
+            return True
+    return False        
+        
 
 def link_player_ID():
     stmt = select(ROLFFile.NAME, ROLFFile.ID)

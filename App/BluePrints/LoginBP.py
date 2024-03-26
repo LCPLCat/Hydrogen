@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, make_response,session
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, current_user
 from ..forms import MusicUpload, Bid, TeamRegister, CasterRegister, PlayerRegister, MatchRegister, ROLF, APIKey, Login
 from ..models import Item, Music, Teams, Casters, Players, Match, ROLFFile, User
 from .. import db
+from flask import g
 from ..Streams import Stream, Headings
 from ..replay_metadata import *
 from sqlalchemy import *
@@ -16,11 +17,19 @@ bp = Blueprint('LoginBP', __name__)
 @bp.route('/signup')
 @login_required
 def signup():
-    return render_template('Login/Signup.html')
+    if  session['username'] == 'Admin':
+        return render_template('Login/Signup.html')
+    #if  session['username'] == 'TAdmin':
+    #    return render_template('Login/Signup.html')
+    return redirect('/')
+
+
 
 @bp.route('/signup', methods=['POST'])
 @login_required
 def signup_post():
+    if session['username'] != 'Admin':
+        return redirect('/')
     username = request.form.get('username')
     password = request.form.get('password')
     user = User.query.filter_by(username=username).first() # if this returns a user, then the email already exists in database
@@ -34,6 +43,11 @@ def signup_post():
     db.session.commit()
     return redirect('/login')
 
+def get_user(username):
+    if 'user' not in g:
+        g.user = username
+    return g.user
+
 @bp.route('/login')
 def login():
     form = Login()
@@ -46,11 +60,9 @@ def login_post():
     remember = True if request.form.get('remember') else False
     user = User.query.filter_by(username=username).first()
     if user == None:
-        print('This 1', flush=True)
         return redirect('/login')
         
     if not check_password_hash(user.password, password):
-        print('This 2', flush=True)
         return redirect('/login')
 
     session['username']=username

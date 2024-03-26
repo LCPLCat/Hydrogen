@@ -6,7 +6,7 @@ from ..Streams import Stream, Headings
 from ..replay_metadata import *
 from sqlalchemy import *
 from werkzeug.utils import secure_filename
-from flask_login import login_required
+from flask_login import login_required, current_user
 from ..Streams import Stream, Headings
 from ..OtherUtils import *
 from ..DataBaseUtils import *
@@ -29,17 +29,24 @@ def Tournements():
 @bp.route('/Tournements/Add')
 @login_required
 def Tournementsadd():
-    form = TournementRegister()
-    return render_template('Tournements/TournementsAdd.html', form=form)
+    if  CheckUser(['Admin','TAdmin']):
+        form = TournementRegister()
+        return render_template('Tournements/TournementsAdd.html', form=form)
+    else:
+        return redirect('/Tournements/')
 
 @bp.route('/Tournements/Submit', methods=['POST'])
 @login_required
 def submit():
+    if  CheckUser(['Admin','TAdmin']):
+        form = TournementRegister()
+        response = requests.post('https://americas.api.riotgames.com/lol/tournament-stub/v5/tournaments?api_key='+RIOT_KEY, json={"name": form.Name.data,"providerId": PROVIDER}).json()
+        add_touranment_to_database(form, response)
+        return redirect('/Tournements/')
+    else:
+        return redirect('/Tournements/')
     
-    form = TournementRegister()
-    response = requests.post('https://americas.api.riotgames.com/lol/tournament/v5/tournaments?api_key='+RIOT_KEY, json={"name": form.Name.data,"providerId": PROVIDER}).json()
-    add_touranment_to_database(form, response)
-    return redirect('/Tournements/')
+    
 
 @bp.route('/Tournements/Codes', methods=['POST','GET'])
 @login_required

@@ -4,6 +4,7 @@ from ..models import Item, Music, Teams, Casters, Players, Match, ROLFFile, Matc
 from .. import db
 from ..Streams import Stream, Headings
 from ..DataBaseUtils import *
+from ..OtherUtils import *
 from ..replay_metadata import *
 from sqlalchemy import *
 from werkzeug.utils import secure_filename
@@ -150,6 +151,8 @@ def StatsSubmit():
 @bp.route('/matchsubmit', methods=['GET','POST'])
 @login_required
 def matchsubmit():
+    if not CheckUser(['Vmix']):
+        return redirect('/Matches/')
     Codedata = {
         "enoughPlayers": request.form['enoughPlayers'],
         "mapType": request.form['mapType'],
@@ -163,6 +166,7 @@ def matchsubmit():
     return redirect('/Matches/')
 
 @bp.route('/Match/Stats/Player',methods=['GET'])
+@login_required
 def IndividualStats():
     res = MatchStas.query.filter_by(id2=request.args.get('player')).first()
     return render_template('Stats/PlayerStats.html', stats=res)
