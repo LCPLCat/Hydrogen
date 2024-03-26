@@ -1,7 +1,7 @@
 from App import create_app
 from flask import Flask
 from waitress import serve
-dev = True
+dev = False
 if __name__=='__main__':
     app=create_app()
     if dev == True:

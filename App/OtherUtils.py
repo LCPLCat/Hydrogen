@@ -82,6 +82,6 @@ def upload_rofl(form):
 
 def check_logo_upload(form):
     BASE_PATH = os.path.dirname(__file__)
-    form.LogoBlue.data.save(os.path.join(BASE_PATH, 'static/logos', secure_filename(form.LogoBlue.data.filename)))
-    form.LogoRed.data.save(os.path.join(BASE_PATH, 'static/logos', secure_filename(form.LogoRed.data.filename)))
+    form.LogoBlue.data.save(os.path.join('/home/hydrogen/Hydrogen/App/BluePrints/../static/logos/', secure_filename(form.LogoBlue.data.filename)))
+    form.LogoRed.data.save(os.path.join('/home/hydrogen/Hydrogen/App/BluePrints/../static/logos/', secure_filename(form.LogoRed.data.filename)))
 
