@@ -103,7 +103,7 @@ h4 {
                       {{match.tournamentcode}}
                     </td>
                     <td>
-                      {% if match.decided == '0' or match.decided == None %}
+                      {% if match.decided == '0' %}
                         <button type="button" class="btn btn-primary" onclick="Decide('{{match.id}}')">Pick Winner<i class="far fa-trash-alt"></i></button>
                         <form id="Decide{{match.id}}" action="{{ url_for('MatchesBP.matchdecide') }}" method="post">
                           <input type="hidden" id="id" name="id" value="{{match.id}}">

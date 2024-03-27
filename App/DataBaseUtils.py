@@ -36,7 +36,6 @@ def add_match_to_database(form, request):
         format = form.Format.data, 
         team1name = Teams.query.filter_by(id=form.Team1.data).first().abbreviation, 
         team2name = Teams.query.filter_by(id=form.Team2.data).first().abbreviation,
-        decided = '0',
         recorddate=datetime.now(), 
         tournament=form.Tournament.data,
         tournamentcode = request[0]))
