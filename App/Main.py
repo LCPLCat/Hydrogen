@@ -40,6 +40,7 @@ timing=10
 @bp.route('/')
 @login_required
 def index():
+    #linkPuuid()
     OtherUtils.link_player_ID()
     OtherUtils.player_stats_average()
     data = Casters.query.all()
@@ -393,7 +394,7 @@ def SuperTeams():
     players = Players.query.all()
     for i, player in enumerate(players):
         temp2 = []
-        stats = MatchStas.query.filter_by(puuid=player.puid)
+        stats = MatchStas.query.filter_by(puuid=player.puid).all()
         temp2.append(player.puid)
         temp2.append(player.name)
         for i, stat in enumerate(stats):
@@ -409,7 +410,8 @@ def SuperTeams():
             temp += int(stat.dragonKills)
             temp += (round(int(stat.totalMinionsKilled)/300)*3)
             temp2.append(temp)
-        Scores.append(temp2) 
+        Scores.append(temp2)
+        
     response = make_response()
     response = make_response(render_template('XML/SuperTeamsAPI.xml', scores=Scores))
     response.headers['Content-Type'] = 'application/xml'
@@ -424,3 +426,12 @@ def RiotAPI():
     Form = APIKey()
     return render_template('RiotAPI/RiotAPI.html',form = Form)
 
+
+def linkPuuid():
+    players = Players.query.all()
+    for i, player in enumerate(players):
+        Name = player.name.split("#")
+        request = requests.get('https://asia.api.riotgames.com/riot/account/v1/accounts/by-riot-id/'+Name[0]+'/'+Name[1]+'?api_key='+RIOT_KEY).json()
+        print(request['puuid'], flush=True)
+        player.puid = request['puuid']
+        db.session.commit()
