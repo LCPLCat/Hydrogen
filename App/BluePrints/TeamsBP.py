@@ -69,9 +69,9 @@ def teamchanged():
     temp.logoRed = request.files['LogoRed'].filename
     if request.files['LogoBlue'].filename != "":
         LogoBlue = request.files['LogoBlue']
-        LogoBlue.save(os.path.join(BASE_PATH, '..\static\logos', secure_filename(LogoBlue.filename)))
+        LogoBlue.save(os.path.join('/home/hydrogen/Hydrogen/App/static/logos/', secure_filename(LogoBlue.filename)))
     if request.files['LogoRed'].filename != "":
         LogoRed = request.files['LogoRed']
-        LogoRed.save(os.path.join(BASE_PATH, '..\static\logos', secure_filename(LogoRed.filename)))
+        LogoRed.save(os.path.join('/home/hydrogen/Hydrogen/App/static/logos/', secure_filename(LogoRed.filename)))
     db.session.commit()
     return teams()
